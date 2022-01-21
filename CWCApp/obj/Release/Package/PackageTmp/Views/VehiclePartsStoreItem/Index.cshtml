@@ -1,0 +1,630 @@
+﻿<body id="page-top">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        @{
+            @Html.Partial("~/Views/PartialView/_Sidebar.cshtml");
+        }
+        <!-- End of Sidebar -->
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+                    <!-- Sidebar Toggle (Topbar) -->
+                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                        <i class="fa fa-bars"></i>
+                    </button>
+
+                    <!-- Topbar Search -->
+                    <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                        <div class="input-group">
+                            <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
+                                   aria-label="Search" aria-describedby="basic-addon2">
+                            <div class="input-group-append">
+                                <button class="btn btn-primary" type="button" disabled>
+                                    <i class="fas fa-search fa-sm"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+
+                    <!-- Topbar Navbar -->
+                    @{
+                        @Html.Partial("~/Views/PartialView/_Topbar.cshtml");
+                    }
+                </nav>
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <!-- Page Heading -->
+                    <h1 class="h3 mb-2 text-gray-800">Welcome to stores items</h1>
+                    <p class="mb-4">
+                        List of items related to several spare parts alone with details.
+                    </p>
+
+                    <!-- DataTales Example -->
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <h6 class="m-0 font-weight-bold text-primary">Store Items</h6>
+                                </div>
+                                <div class="col-sm-6 text-right">
+                                    <a class='btn btn-primary' id="Add" href="@Url.Action("AddView","VehiclePartsStoreItem")">Add Item</a>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="DT_load" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th>Image</th>
+                                            <th>Store Name</th>
+                                            <th>Item Name</th>
+                                            <th>Type</th>
+                                            <th>Total Amount</th>
+                                            <th>Bought Amount</th>
+                                            <th>Left Items</th>
+                                            <th>Brand</th>
+                                            <th>Discription</th>
+                                            <th>Retail Price(Per 1)</th>
+                                            <th>Whole Sale Price(Per 1)</th>
+                                            <th>Specs</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Edit modal -->
+                    <div class='modal fade' id='EditModal' tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true'>
+                        <div class='modal-dialog' role='document'>
+                            <div class='modal-content'>
+                                <div class='modal-header'>
+                                    <h5 class='modal-title' id='exampleModalLabel'>Edit</h5>
+                                    <button type='button' class='close' data-dismiss='modal' aria-label='Close'>
+                                        <span aria-hidden='true'>&times;</span>
+                                    </button>
+                                </div>
+                                <div class='modal-body'>
+                                    <form Id="ItemForm" novalidate>
+                                                    <input type="hidden" class="form-control form-control-user" id="ItemId" name="ItemId"
+                                                           placeholder="Item Id">
+                                                <div class="form-group">
+                                                    <select class="form-control" id="StoreName" name="StoreName" disabled>
+                                                        <option value="" selected disabled>Select Store...</option>
+                                                    </select>
+                                                </div>
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control form-control-user" id="ItemName" name="ItemName"
+                                                           placeholder="Item Name" disabled>
+                                                </div>
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control form-control-user" id="ItemType" name="ItemType"
+                                                           placeholder="Item Type">
+                                                </div>
+                                                <div class="form-group">
+                                                    <input type="number" class="form-control form-control-user" id="ItemTotalAmount" name="ItemTotalAmount"
+                                                           placeholder="Amount" min=5>
+                                                </div>
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control form-control-user" id="ItemBrand" name="ItemBrand"
+                                                           placeholder="Brand" disabled>
+                                                </div>
+                                                <div class="form-group">
+                                                    <textarea class="form-control form-control-user" id="ItemDiscription" name="ItemDiscription"
+                                                              placeholder="Discription..."></textarea>
+                                                </div>
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control form-control-user" id="RetailPrice" name="RetailPrice"
+                                                           placeholder="Retail price" disabled>
+                                                </div>
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control form-control-user" id="WholeSalePrice" name="WholeSalePrice"
+                                                           placeholder="Whole Sale price for more than 10 items" disabled>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control form-control-user" id="ItemSpecs" name="ItemSpecs"
+                                                           placeholder="Specs">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <Table>
+                                                        <tr>
+                                                            <td><label>Image</label></td>
+                                                            <td>
+                                                                <div class="col-md-offset-2 col-md-10">
+                                                                    <input type="file" id="file" name="file" accept="image/*">
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </Table>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <tr>
+                                                        <td>
+                                                            <div style="height:200px; width:200px; overflow:auto;">
+                                                                <img id="imgPhoto" alt="Image">
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <canvas id="canvas" height="5" width="5" style="vertical-align:top;"></canvas>
+                                                        </td>
+                                                    </tr>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col-lg-6">
+                                                        <div class="form-group">
+                                                            <input type="submit" value="Update" class="btn btn-primary btn-user btn-block" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-6">
+                                                        <div class="form-group">
+                                                            <a class='btn btn-primary btn-user btn-block' id="Add" href="@Url.Action("Index","VehiclePartsStoreItem")">Go Back</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Edit modal -->
+
+                </div>
+
+            </div>
+            <!-- End of Main Content -->
+            <!-- Footer -->
+            @{
+                @Html.Partial("~/Views/PartialView/_Footer.cshtml");
+            }
+            <!-- End of Footer -->
+
+        </div>
+        <!-- End of Content Wrapper -->
+    </div>
+    <!-- End of Page Wrapper -->
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+    <!-- Logout Modal-->
+    @{
+        @Html.Partial("~/Views/PartialView/_LogoutModal.cshtml");
+    }
+
+</body>
+
+<script src="~/wwwroot/Bootstrap Design/vendor/jquery/jquery.min.js"></script>
+<script src="~/wwwroot/Bootstrap Design/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="~/wwwroot/Bootstrap Design/vendor/jquery-easing/jquery.easing.min.js"></script>
+<script src="~/wwwroot/Bootstrap Design/js/sb-admin-2.min.js"></script>
+<script src="~/wwwroot/lib/jquery-validation/dist/jquery.validate.js"></script>
+<script src="~/wwwroot/Bootstrap Design/vendor/datatables/jquery.dataTables.min.js"></script>
+<script src="~/wwwroot/Bootstrap Design/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+<script>
+
+    var imageCropWidth = 0;
+    var imageCropHeight = 0;
+    var cropPointX = 0;
+    var cropPointY = 0;
+    var jcropApi;
+
+    $(document).ready(function () {
+        LoadTable();
+        LoadStore();
+        ValidateVehiclePartsStoreItem()
+
+        $('#file').change(function () {
+            readFile(this);
+        });
+
+        $('#DT_load').on('click', '#DeleteYes', function () {
+            DeleteRecord($(this).attr("data-id"));
+        });
+
+        $('#DT_load').on('click', '#Edit', function () {
+            LoadFieldsEdit($(this).attr("data-id"));
+        });
+
+    });
+
+    function LoadTable() {
+
+                dataTable = $('#DT_load').DataTable({
+                    "bDestroy": true,
+                    "ajax": {
+                        "url": '@Url.Action("LoadTableData", "VehiclePartsStoreItem")',
+                        "type": "GET",
+                        "datatype": "json"
+                    },
+                    "columns": [
+                        {
+                            "data": "ItemImage", "render": function (data) {
+                                return `<img src='${data}' width='150px' heigth='150px'>`;
+                            }, "width": "10%"
+                        },
+                        { "data": "StoreName", "width": "10%" },
+                        { "data": "ItemName", "width": "10%" },
+                        { "data": "ItemType", "width": "10%" },
+                        { "data": "ItemTotalAmount", "width": "10%" },
+                        { "data": "ItemBoughtAmount", "width": "10%" },
+                        { "data": "ItemBalance", "width": "10%" },
+                        { "data": "ItemBrand", "width": "10%" },
+                        { "data": "ItemDiscription", "width": "10%" },
+                        { "data": "RetailPrice", "width": "10%" },
+                        { "data": "WholeSalePrice", "width": "10%" },
+                        { "data": "ItemSpecs", "width": "10%" },
+                        {
+                            "data": "ItemId",
+                            "render": function (data) {
+                                return `<table class='table' width='100%' cellspacing='0' cellpadding='0'><tbody>
+
+                                        <tr><td style='border: none;'>
+                                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#EditModal" id="Edit" data-id='${data}'>
+                                            Edit
+                                        </button>
+                                        </td>
+
+                                        <td style='border: none;'>
+                                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#DeleteModal${data}" id="Delete" data-id='${data}'>
+                                            Delete
+                                        </button>
+                                        </td></tr>
+
+                                        <div class='modal fade' id='DeleteModal${data}' tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true'>
+                                        <div class='modal-dialog' role='document'>
+                                        <div class='modal-content'>
+                                        <div class='modal-header'>
+                                        <h5 class='modal-title' id='exampleModalLabel'>Warning!</h5>
+                                        <button type='button' class='close' data-dismiss='modal' aria-label='Close'>
+                                        <span aria-hidden='true'>&times;</span>
+                                        </button>
+                                        </div>
+                                        <div class='modal-body'>
+                                        Are you sure, do you want to delete this record?
+                                        </div>
+                                        <div class='modal-footer'>
+                                        <button type='button' class='btn btn-primary' id='DeleteYes' data-id='${data}'>Yes</button>
+                                        <button type='button' class='btn btn-secondary' data-dismiss='modal'>No</button>
+                                        </div>
+                                        </div>
+                                        </div>
+                                        </div>
+                                        `;
+                            }, "width": "10%"
+                        }
+                    ],
+                    "language": {
+                        "emptyTable": "no data found"
+                    },
+                    "width": "100%"
+                });
+
+    }
+
+    function LoadStore() {
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("LoadStores", "VehiclePartsStoreItem")',
+            dataType: 'json',
+            ContentType: 'application/json; charset=utf-8',
+            success: function (data) {
+
+                var Stores = data.data;
+                for (var i = 0; i < Stores.length; i++) {
+
+                    var newOption = new Option(Stores[i].StoreName, Stores[i].StoreId, false, false);
+                    $('#StoreName').append(newOption).trigger('change');
+                }
+
+            }
+        });
+    }
+
+    function LoadFieldsEdit(ItemId) {
+
+        var ItemId = {
+            ItemId: ItemId
+        }
+
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("LoadFieldsEdit", "VehiclePartsStoreItem")',
+            dataType: 'json',
+            data: ItemId,
+            ContentType: 'application/json; charset=utf-8',
+            success: function (data) {
+
+                var AllFields = data.data;
+                if (data.data != null) {
+                    $("#ItemId").val(AllFields.ItemId);
+                    $("#StoreName").val(AllFields.StoreId);
+                    $("#ItemName").val(AllFields.ItemName);
+                    $("#ItemType").val(AllFields.ItemType);
+                    $("#ItemTotalAmount").val(AllFields.ItemTotalAmount);
+                    $("#ItemBrand").val(AllFields.ItemBrand);
+                    $("#ItemDiscription").val(AllFields.ItemDiscription);
+                    $("#RetailPrice").val(AllFields.RetailPrice);
+                    $("#WholeSalePrice").val(AllFields.WholeSalePrice);
+                    $("#ItemSpecs").val(AllFields.ItemSpecs);
+                    $("#ItemSpecs").val(AllFields.ItemSpecs);
+                    $("#ItemSpecs").val(AllFields.ItemSpecs);
+                }
+                else {
+                    alert("Server Error!");
+                    $("#ItemId").val(0);
+                }
+
+
+            }
+        });
+    }
+
+    function DeleteRecord(ItemId) {
+
+        var ItemId = ItemId;
+
+        var ItemId = {
+            ItemId: ItemId
+        }
+
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("DeleteVehiclePartsStoreItem", "VehiclePartsStoreItem")',
+            dataType: 'json',
+            ContentType: 'application/json; charset=utf-8',
+            data: ItemId,
+            success: function (data) {
+
+                var AllFields = data.data;
+
+                if (AllFields.StoreId <= 0) {
+                    alert("Server error!");
+                }
+                else {
+                    alert("Successfully deleted!");
+                    $('#DeleteModal' + AllFields.StoreId).modal('toggle');
+                    window.location.href = '@Url.Action("Index","VehiclePartsStoreItem")';
+                }
+
+            }
+        });
+    }
+
+    function LoadShoppingMethods() {
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("LoadShoppingMethods", "VehiclePartsStore")',
+            dataType: 'json',
+            ContentType: 'application/json; charset=utf-8',
+            success: function (data) {
+
+                var ShoppingMethods = data.data;
+                for (var i = 0; i < ShoppingMethods.length; i++) {
+
+                    var newOption = new Option(ShoppingMethods[i].ShoppingMethod, ShoppingMethods[i].ShoppingMethodId, false, false);
+                    $('#ShoppingMethod').append(newOption).trigger('change');
+                }
+
+            }
+        });
+    }
+
+    function ValidateVehiclePartsStoreItem() {
+        $(function () {
+            jQuery.validator.addMethod("noSpace", function (value, element) {
+                return value.indexOf(" ") < 0 && value != "";
+            }, "No space please and don't leave it empty");
+
+            jQuery.validator.addMethod("exactlength", function (value, element, param) {
+                return this.optional(element) || value.length == param;
+            }, $.validator.format("Please enter exactly {0} characters."));
+
+            jQuery.validator.addMethod("filesize_max", function (value, element, param) {
+                var isOptional = this.optional(element),
+                    file;
+
+                if (isOptional) {
+                    return isOptional;
+                }
+
+                if ($(element).attr("type") === "file") {
+                    if (element.files && element.files.length) {
+                        file = element.files[0];
+                        return (file.size && file.size <= param);
+                    }
+                }
+                return false;
+            }, "File size is too large.");
+
+            $("#ItemForm").validate({
+
+                errorPlacement: function (error, element) {
+                    var placement = $(element).data('error');
+                    if (placement) {
+                        $(placement).append(error)
+                    } else {
+                        error.insertAfter(element);
+                    }
+                },
+                rules: {
+                    StoreName: {
+                        required: true
+                        //umailExist: true,
+                    },
+                    ItemName: {
+                        required: true
+                    },
+                    ItemType: {
+                        required: true
+                    },
+                    ItemTotalAmount: {
+                        required: true
+                        //umailExist: true,
+                    },
+                    ItemBrand: {
+                        required: true
+                    },
+                    ItemDiscription: {
+                        required: true
+                    },
+                    RetailPrice: {
+                        required: true
+                        //umailExist: true,
+                    },
+                    WholeSalePrice: {
+                        required: true
+                    },
+                    ItemSpecs: {
+                        required: true
+                    },
+                    file: {
+                        filesize_max: 800000
+                    }
+                },
+                messages: {
+                    StoreName: {
+                        required: "Please fill this field!"
+                        //umailExist: true,
+                    },
+                    ItemName: {
+                        required: "Please fill this field!"
+                    },
+                    ItemType: {
+                        required: "Please fill this field!"
+                    },
+                    ItemTotalAmount: {
+                        required: "Please fill this field!"
+                        //umailExist: true,
+                    },
+                    ItemBrand: {
+                        required: "Please fill this field!"
+                    },
+                    ItemDiscription: {
+                        required: "Please fill this field!"
+                    },
+                    RetailPrice: {
+                        required: "Please fill this field!"
+                        //umailExist: true,
+                    },
+                    WholeSalePrice: {
+                        required: "Please fill this field!"
+                    },
+                    ItemSpecs: {
+                        required: "Please fill this field!"
+                    },
+                    file: {
+                        filesize_max: "File too large please input less than 800KB"
+                    }
+                },
+                submitHandler: function (form) {
+                    SaveVehiclePartsStoreItem();
+                }
+
+            });
+        });
+    }
+
+     function SaveVehiclePartsStoreItem() {
+
+         var ItemId = $("#ItemId").val();
+        var StoreName = $("#StoreName").val();
+        var ItemName = $("#ItemName").val();
+        var ItemType = $("#ItemType").val();
+        var ItemTotalAmount = $("#ItemTotalAmount").val();
+        var ItemBrand = $("#ItemBrand").val();
+        var RetailPrice = $("#RetailPrice").val();
+        var ItemDiscription = $("#ItemDiscription").val();
+        var WholeSalePrice = $("#WholeSalePrice").val();
+        var ItemSpecs = $("#ItemSpecs").val();
+
+         var vehiclePartsStoreItem = {
+            ItemId: ItemId,
+            StoreId: StoreName,
+            ItemName: ItemName,
+            ItemType: ItemType,
+            ItemTotalAmount: ItemTotalAmount,
+            ItemBrand: ItemBrand,
+            RetailPrice: RetailPrice,
+            ItemDiscription: ItemDiscription,
+            WholeSalePrice: WholeSalePrice,
+            ItemSpecs: ItemSpecs
+        }
+
+        var formData = new FormData();
+        var file = $('#file').get(0).files;
+        formData.append("imageFile", file[0]);
+        formData.append("data", JSON.stringify(vehiclePartsStoreItem));
+
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("SaveVehiclePartsStoreItem", "VehiclePartsStoreItem")',
+            dataType: 'json',
+            contentType: false, //must for formdata
+            processData: false, //must for formdata
+            ContentType: 'application/json; charset=utf-8',
+            data: formData,
+            success: function (data) {
+
+                var AllFields = data.data;
+
+                if (AllFields.StoreId <= 0) {
+                    alert("Server error!");
+                }
+                else {
+                    alert("Successfully saved!");
+                    window.location.href = '@Url.Action("Index","VehiclePartsStoreItem")';
+                }
+
+            }
+        });
+    }
+
+    function readFile(input) {
+
+        console.log("asda" + input);
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            /*Destroy jcrop initialization other wise it will hold it previous image in img tag*/
+            if (jcropApi != null) {
+                jcropApi.destroy();
+            }
+            reader.onload = function (e) {
+                $('#imgPhoto').attr('src', "");
+                var img = $('#imgPhoto').attr('src', e.target.result);
+
+                /*Current uploaded image size*/
+                var width = img[0].height;
+                var height = img[0].width;
+                $("#lblWidth").text(width + "px");
+                $("#lblHeight").text(height + "px");
+
+            }
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+</script>

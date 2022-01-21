@@ -1,0 +1,194 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{97598E1A-24F7-4351-BD4B-DA4C8F5D305D}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>CWCApp.Data</RootNamespace>
+    <AssemblyName>CWCApp.Data</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=3.6.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.3.6.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Data\BoughtItemDetail.cs">
+      <DependentUpon>CWCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\CWCModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CWCModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\CWCModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CWCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\CWCModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CWCModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Data\FeedBack.cs">
+      <DependentUpon>CWCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\Garage.cs">
+      <DependentUpon>CWCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\Rate.cs">
+      <DependentUpon>CWCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\RepairService.cs">
+      <DependentUpon>CWCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\RequestedRentalDetail.cs">
+      <DependentUpon>CWCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\RequestedRepairDetail.cs">
+      <DependentUpon>CWCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\RequestedTOWDetail.cs">
+      <DependentUpon>CWCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\ServiceFeedBack.cs">
+      <DependentUpon>CWCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\ServiceProviderMstr.cs">
+      <DependentUpon>CWCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\ServiceProviderProfile.cs">
+      <DependentUpon>CWCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\ShoppingMethodMstr.cs">
+      <DependentUpon>CWCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\TOWService.cs">
+      <DependentUpon>CWCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\UserProfile.cs">
+      <DependentUpon>CWCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\UserTypeMstr.cs">
+      <DependentUpon>CWCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\VehiclePartsStore.cs">
+      <DependentUpon>CWCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\VehiclePartsStoreItem.cs">
+      <DependentUpon>CWCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\VehicleRentalService.cs">
+      <DependentUpon>CWCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\BoughtItemDetailsRepository.cs" />
+    <Compile Include="Repository\FeedBackRepository.cs" />
+    <Compile Include="Repository\RateRepository.cs" />
+    <Compile Include="Repository\RequestRentalDetailsRepository.cs" />
+    <Compile Include="Repository\ServiceFeedBackRepository.cs" />
+    <Compile Include="Repository\VehicleRentalServiceRepository.cs" />
+    <Compile Include="Repository\GarageRepository.cs" />
+    <Compile Include="Repository\RepairServiceRepository.cs" />
+    <Compile Include="Repository\RequestedTOWDetailsRepository.cs" />
+    <Compile Include="Repository\RequestRepairDetailsRepository.cs" />
+    <Compile Include="Repository\ServiceProviderMstrRepository.cs" />
+    <Compile Include="Repository\ServiceProviderProfileRepository.cs" />
+    <Compile Include="Repository\ShoppingMethodMstrRepository.cs" />
+    <Compile Include="Repository\TOWServiceRepository.cs" />
+    <Compile Include="Repository\UserProfileRepository.cs" />
+    <Compile Include="Repository\UserTypeMstrRepository.cs" />
+    <Compile Include="Repository\VehiclePartsStoreItemRepository.cs" />
+    <Compile Include="Repository\VehiclePartsStoreRepository.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <EntityDeploy Include="Data\CWCModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>CWCModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="Data\CWCModel.edmx.diagram">
+      <DependentUpon>CWCModel.edmx</DependentUpon>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="IRepository\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Data\CWCModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>CWCModel.edmx</DependentUpon>
+      <LastGenOutput>CWCModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Data\CWCModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>CWCModel.edmx</DependentUpon>
+      <LastGenOutput>CWCModel.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.targets'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.3.6.0\build\net472\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.3.6.0\build\net472\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.targets'))" />
+  </Target>
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" />
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.3.6.0\build\net472\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.targets" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.3.6.0\build\net472\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.targets')" />
+</Project>

@@ -1,0 +1,231 @@
+﻿<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+    <!-- Sidebar - Brand -->
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="@Url.Action("Home", "Home")">
+        <div class="sidebar-brand-icon">
+            <img src="~/Images/SystemPhotos/CWCApp.png" width="60px" height="60px" style="filter: drop-shadow(0px 0px 3px #ffffff);"/>
+        </div>
+        <div class="sidebar-brand-text mx-3" style="text-transform: none;">CWC <br/><p style="font-size: 8px;margin-bottom: 0px;">Ceylon Wheels Crew</p><sup></sup></div>
+    </a>
+
+
+
+    @if ((int)@Session["UserTypeId"] != 4)
+    {
+        <!-- Divider -->
+        <hr class="sidebar-divider my-0">
+
+        <!-- Nav Item - Dashboard -->
+        <li class="nav-item">
+            <a class="nav-link" href="@Url.Action("Index", "DashBoard")">
+                <i class="fas fa-fw fa-tachometer-alt"></i>
+                <span>Dashboard</span>
+            </a>
+        </li>
+    }
+    <!-- Divider -->
+    <hr class="sidebar-divider">
+
+    <!-- Nav Item - Pages Collapse Menu -->
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="@Url.Action("Home", "Home")" aria-expanded="true"
+           aria-controls="collapseTwo">
+            <i class="fas fa-fw fa-home"></i>
+            <span>Home</span>
+        </a>
+    </li>
+
+    
+        <!-- Heading -->
+        <div class="sidebar-heading">
+            Profile
+        </div>
+
+        <!-- Divider -->
+        <hr class="sidebar-divider">
+
+        <!-- Nav Item - Pages Collapse Menu -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true"
+               aria-controls="collapseTwo">
+                <i class="fas fa-fw fa-cog"></i>
+                <span>User Info</span>
+            </a>
+            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo"
+                 data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">Service Components:</h6>
+                    <a class="collapse-item" href="@Url.Action("Index", "User")">User Profile</a>
+                    @if ((int)@Session["UserTypeId"] != 4)
+                    {
+                        <a class="collapse-item" href="@Url.Action("Index", "Home")">Service Provider Profile</a>
+                    }
+                    </div>
+            </div>
+        </li>
+
+
+        <!-- Divider -->
+        <hr class="sidebar-divider">
+    <!-- Heading -->
+    <div class="sidebar-heading">
+        Services
+    </div>
+
+    <!-- Nav Item - Pages Collapse Menu -->
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePagesVPS"
+           aria-expanded="true" aria-controls="collapsePagesVPS">
+            <i class="fas fa-fw fa-wrench"></i>
+            <span>Vehicle Parts Service</span>
+        </a>
+        <div id="collapsePagesVPS" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                @if ((int)@Session["UserTypeId"] == 1 && (int)@Session["UserServiceProfileType"] == 4)
+                {
+                    <h6 class="collapse-header">Service Components:</h6>
+                    <a class="collapse-item" href="@Url.Action("Index","VehiclePartsStore")">Store</a>
+                    <a class="collapse-item" href="@Url.Action("Index","VehiclePartsStoreItem")">Store items</a>
+                    <a class="collapse-item" href="@Url.Action("SoldItems","VehiclePartsStoreItem")">Request By Customers</a>
+                    <div class="collapse-divider"></div>
+                }
+                @if ((int)@Session["UserTypeId"] == 4 || ((int)@Session["UserServiceProfileType"] == 4 && (int)@Session["UserTypeId"] == 1))
+                {
+                    <h6 class="collapse-header">Customer Components:</h6>
+                    <a class="collapse-item" href="@Url.Action("VehicleParts", "VehiclePartsStoreItem")">Vehicle Parts</a>
+                    <a class="collapse-item" href="@Url.Action("BoughtItems", "VehiclePartsStoreItem")">Request By You</a>
+                }
+                else
+                {
+                    <h6 class="collapse-header">Stores not avalible!</h6>
+                }
+            </div>
+        </div>
+    </li>
+
+    <!-- Nav Item - Pages Collapse Menu -->
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePagesRS"
+           aria-expanded="true" aria-controls="collapsePagesRS">
+            <i class="fas fa-fw fa-wrench"></i>
+            <span>Vehicle Rental Service</span>
+        </a>
+        <div id="collapsePagesRS" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                @if ((int)@Session["UserTypeId"] == 1 && (int)@Session["UserServiceProfileType"] == 2)
+                {
+                    <h6 class="collapse-header">Service Components:</h6>
+                    <a class="collapse-item" href="@Url.Action("Index", "VehicleRantalService")">Rent Vehicles</a>
+                    <a class="collapse-item" href="@Url.Action("RequestedRentalServicesForOwner", "VehicleRantalService")">Request By Customers</a>
+                    <div class="collapse-divider"></div>
+                }
+                @if ((int)@Session["UserTypeId"] == 4 || ((int)@Session["UserServiceProfileType"] == 2 && (int)@Session["UserTypeId"] == 1))
+                {
+                    <h6 class="collapse-header">Customer Components:</h6>
+                    <a class="collapse-item" href="@Url.Action("RentalServices", "VehicleRantalService")">Available Vehicles</a>
+                    <a class="collapse-item" href="@Url.Action("RequestedRentalServicesForRequester", "VehicleRantalService")">Request By You</a>
+                }
+                else
+                {
+                    <h6 class="collapse-header">Rent not avalible!</h6>
+                }
+            </div>
+        </div>
+    </li>
+
+    <!-- Nav Item - Pages Collapse Menu -->
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePagesGS"
+           aria-expanded="true" aria-controls="collapsePagesGS">
+            <i class="fas fa-fw fa-wrench"></i>
+            <span>Garage Service</span>
+        </a>
+        <div id="collapsePagesGS" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                @if ((int)@Session["UserTypeId"] == 1 && (int)@Session["UserServiceProfileType"] == 1)
+                {
+                    <h6 class="collapse-header">Components Of TOW:</h6>
+                    <a class="collapse-item" href="@Url.Action("Index", "Garage")">Garages</a>
+                    <a class="collapse-item" href="@Url.Action("Index", "TOWService")">TOW With Garage</a>
+                    <a class="collapse-item" href="@Url.Action("RequestedTOWServicesForOwner", "TOWService")">Request By Customers</a>
+                }
+                @if ((int)@Session["UserTypeId"] == 4 || ((int)@Session["UserServiceProfileType"] == 1 && (int)@Session["UserTypeId"] == 1))
+                {
+                    <h6 class="collapse-header">Components Of TOW:</h6>
+                    <a class="collapse-item" href="@Url.Action("TOWSerivces", "TOWService")">TOW Services</a>
+                    <a class="collapse-item" href="@Url.Action("RequestedTOWServicesForRequester", "TOWService")">Request By You</a>
+                }
+                else
+                {
+                    <h6 class="collapse-header">TOW Service not avalible!</h6>
+                }
+
+                @if ((int)@Session["UserTypeId"] == 1 && (int)@Session["UserServiceProfileType"] == 3)
+                {
+                    <h6 class="collapse-header">Components Of Repair:</h6>
+                    <a class="collapse-item" href="@Url.Action("Index", "Garage")">Garages</a>
+                    <a class="collapse-item" href="@Url.Action("Index", "VehicleRepairService")">Repair With Garage</a>
+                    <a class="collapse-item" href="@Url.Action("RequestedRepairServicesForOwner", "VehicleRepairService")">Request By Customers</a>
+                }
+                @if ((int)@Session["UserTypeId"] == 4 || ((int)@Session["UserServiceProfileType"] == 3 && (int)@Session["UserTypeId"] == 1))
+                {
+                    <h6 class="collapse-header">Components Of Repair:</h6>
+                    <a class="collapse-item" href="@Url.Action("RepairServices", "VehicleRepairService")">Repair Services</a>
+                    <a class="collapse-item" href="@Url.Action("RequestedRepairServicesForRequester", "VehicleRepairService")">Request By You</a>
+                }
+                else
+                {
+                <h6 class="collapse-header">Repair not avalible!</h6>
+                }
+            </div>
+        </div>
+    </li>
+
+    <!-- Divider -->
+    <hr class="sidebar-divider">
+
+    @if ((int)@Session["UserTypeId"] != 4)
+    {
+        <!-- Heading -->
+        <div class="sidebar-heading">
+            Rates
+        </div>
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePagesRF"
+               aria-expanded="true" aria-controls="collapsePagesRF">
+                <i class="fas fa-fw fa-star"></i>
+
+                <span>Rate & Feedback</span>
+            </a>
+            <div id="collapsePagesRF" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <a class="collapse-item" href="@Url.Action("Index", "RateFeedback")">Rate & Feedback</a>
+                </div>
+            </div>
+        </li>
+
+        <hr class="sidebar-divider d-none d-md-block">
+    }
+    <!-- Nav Item - Charts -->
+    <!--<li class="nav-item">
+        <a class="nav-link" href="charts.html">
+            <i class="fas fa-fw fa-chart-area"></i>
+            <span>Charts</span>
+        </a>
+    </li>-->
+    <!-- Nav Item - Tables -->
+    <!--<li class="nav-item">
+        <a class="nav-link" href="tables.html">
+            <i class="fas fa-fw fa-table"></i>
+            <span>Tables</span>
+        </a>
+    </li>-->
+    <!-- Divider -->
+    <!-- Sidebar Toggler (Sidebar) -->
+    <div class="text-center d-none d-md-inline">
+        <button class="rounded-circle border-0" id="sidebarToggle"></button>
+    </div>
+
+</ul>
+

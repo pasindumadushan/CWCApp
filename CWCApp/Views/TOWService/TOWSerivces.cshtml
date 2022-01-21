@@ -1,0 +1,530 @@
+﻿<body id="page-top">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        @{
+            @Html.Partial("~/Views/PartialView/_Sidebar.cshtml");
+        }
+        <!-- End of Sidebar -->
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+                    <!-- Sidebar Toggle (Topbar) -->
+                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                        <i class="fa fa-bars"></i>
+                    </button>
+
+                    <!-- Topbar Search -->
+                    <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                        <div class="input-group">
+                            <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
+                                   aria-label="Search" aria-describedby="basic-addon2">
+                            <div class="input-group-append">
+                                <button class="btn btn-primary" type="button" disabled>
+                                    <i class="fas fa-search fa-sm"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+
+                    <!-- Topbar Navbar -->
+                    @{
+                        @Html.Partial("~/Views/PartialView/_Topbar.cshtml");
+                    }
+                </nav>
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <!-- Page Heading -->
+                    <h1 class="h3 mb-2 text-gray-800">Welcome to TOW Services Of Garage</h1>
+                    <p class="mb-4">
+                        List of TOW serivces related to several Garages alone with details.
+                    </p>
+
+                    <!-- DataTales Example -->
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <h6 class="m-0 font-weight-bold text-primary">TOW serices</h6>
+                                </div>
+                                <div class="col-sm-6 text-right">
+
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="DT_load" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th>Image</th>
+                                            <th>GarageName</th>
+                                            <th>TypeOfVehicleOwn</th>
+                                            <th>MaxPayLoad</th>
+                                            <th>NoOfVehicleOwn</th>
+                                            <th>RatePerKm</th>
+                                            <th>RangeOfService</th>
+                                            <th>ExtraFeatures</th>
+                                            <th>Rating</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Request modal -->
+                    <div class='modal fade' id='RequestModal' tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true'>
+                        <div class='modal-dialog' role='document'>
+                            <div class='modal-content'>
+                                <div class='modal-header'>
+                                    <h5 class='modal-title' id='exampleModalLabel'>Request Online</h5>
+                                    <button type='button' class='close' data-dismiss='modal' aria-label='Close'>
+                                        <span aria-hidden='true'>&times;</span>
+                                    </button>
+                                </div>
+                                <div class='modal-body'>
+                                    <form Id="TOWServiceForm" novalidate>
+                                        <input type="hidden" class="form-control form-control-user" id="TOWServiceID" name="TOWServiceID"
+                                               placeholder="Item Id">
+                                        <input type="hidden" class="form-control form-control-user" id="ShopOwnerId" name="ShopOwnerId"
+                                               placeholder="">
+                                        <input type="hidden" class="form-control form-control-user" id="RatePerKm" name="RatePerKm"
+                                               placeholder="">
+
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <img src='#' id="VehicleImage" width='200px' heigth='200px'>
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="form-group">
+                                                    <p class="text-secondary">
+                                                        Garage Name :
+                                                        <span class="label label-default" id="GarageName" name="GarageName"></span>
+                                                    </p>
+                                                </div>
+                                                <div class="form-group">
+                                                    <p class="text-secondary">
+                                                        Vehicle Type :
+                                                        <span class="label label-default" id="TypeOfVehicleOwn" name="TypeOfVehicleOwn"></span>
+                                                    </p>
+                                                </div>
+                                                <div class="form-group">
+                                                    <p class="text-secondary">
+                                                        Max Payload :
+                                                        <span class="label label-default" id="MaxPayLoad" name="MaxPayLoad"></span>
+                                                    </p>
+                                                </div>
+                                                <div class="form-group">
+                                                    <p class="text-secondary">
+                                                        Extra Features :
+                                                        <span class="label label-default" id="ExtraFeatures" name="ExtraFeatures"></span>
+                                                    </p>
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <!-- Earnings (Annual) Card Example -->
+                                            <div class="row">
+                                                <div class="col-6">
+                                                </div>
+                                                <div class="col-6">
+                                                    <div class="card border-left-success shadow h-100 py-2">
+                                                        <div class="card-body">
+                                                            <div class="row no-gutters align-items-center">
+                                                                <div class="col mr-2">
+                                                                    <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                                                        Rate Per KMs
+                                                                    </div>
+                                                                    <div class="h5 mb-0 font-weight-bold text-gray-800" id="RatePerKmCard">0</div>
+                                                                </div>
+                                                                <div class="col-auto">
+                                                                    <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-lg-6">
+                                                <div class="form-group">
+                                                    <textarea class="form-control form-control-user" id="ReqestedCity" name="ReqestedCity"
+                                                              placeholder="Your city or place where you need this service..."></textarea>
+                                                </div>
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control form-control-user" id="ContactNo" name="ContactNo"
+                                                           placeholder="Contact Number...">
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div class="form-group">
+                                                    <p class="text-secondary" style="font-size:11px">
+                                                        Please enter approximate KM for service!
+                                                    </p>
+                                                    <input type="text" class="form-control form-control-user" id="ApproximateKMs" name="ApproximateKMs"
+                                                           placeholder="ApproximateKMs">
+                                                </div>
+                                                <p class="text-secondary">
+                                                    Total Cost :
+                                                    <span class="label label-default" id="TotalCost" name="TotalCost"></span>
+                                                </p>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-lg-6">
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div class="form-group">
+                                                    <input type="submit" value="Buy" class="btn btn-primary btn-user btn-block" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ReviewModal -->
+                    <div class='modal fade' id='ReviewModal' tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true'>
+                        <div class='modal-dialog' role='document'>
+                            <div class='modal-content'>
+                                <div class='modal-header'>
+                                    <h5 class='modal-title' id='exampleModalLabel'>Customer Reviews</h5>
+                                    <button type='button' class='close' data-dismiss='modal' aria-label='Close'>
+                                        <span aria-hidden='true'>&times;</span>
+                                    </button>
+                                </div>
+                                <div class='modal-body'>
+                                    <form Id="ReviewForm" novalidate>
+                                        <div id="Reviews">
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-lg-6">
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div class="form-group">
+                                                    <a class='btn btn-primary btn-user btn-block' id="Add" href="@Url.Action("TOWSerivces","TOWService")">Go Back</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+            <!-- End of Main Content -->
+            <!-- Footer -->
+            @{
+                @Html.Partial("~/Views/PartialView/_Footer.cshtml");
+            }
+            <!-- End of Footer -->
+
+        </div>
+        <!-- End of Content Wrapper -->
+    </div>
+    <!-- End of Page Wrapper -->
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+    <!-- Logout Modal-->
+    @{
+        @Html.Partial("~/Views/PartialView/_LogoutModal.cshtml");
+    }
+
+</body>
+
+<script src="~/wwwroot/Bootstrap Design/vendor/jquery/jquery.min.js"></script>
+<script src="~/wwwroot/Bootstrap Design/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="~/wwwroot/Bootstrap Design/vendor/jquery-easing/jquery.easing.min.js"></script>
+<script src="~/wwwroot/Bootstrap Design/js/sb-admin-2.min.js"></script>
+<script src="~/wwwroot/lib/jquery-validation/dist/jquery.validate.js"></script>
+<script src="~/wwwroot/Bootstrap Design/vendor/datatables/jquery.dataTables.min.js"></script>
+<script src="~/wwwroot/Bootstrap Design/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+<script src="~/wwwroot/js/date.format.js"></script>
+<script>
+
+    $(document).ready(function () {
+        LoadTable();
+        
+        ValidateTOWService();
+
+        $('#DT_load').on('click', '#RequestTOW', function () {
+            LoadRequestField($(this).attr("data-id"));
+        });
+
+        $('#TOWServiceForm').on('change', '#ApproximateKMs', function () {
+            TotalCal($(this).val());
+        });
+
+        $('#DT_load').on('click', '#ReviewTOW', function () {
+            LoadRateAndFeedBack($(this).attr("data-id"));
+        });
+
+    });
+
+    function LoadTable() {
+
+                dataTable = $('#DT_load').DataTable({
+                    "bDestroy": true,
+                    "ajax": {
+                        "url": '@Url.Action("GetTOWSerivces", "TOWService")',
+                        "type": "GET",
+                        "datatype": "json"
+                    },
+                    "columns": [
+                        {
+                            "data": "VehicleImage", "render": function (data) {
+                                return `<img src='${data}' width='150px' heigth='150px'>`;
+                            }, "width": "10%"
+                        },
+                        { "data": "GarageName", "width": "10%" },
+                        { "data": "TypeOfVehicleOwn", "width": "10%" },
+                        { "data": "MaxPayLoad", "width": "10%" },
+                        { "data": "NoOfVehicleOwn", "width": "10%" },
+                        { "data": "RatePerKm", "width": "10%" },
+                        { "data": "RangeOfService", "width": "10%" },
+                        { "data": "ExtraFeatures", "width": "10%" },
+                        { "data": "AvgRate", "width": "10%" },
+                        {
+                            "data": "TOWServiceID",
+                            "render": function (data) {
+                                return `<table class='table' width='100%' cellspacing='0' cellpadding='0'><tbody>
+
+                                        <tr><td style='border: none;'>
+                                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#RequestModal" id="RequestTOW" data-id='${data}'>
+                                            Request TOW
+                                        </button>
+                                        <td style='border: none;'>
+                                        <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#ReviewModal" id="ReviewTOW" data-id='${data}'>
+                                          Reviews<img src='/Images/SystemPhotos/starrating.png' width='30px' heigth='30px'>
+                                        </button>
+                                        </td>
+                                        `;
+                            }, "width": "10%"
+                        }
+                    ],
+                    "language": {
+                        "emptyTable": "no data found"
+                    },
+                    "width": "100%"
+                });
+
+    }
+
+    function LoadRequestField(TOWServiceID) {
+
+        var TOWServiceID = {
+            TOWServiceID: TOWServiceID
+        }
+
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("LoadFieldsModal", "TOWService")',
+            dataType: 'json',
+            data: TOWServiceID,
+            ContentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                console.log(data.data);
+                var AllFields = data.data;
+                if (data.data != null) {
+                    $("#TOWServiceID").val(AllFields.TOWServiceID);
+                    $("#ShopOwnerId").val(AllFields.ShopOwnerId);
+                    $("#GarageName").text(AllFields.GarageName);
+                    $("#TypeOfVehicleOwn").text(AllFields.TypeOfVehicleOwn);
+                    $("#MaxPayLoad").text(AllFields.MaxPayLoad);
+                    $("#RatePerKm").val(AllFields.RatePerKm);
+                    $("#RatePerKmCard").text(AllFields.RatePerKm);
+                    $("#RangeOfService").text(AllFields.RangeOfService);
+                    $("#ExtraFeatures").text(AllFields.ExtraFeatures);
+                    $('#VehicleImage').attr("src", (data.data.VehicleImage));
+                }
+                else {
+                    alert("Server Error!");
+                    $("#TOWServiceID").val(0);
+                }
+
+
+            }
+        });
+    }
+
+    function LoadRateAndFeedBack(productOrServiceId) {
+        var productOrServiceId = {
+            productOrServiceId: productOrServiceId
+        }
+
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("GetRateFeedbackByTOWProductId", "TOWService")',
+            dataType: 'json',
+            data: productOrServiceId,
+            ContentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                $("#Reviews").empty();
+                var AllFields = data.data;
+
+                for (let i = 0; i < AllFields.length; i++) {
+                    var date = new Date(parseInt(AllFields[i].CreatedDate.substr(6)));
+                    var formatDate = date.format("ddd mmm dd yyyy HH:MM:ss");
+
+                    if (AllFields[i].RatedValue == 1) {
+                        $("#Reviews").append('<div class="card mb-4 py-2 border-bottom-danger"><div class="card-header">' + AllFields[i].RatedUserName + '&nbsp;&nbsp;&nbsp;&nbsp;<span class="fa fa-star checked"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span>&nbsp;&nbsp;&nbsp;&nbsp;' + formatDate + '</div> <div class="card-body"><div class="card shadow mb-1"><div class="card-body">' + AllFields[i].FeedBack1 + '</div></div><div class="card shadow mb-1" style="margin-left: 20px;"><div class="card-body">Reply : ' + AllFields[i].ServiceFeedBack1 + '</div></div></div></div>');
+                    }
+                    else if (AllFields[i].RatedValue == 2){
+                        $("#Reviews").append('<div class="card mb-4 py-2 border-bottom-danger"><div class="card-header">' + AllFields[i].RatedUserName + '&nbsp;&nbsp;&nbsp;&nbsp;<span class="fa fa-star checked"></span><span class="fa fa-star checked"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span>&nbsp;&nbsp;&nbsp;&nbsp;' + formatDate + '</div> <div class="card-body"><div class="card shadow mb-1"><div class="card-body">' + AllFields[i].FeedBack1 + '</div></div><div class="card shadow mb-1" style="margin-left: 20px;"><div class="card-body">Reply : ' + AllFields[i].ServiceFeedBack1 + '</div></div></div></div>');
+                    }
+                    else if (AllFields[i].RatedValue == 3) {
+                        $("#Reviews").append('<div class="card mb-4 py-2 border-bottom-warning"><div class="card-header">' + AllFields[i].RatedUserName + '&nbsp;&nbsp;&nbsp;&nbsp;<span class="fa fa-star checked"></span><span class="fa fa-star checked"></span><span class="fa fa-star checked"></span><span class="fa fa-star"></span><span class="fa fa-star"></span>&nbsp;&nbsp;&nbsp;&nbsp;' + formatDate + '</div> <div class="card-body"><div class="card shadow mb-1"><div class="card-body">' + AllFields[i].FeedBack1 + '</div></div><div class="card shadow mb-1" style="margin-left: 20px;"><div class="card-body">Reply : ' + AllFields[i].ServiceFeedBack1 + '</div></div></div></div>');
+                    }
+                    else if (AllFields[i].RatedValue == 4) {
+                        $("#Reviews").append('<div class="card mb-4 py-2 border-bottom-success"><div class="card-header">' + AllFields[i].RatedUserName + '&nbsp;&nbsp;&nbsp;&nbsp;<span class="fa fa-star checked"></span><span class="fa fa-star checked"></span><span class="fa fa-star checked"></span><span class="fa fa-star checked"></span><span class="fa fa-star"></span>&nbsp;&nbsp;&nbsp;&nbsp;' + formatDate + '</div> <div class="card-body"><div class="card shadow mb-1"><div class="card-body">' + AllFields[i].FeedBack1 + '</div></div><div class="card shadow mb-1" style="margin-left: 20px;"><div class="card-body">Reply : ' + AllFields[i].ServiceFeedBack1 + '</div></div></div></div>');
+                    }
+                    else if (AllFields[i].RatedValue == 5) {
+                        $("#Reviews").append('<div class="card mb-4 py-2 border-bottom-success"><div class="card-header">' + AllFields[i].RatedUserName + '&nbsp;&nbsp;&nbsp;&nbsp;<span class="fa fa-star checked"></span><span class="fa fa-star checked"></span><span class="fa fa-star checked"></span><span class="fa fa-star checked"></span><span class="fa fa-star checked"></span>&nbsp;&nbsp;&nbsp;&nbsp;' + formatDate + '</div> <div class="card-body"><div class="card shadow mb-1"><div class="card-body">' + AllFields[i].FeedBack1 + '</div></div><div class="card shadow mb-1" style="margin-left: 20px;"><div class="card-body">Reply : ' + AllFields[i].ServiceFeedBack1 + '</div></div></div></div>');
+                    }
+
+                    
+                }
+                
+
+            }
+        });
+
+    }
+
+    function ValidateTOWService() {
+        $(function () {
+            jQuery.validator.addMethod("noSpace", function (value, element) {
+                return value.indexOf(" ") < 0 && value != "";
+            }, "No space please and don't leave it empty");
+
+            jQuery.validator.addMethod("exactlength", function (value, element, param) {
+                return this.optional(element) || value.length == param;
+            }, $.validator.format("Please enter exactly {0} characters."));
+
+            $("#TOWServiceForm").validate({
+
+                errorPlacement: function (error, element) {
+                    var placement = $(element).data('error');
+                    if (placement) {
+                        $(placement).append(error)
+                    } else {
+                        error.insertAfter(element);
+                    }
+                },
+                rules: {
+                    ReqestedCity: {
+                        required: true
+                        //umailExist: true,
+                    },
+                    ApproximateKMs: {
+                        required: true,
+                        number: true
+                    },
+                    ContactNo: {
+                        required: true
+                    }
+                },
+                messages: {
+                    ReqestedCity: {
+                        required: "Please fill this field!"
+                        //umailExist: true,
+                    },
+                    ApproximateKMs: {
+                        required: "Please fill this field!",
+                        number: "Invalid number!"
+                    },
+                    ContactNo: {
+                        required: "Please fill this field!"
+                    }
+                },
+                submitHandler: function (form) {
+                    SaveTOWServiceRequest();
+                }
+
+            });
+        });
+    }
+
+    function SaveTOWServiceRequest() {
+
+        var TOWServiceID = $("#TOWServiceID").val();
+        var ShopOwnerId = $("#ShopOwnerId").val();
+        var ReqestedCity = $("#ReqestedCity").val();
+        var ContactNo = $("#ContactNo").val();
+        var ApproximateKMs = $("#ApproximateKMs").val();
+        var TotalCost = $("#TotalCost").text();
+
+        var requestedTOWDetails = {
+            TOWServiceID: TOWServiceID,
+            ShopOwnerId: ShopOwnerId,
+            ReqestedCity: ReqestedCity,
+            ContactNo: ContactNo,
+            ApproximateKMs: ApproximateKMs,
+            TotalCost: TotalCost
+        }
+
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("SaveTOWServiceRequest", "TOWService")',
+            dataType: 'json',
+            //contentType: false, //must for formdata
+            //processData: false, //must for formdata
+            ContentType: 'application/json; charset=utf-8',
+            data: requestedTOWDetails,
+            success: function (data) {
+
+                var AllFields = data.data;
+
+                if (AllFields.StoreId <= 0) {
+                    alert("Server error!");
+                }
+                else {
+                    alert("Successfully saved!");
+                    window.location.href = '@Url.Action("TOWSerivces", "TOWService")';
+                }
+
+            }
+        });
+    }
+
+    function TotalCal(ApproximateKMs) {
+        $('#TotalCost').text(ApproximateKMs * $("#RatePerKmCard").text());
+    }
+</script>
+
+<style>
+    .checked {
+        color: orange;
+    }
+</style>

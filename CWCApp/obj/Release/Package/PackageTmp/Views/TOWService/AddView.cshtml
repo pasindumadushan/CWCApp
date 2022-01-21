@@ -1,0 +1,367 @@
+﻿
+<body id="page-top">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        @{
+            @Html.Partial("~/Views/PartialView/_Sidebar.cshtml");
+        }
+        <!-- End of Sidebar -->
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+                    <!-- Sidebar Toggle (Topbar) -->
+                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                        <i class="fa fa-bars"></i>
+                    </button>
+
+                    <!-- Topbar Search -->
+                    <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                        <div class="input-group">
+                            <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
+                                   aria-label="Search" aria-describedby="basic-addon2">
+                            <div class="input-group-append">
+                                <button class="btn btn-primary" type="button" disabled>
+                                    <i class="fas fa-search fa-sm"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+
+                    <!-- Topbar Navbar -->
+                    @{
+                        @Html.Partial("~/Views/PartialView/_Topbar.cshtml");
+                    }
+                </nav>
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <!-- Page Heading -->
+                    <h1 class="h3 mb-2 text-gray-800">Add your TOW Service Deails</h1>
+                    <form Id="TOWServiceForm" novalidate>
+                        <div class="row">
+                            <div class="col-lg-6">
+
+                                <div class="form-group">
+                                    <select class="form-control" id="GarageName" name="GarageName">
+                                        <option value="" selected disabled>Select Garage...</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control form-control-user" id="TypeOfVehicleOwn" name="TypeOfVehicleOwn"
+                                           placeholder="Vehicle Type...">
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control form-control-user" id="MaxPayLoad" name="MaxPayLoad"
+                                           placeholder="Max Payload">
+                                </div>
+                                <div class="form-group">
+                                    <input type="number" class="form-control form-control-user" id="NoOfVehicleOwn" name="NoOfVehicleOwn"
+                                           placeholder="Amount" min=1>
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control form-control-user" id="RatePerKm" name="RatePerKm"
+                                           placeholder="Rate Per KM...">
+                                </div>
+                                <div class="form-group">
+                                    <textarea class="form-control form-control-user" id="RangeOfService" name="RangeOfService"
+                                              placeholder="Range Of Service..."></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <textarea class="form-control form-control-user" id="ExtraFeatures" name="ExtraFeatures"
+                                              placeholder="Extra Features..."></textarea>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <Table>
+                                        <tr>
+                                            <td><label>Image</label></td>
+                                            <td>
+                                                <div class="col-md-offset-2 col-md-10">
+                                                    <input type="file" id="file" name="file" accept="image/*">
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </Table>
+                                </div>
+
+                                <div class="form-group">
+                                    <tr>
+                                        <td>
+                                            <div style="height:200px; width:200px; overflow:auto;">
+                                                <img id="imgPhoto" alt="Image">
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <canvas id="canvas" height="5" width="5" style="vertical-align:top;"></canvas>
+                                        </td>
+                                    </tr>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <input type="submit" value="Add Item" class="btn btn-primary btn-user btn-block" />
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <a class='btn btn-primary btn-user btn-block' id="Add" href="@Url.Action("Index","TOWService")">Go Back</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </form>
+
+                </div>
+                <!-- End of Main Content -->
+
+            </div>
+            <!-- End of Main Content -->
+            <!-- Footer -->
+            @{
+                @Html.Partial("~/Views/PartialView/_Footer.cshtml");
+            }
+            <!-- End of Footer -->
+
+        </div>
+        <!-- End of Content Wrapper -->
+    </div>
+    <!-- End of Page Wrapper -->
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+    <!-- Logout Modal-->
+    @{
+        @Html.Partial("~/Views/PartialView/_LogoutModal.cshtml");
+    }
+
+</body>
+
+<script src="~/wwwroot/Bootstrap Design/vendor/jquery/jquery.min.js"></script>
+<script src="~/wwwroot/Bootstrap Design/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="~/wwwroot/Bootstrap Design/vendor/jquery-easing/jquery.easing.min.js"></script>
+<script src="~/wwwroot/Bootstrap Design/js/sb-admin-2.min.js"></script>
+<script src="~/wwwroot/lib/jquery-validation/dist/jquery.validate.js"></script>
+<script>
+
+    var imageCropWidth = 0;
+    var imageCropHeight = 0;
+    var cropPointX = 0;
+    var cropPointY = 0;
+    var jcropApi;
+
+    $(document).ready(function () {
+        LoadGarage();
+        ValidateTOWService();
+        $('#file').change(function () {
+            readFile(this);
+        });
+
+    });
+
+    function LoadGarage() {
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("LoadGarages", "TOWService")',
+            dataType: 'json',
+            ContentType: 'application/json; charset=utf-8',
+            success: function (data) {
+
+                var Stores = data.data;
+                for (var i = 0; i < Stores.length; i++) {
+
+                    var newOption = new Option(Stores[i].GarageName, Stores[i].GarageId, false, false);
+                    $('#GarageName').append(newOption).trigger('change');
+                }
+
+            }
+        });
+    }
+
+    function ValidateTOWService() {
+        $(function () {
+            jQuery.validator.addMethod("noSpace", function (value, element) {
+                return value.indexOf(" ") < 0 && value != "";
+            }, "No space please and don't leave it empty");
+
+            jQuery.validator.addMethod("exactlength", function (value, element, param) {
+                return this.optional(element) || value.length == param;
+            }, $.validator.format("Please enter exactly {0} characters."));
+
+            jQuery.validator.addMethod("filesize_max", function (value, element, param) {
+                var isOptional = this.optional(element),
+                    file;
+
+                if (isOptional) {
+                    return isOptional;
+                }
+
+                if ($(element).attr("type") === "file") {
+                    if (element.files && element.files.length) {
+                        file = element.files[0];
+                        return (file.size && file.size <= param);
+                    }
+                }
+                return false;
+            }, "File size is too large.");
+
+            $("#TOWServiceForm").validate({
+
+                errorPlacement: function (error, element) {
+                    var placement = $(element).data('error');
+                    if (placement) {
+                        $(placement).append(error)
+                    } else {
+                        error.insertAfter(element);
+                    }
+                },
+                rules: {
+                    TypeOfVehicleOwn: {
+                        required: true
+                        //umailExist: true,
+                    },
+                    MaxPayLoad: {
+                        required: true,
+                        number: true
+                    },
+                    NoOfVehicleOwn: {
+                        required: true
+                    },
+                    RatePerKm: {
+                        required: true,
+                        number: true
+                    },
+                    RangeOfService: {
+                        required: true
+                    },
+                    ExtraFeatures: {
+                        required: true
+                    },
+                    file: {
+                        filesize_max: 800000
+                    }
+                },
+                messages: {
+                    TypeOfVehicleOwn: {
+                        required: "Please fill this field!"
+                        //umailExist: true,
+                    },
+                    MaxPayLoad: {
+                        required: "Please fill this field!",
+                        number:"Invalid number!" 
+                    },
+                    NoOfVehicleOwn: {
+                        required: "Please fill this field!"
+                    },
+                    RatePerKm: {
+                        required: "Please fill this field!",
+                        number: "Invalid number!"
+                    },
+                    RangeOfService: {
+                        required: "Please fill this field!"
+                    },
+                    ExtraFeatures: {
+                        required: "Please fill this field!"
+                    },
+                    file: {
+                        filesize_max: "File too large please input less than 800KB"
+                    }
+                },
+                submitHandler: function (form) {
+                    SaveTOWService();
+                }
+
+            });
+        });
+    }
+
+    function SaveTOWService() {
+
+        var GarageName = $("#GarageName").val();
+        var TypeOfVehicleOwn = $("#TypeOfVehicleOwn").val();
+        var MaxPayLoad = $("#MaxPayLoad").val();
+        var NoOfVehicleOwn = $("#NoOfVehicleOwn").val();
+        var RatePerKm = $("#RatePerKm").val();
+        var RangeOfService = $("#RangeOfService").val();
+        var ExtraFeatures = $("#ExtraFeatures").val();
+
+        var TOWService = {
+            GarageId: GarageName,
+            TypeOfVehicleOwn: TypeOfVehicleOwn,
+            MaxPayLoad: MaxPayLoad,
+            NoOfVehicleOwn: NoOfVehicleOwn,
+            RatePerKm: RatePerKm,
+            RangeOfService: RangeOfService,
+            ExtraFeatures: ExtraFeatures
+        }
+
+        var formData = new FormData();
+        var file = $('#file').get(0).files;
+        formData.append("imageFile", file[0]);
+        formData.append("data", JSON.stringify(TOWService));
+
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("SaveTOWService", "TOWService")',
+            dataType: 'json',
+            contentType: false, //must for formdata
+            processData: false, //must for formdata
+            ContentType: 'application/json; charset=utf-8',
+            data: formData,
+            success: function (data) {
+
+                var AllFields = data.data;
+
+                if (AllFields.StoreId <= 0) {
+                    alert("Server error!");
+                }
+                else {
+                    alert("Successfully saved!");
+                    window.location.href = '@Url.Action("Index", "TOWService")';
+                }
+
+            }
+        });
+    }
+
+    function readFile(input) {
+
+        console.log("asda" + input);
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            /*Destroy jcrop initialization other wise it will hold it previous image in img tag*/
+            if (jcropApi != null) {
+                jcropApi.destroy();
+            }
+            reader.onload = function (e) {
+                $('#imgPhoto').attr('src', "");
+                var img = $('#imgPhoto').attr('src', e.target.result);
+
+                /*Current uploaded image size*/
+                var width = img[0].height;
+                var height = img[0].width;
+                $("#lblWidth").text(width + "px");
+                $("#lblHeight").text(height + "px");
+
+            }
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+</script>

@@ -1,0 +1,226 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<body class="bg-gradient-primary">
+    <div class="container">
+
+        <div class="card o-hidden border-0 shadow-lg my-5">
+            <div class="card-body p-0">
+                <!-- Nested Row within Card Body -->
+                <div class="row">
+                    <div class="col-lg-5 d-none d-lg-block bg-register-image"></div>
+                    <div class="col-lg-7">
+                        <div class="p-5">
+                            <div class="text-center">
+                                <h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
+                            </div>
+                            <form id="UserForm" novalidate>
+                                <div class="form-group row">
+                                    <div class="col-sm-6 mb-3 mb-sm-0">
+                                        <input class="form-control form-control-user" id="UserName" name="UserName" type="text" placeholder="User Name">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <input class="form-control form-control-user" id="Email" name="Email" type="email" placeholder="Email Address">
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-sm-6 mb-3 mb-sm-0">
+                                        <input class="form-control form-control-user" id="InputPassword" name="InputPassword" type="password" placeholder="Password">
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <input class="form-control form-control-user" id="RepeatPassword" name="RepeatPassword" type="password" placeholder="Repeat Password">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="custom-control custom-checkbox small">
+                                        <input type="checkbox" class="custom-control-input" id="customCheck" value="false">
+
+                                        <label class="custom-control-label" for="customCheck" style="padding-top: 4px;">
+                                            Are you a customer?
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <input type="submit" value="Register" class="btn btn-primary btn-user btn-block" />
+                                </div>
+                            </form>
+                            <hr>
+                            <div class="text-center">
+                                <a class="small" href="@Url.Action("Index","Login")">Already have an account? Login!</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</body>
+
+<script src="~/wwwroot/Bootstrap Design/vendor/jquery/jquery.min.js"></script>
+<script src="~/wwwroot/Bootstrap Design/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="~/wwwroot/Bootstrap Design/vendor/jquery-easing/jquery.easing.min.js"></script>
+<script src="~/wwwroot/Bootstrap Design/js/sb-admin-2.min.js"></script>
+<script src="~/wwwroot/lib/jquery-validation/dist/jquery.validate.js"></script>
+
+<script>
+    $(document).ready(function () {
+        validateRegister();
+
+        $("#customCheck").on('change', function () {
+            if ($(this).is(':checked')) {
+                $(this).attr('value', 'true');
+            } else {
+                $(this).attr('value', 'false');
+            }
+        });
+
+    });
+
+    function validateRegister() {
+        $(function () {
+
+            jQuery.validator.addMethod("noSpace", function (value, element) {
+                return value.indexOf(" ") < 0 && value != "";
+            }, "No space please and don't leave it empty");
+
+            jQuery.validator.addMethod("exactlength", function (value, element, param) {
+                return this.optional(element) || value.length == param;
+            }, $.validator.format("Please enter exactly {0} characters."));
+
+            jQuery.validator.addMethod("emailExist", function (value, element, param) {
+                var userProfile = {
+                    Email: value
+                };
+                var exist = false;
+                $.ajax({
+                    type: "POST",
+                    async: false, //this is neccessary to get ajax to out side
+                    url: '@Url.Action("EmailExist", "Register")',
+                    dataType: 'json',
+                    ContentType: 'application/json; charset=utf-8',
+                    data: userProfile,
+                    success: function (data) {
+                        if (data.data == null) {
+                            exist = true;
+                        }
+                        else {
+                            exist = false;
+                        }
+                    }
+                });
+                return exist;
+            }, $.validator.format("Please enter exactly {0} characters."));
+
+            jQuery.validator.addMethod("matchWithInput", function (value, element, param) {
+                var inputPassword = $("#InputPassword").val();
+                var result = false;
+                if (value == inputPassword) {
+                    result = true;
+                }
+                else {
+                    result = false;
+                }
+                return result;
+            }, $.validator.format("Please enter exactly {0} characters."));
+
+            $("#UserForm").validate({
+
+                errorPlacement: function (error, element) {
+                    var placement = $(element).data('error');
+                    if (placement) {
+                        $(placement).append(error)
+                    } else {
+                        error.insertAfter(element);
+                    }
+                },
+                rules: {
+                    UserName: {
+                        required: true,
+                        noSpace: true
+                    },
+                    Email: {
+                        required: true,
+                        noSpace: true,
+                        emailExist: true
+                    },
+                    InputPassword: {
+                        required: true,
+                        noSpace: true
+                    },
+                    RepeatPassword: {
+                        required: true,
+                        noSpace: true,
+                        matchWithInput: true
+                    }
+                },
+                messages: {
+                    UserName: {
+                        required: "Please fill this field!",
+                        noSpace: "Space not allowed"
+                    },
+                    Email: {
+                        required: "Please fill this field!",
+                        noSpace: "Space not allowed",
+                        emailExist: "Email already exist"
+                    },
+                    InputPassword: {
+                        required: "Please fill this field!",
+                        noSpace: "Space not allowed"
+                    },
+                    RepeatPassword: {
+                        required: "Please fill this field!",
+                        noSpace: "Space not allowed",
+                        matchWithInput: "Password not matching"
+                    }
+                },
+                submitHandler: function (form) {
+                    Register();
+                }
+
+            });
+        });
+    }
+
+    function Register() {
+
+        var UserName = $("#UserName").val();
+        var Email = $("#Email").val();
+        var UserPassword = $("#InputPassword").val();
+        var customCheck = $('#customCheck').val();
+
+        var userProfile = {
+            UserName: UserName,
+            Email: Email,
+            UserPassword: UserPassword
+        };
+        var formData = new FormData();
+        formData.append("customCheck", JSON.stringify(customCheck));
+        formData.append("userProfiledata", JSON.stringify(userProfile));
+
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("Register", "Register")',
+            dataType: 'json',
+            contentType: false, //must for formdata
+            processData: false, //must for formdata
+            ContentType: 'application/json; charset=utf-8',
+            data: formData,
+            success: function (data) {
+
+                console.log(data.data);
+                if (data.data == null) {
+                    alert("Registration fail");
+                }
+                else {
+                    var url = '@Url.Action("Index","Login")';
+                   window.location.href = url;
+                }
+
+            }
+        });
+    }
+</script>
+

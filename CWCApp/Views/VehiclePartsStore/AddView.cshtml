@@ -1,0 +1,241 @@
+﻿<body id="page-top">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        @{
+            @Html.Partial("~/Views/PartialView/_Sidebar.cshtml");
+        }
+        <!-- End of Sidebar -->
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+                    <!-- Sidebar Toggle (Topbar) -->
+                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                        <i class="fa fa-bars"></i>
+                    </button>
+
+                    <!-- Topbar Search -->
+                    <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                        <div class="input-group">
+                            <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
+                                   aria-label="Search" aria-describedby="basic-addon2">
+                            <div class="input-group-append">
+                                <button class="btn btn-primary" type="button" disabled>
+                                    <i class="fas fa-search fa-sm"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+
+                    <!-- Topbar Navbar -->
+                    @{
+                        @Html.Partial("~/Views/PartialView/_Topbar.cshtml");
+                    }
+                </nav>
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <!-- Page Heading -->
+                    <h1 class="h3 mb-2 text-gray-800">Add your store Deails</h1>
+                    <form Id="StoreForm" novalidate>
+                        <div class="row">
+                            <div class="col-lg-6">
+
+                                <div class="form-group">
+                                    <input type="text" class="form-control form-control-user" id="StoreName" name="StoreName"
+                                           placeholder="Store Name">
+                                </div>
+                                <div class="form-group">
+                                    <textarea class="form-control form-control-user" id="AddressOfStore" name="AddressOfStore"
+                                              placeholder="Address..."></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control form-control-user" id="ContactNumber" name="ContactNumber"
+                                           placeholder="Contact Number...">
+                                </div>
+                                <div class="form-group">
+                                    <select class="form-control" id="ShoppingMethod" name="ShoppingMethod">
+                                        <option value="" selected disabled>Shopping Method...</option>
+                                    </select>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <input type="submit" value="Add Store" class="btn btn-primary btn-user btn-block" />
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <a class='btn btn-primary btn-user btn-block' id="Add" href="@Url.Action("Index","VehiclePartsStore")">Go Back</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </form>
+
+                </div>
+                <!-- End of Main Content -->
+
+            </div>
+            <!-- End of Main Content -->
+            <!-- Footer -->
+            @{
+                @Html.Partial("~/Views/PartialView/_Footer.cshtml");
+            }
+            <!-- End of Footer -->
+
+        </div>
+        <!-- End of Content Wrapper -->
+    </div>
+    <!-- End of Page Wrapper -->
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+    <!-- Logout Modal-->
+    @{
+        @Html.Partial("~/Views/PartialView/_LogoutModal.cshtml");
+    }
+
+</body>
+
+<script src="~/wwwroot/Bootstrap Design/vendor/jquery/jquery.min.js"></script>
+<script src="~/wwwroot/Bootstrap Design/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="~/wwwroot/Bootstrap Design/vendor/jquery-easing/jquery.easing.min.js"></script>
+<script src="~/wwwroot/Bootstrap Design/js/sb-admin-2.min.js"></script>
+<script src="~/wwwroot/lib/jquery-validation/dist/jquery.validate.js"></script>
+<script>
+    $(document).ready(function () {
+        LoadShoppingMethods();
+        ValidateVehiclePartsStore();
+
+    });
+
+    function LoadShoppingMethods() {
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("LoadShoppingMethods", "VehiclePartsStore")',
+            dataType: 'json',
+            ContentType: 'application/json; charset=utf-8',
+            success: function (data) {
+
+                var ShoppingMethods = data.data;
+                for (var i = 0; i < ShoppingMethods.length; i++) {
+
+                    var newOption = new Option(ShoppingMethods[i].ShoppingMethod, ShoppingMethods[i].ShoppingMethodId, false, false);
+                    $('#ShoppingMethod').append(newOption).trigger('change');
+                }
+
+            }
+        });
+    }
+
+    function ValidateVehiclePartsStore() {
+        $(function () {
+            jQuery.validator.addMethod("noSpace", function (value, element) {
+                return value.indexOf(" ") < 0 && value != "";
+            }, "No space please and don't leave it empty");
+
+            jQuery.validator.addMethod("exactlength", function (value, element, param) {
+                return this.optional(element) || value.length == param;
+            }, $.validator.format("Please enter exactly {0} characters."));
+
+            $("#StoreForm").validate({
+
+                errorPlacement: function (error, element) {
+                    var placement = $(element).data('error');
+                    if (placement) {
+                        $(placement).append(error)
+                    } else {
+                        error.insertAfter(element);
+                    }
+                },
+                rules: {
+                    StoreName: {
+                        required: true
+                        //umailExist: true,
+                    },
+                    AddressOfStore: {
+                        required: true
+                    },
+                    ShoppingMethod: {
+                        required: true
+                    },
+                    ContactNumber: {
+                        required: true
+                    }
+                },
+                messages: {
+                    StoreName: {
+                        required: "Please fill this field!"
+                        //umailExist: true,
+                    },
+                    AddressOfStore: {
+                        required: "Please fill this field!"
+                    },
+                    ShoppingMethod: {
+                        required: "Please fill this field!"
+                    },
+                    ContactNumber: {
+                        required: "Please fill this field!"
+                    }
+                },
+                submitHandler: function (form) {
+                    SaveVehiclePartsStore();
+                }
+
+            });
+        });
+    }
+
+    function SaveVehiclePartsStore() {
+
+        var storeName = $("#StoreName").val();
+        var addressOfStore = $("#AddressOfStore").val();
+        var contactNumber = $("#ContactNumber").val();
+        var shoppingMethod = $("#ShoppingMethod").val();
+
+        var vehiclePartsStore = {
+            StoreName: storeName,
+            AddressOfStore: addressOfStore,
+            ContactNumber: contactNumber,
+            ShoppingMethod: shoppingMethod
+        }
+
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("SaveVehiclePartsStore", "VehiclePartsStore")',
+            dataType: 'json',
+            ContentType: 'application/json; charset=utf-8',
+            data: vehiclePartsStore,
+            success: function (data) {
+
+                var AllFields = data.data;
+
+                if (AllFields.StoreId <= 0) {
+                    alert("Server error!");
+                }
+                else {
+                    alert("Successfully saved!");
+                    window.location.href = '@Url.Action("Index","VehiclePartsStore")';
+                }
+
+            }
+        });
+    }
+
+
+</script>

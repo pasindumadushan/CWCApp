@@ -1,0 +1,313 @@
+﻿<body id="page-top">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        @{
+            @Html.Partial("~/Views/PartialView/_Sidebar.cshtml");
+        }
+        <!-- End of Sidebar -->
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+                    <!-- Sidebar Toggle (Topbar) -->
+                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                        <i class="fa fa-bars"></i>
+                    </button>
+
+                    <!-- Topbar Search -->
+                    <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                        <div class="input-group">
+                            <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
+                                   aria-label="Search" aria-describedby="basic-addon2">
+                            <div class="input-group-append">
+                                <button class="btn btn-primary" type="button" disabled>
+                                    <i class="fas fa-search fa-sm"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+
+                    <!-- Topbar Navbar -->
+                    @{
+                        @Html.Partial("~/Views/PartialView/_Topbar.cshtml");
+                    }
+                </nav>
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <!-- Page Heading -->
+                    <h1 class="h3 mb-2 text-gray-800">Welcome to Rate and FeedBack</h1>
+                    <p class="mb-4">
+                        List of Rate and FeedBacks related to several Services submitted by user.
+                    </p>
+
+                    <!-- DataTales Example -->
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <h6 class="m-0 font-weight-bold text-primary"></h6>
+                                </div>
+                                <div class="col-sm-6 text-right">
+
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="DT_load" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th>Customer</th>
+                                            <th>Rate</th>
+                                            <th>FeedBack</th>
+                                            <th>Service FeedBack</th>
+                                            <th>Date</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Request modal -->
+                    <div class='modal fade' id='ServiceFeedbackModal' tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true'>
+                        <div class='modal-dialog' role='document'>
+                            <div class='modal-content'>
+                                <div class='modal-header'>
+                                    <h5 class='modal-title' id='exampleModalLabel'>Your service FeedBack!</h5>
+                                    <button type='button' class='close' data-dismiss='modal' aria-label='Close'>
+                                        <span aria-hidden='true'>&times;</span>
+                                    </button>
+                                </div>
+                                <div class='modal-body'>
+                                    <form Id="ServiceFeedBackForm" novalidate>
+                                        <input type="hidden" class="form-control form-control-user" id="FeedBackId" name="FeedBackId"
+                                               placeholder="">
+                                       
+                                        <div class="row">
+                                            <div class="col-lg-6">
+                                                <img src="~/Images/SystemPhotos/servicefeedback.jpg" width='200px' heigth='200px' />
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div class="form-group">
+                                                    <textarea class="form-control form-control-user" id="ServiceFeedBack" name="ServiceFeedBack"
+                                                              placeholder="Your FeedBack for customer..."></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-lg-6">
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div class="form-group">
+                                                    <input type="submit" value="Send" class="btn btn-primary btn-user btn-block" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+            <!-- End of Main Content -->
+            <!-- Footer -->
+            @{
+                @Html.Partial("~/Views/PartialView/_Footer.cshtml");
+            }
+            <!-- End of Footer -->
+
+        </div>
+        <!-- End of Content Wrapper -->
+    </div>
+    <!-- End of Page Wrapper -->
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+    <!-- Logout Modal-->
+    @{
+        @Html.Partial("~/Views/PartialView/_LogoutModal.cshtml");
+    }
+
+</body>
+
+<script src="~/wwwroot/Bootstrap Design/vendor/jquery/jquery.min.js"></script>
+<script src="~/wwwroot/Bootstrap Design/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="~/wwwroot/Bootstrap Design/vendor/jquery-easing/jquery.easing.min.js"></script>
+<script src="~/wwwroot/Bootstrap Design/js/sb-admin-2.min.js"></script>
+<script src="~/wwwroot/lib/jquery-validation/dist/jquery.validate.js"></script>
+<script src="~/wwwroot/Bootstrap Design/vendor/datatables/jquery.dataTables.min.js"></script>
+<script src="~/wwwroot/Bootstrap Design/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+<script src="~/wwwroot/js/date.format.js"></script>
+<script>
+
+    $(document).ready(function () {
+        LoadTable();
+        ValidateServiceFeedBack();
+
+        $('#DT_load').on('click', '#ServiceFeedback', function () {
+            $('#FeedBackId').val($(this).attr("data-id"));
+        });
+
+    });
+
+    function LoadTable() {
+
+                dataTable = $('#DT_load').DataTable({
+                    "bDestroy": true,
+                    "ajax": {
+                        "url": '@Url.Action("GetRateFeedback", "RateFeedback")',
+                        "type": "GET",
+                        "datatype": "json"
+                    },
+                    "columns": [
+                        { "data": "RatedUserName", "width": "20%" },
+                        {
+                            "data": "RatedValue",
+                            "render": function (data) {
+                                if (data > 4) {
+                                    return `<div class="col-lg-12">
+                                            <p style='color:green;'>${data}   <img src='/Images/SystemPhotos/starrating.png' width='30px' heigth='30px'></p></div>`;
+                                }
+                                else if (data >= 3) {
+                                    return `<div class="col-lg-12">
+                                            <p style='color:orange;'>${data}   <img src='/Images/SystemPhotos/starrating.png' width='30px' heigth='30px'></p></div>`;
+                                }
+                                else {
+                                    return ` <div class="col-lg-12">
+                                            <p style='color:red;'>${data}   <img src='/Images/SystemPhotos/starrating.png' width='30px' heigth='30px'></p></div>`;
+                                }
+                                
+                            }, "width": "10%",
+                            "width": "20%"
+                        },
+                        { "data": "FeedBack1", "width": "20%" },
+                        { "data": "ServiceFeedBack1", "width": "20%" },
+                        {
+                            "data": "CreatedDate",
+                            "render": function (data) {
+                                var date = new Date(parseInt(data.substr(6)));
+                                return date.format("ddd mmm dd yyyy HH:MM:ss");
+                            },
+                            "width": "20%"
+                        },
+                        {
+                            "data": "FeedBackId",
+                            "render": function (data) {
+                                return `<table class='table' width='100%' cellspacing='0' cellpadding='0'><tbody>
+
+                                        <tr><td style='border: none;'>
+                                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#ServiceFeedbackModal" id="ServiceFeedback" data-id='${data}'>
+                                            Your FeedBack 
+                                        </button>
+                                        </td>
+                                        `;
+                            }, "width": "10%"
+                        }
+                    ],
+                    "language": {
+                        "emptyTable": "no data found"
+                    },
+                    "width": "100%"
+                });
+    }
+
+    function ValidateServiceFeedBack() {
+        $(function () {
+            jQuery.validator.addMethod("noSpace", function (value, element) {
+                return value.indexOf(" ") < 0 && value != "";
+            }, "No space please and don't leave it empty");
+
+            jQuery.validator.addMethod("exactlength", function (value, element, param) {
+                return this.optional(element) || value.length == param;
+            }, $.validator.format("Please enter exactly {0} characters."));
+
+            $("#ServiceFeedBackForm").validate({
+
+                errorPlacement: function (error, element) {
+                    var placement = $(element).data('error');
+                    if (placement) {
+                        $(placement).append(error)
+                    } else {
+                        error.insertAfter(element);
+                    }
+                },
+                rules: {
+                    ServiceFeedBack: {
+                        required: true
+                        //umailExist: true,
+                    }
+                    
+                },
+                messages: {
+                    ServiceFeedBack: {
+                        required: "Please fill this field!"
+                        //umailExist: true,
+                    }
+                },
+                submitHandler: function (form) {
+                    SaveServiceFeedback();
+                }
+
+            });
+        });
+    }
+
+    function SaveServiceFeedback() {
+
+        var FeedBackId = $("#FeedBackId").val();
+        var ServiceFeedBack = $("#ServiceFeedBack").val();
+
+        var serviceFeedBack = {
+            FeedBackId: FeedBackId,
+            ServiceFeedBack1: ServiceFeedBack
+        }
+
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("SaveServiceFeedback", "RateFeedback")',
+            dataType: 'json',
+            ContentType: 'application/json; charset=utf-8',
+            data: serviceFeedBack,
+            success: function (data) {
+
+                var AllFields = data.data;
+
+                if (AllFields.StoreId <= 0) {
+                    alert("Server error!");
+                }
+                else {
+                    alert("Successfully send!");
+                    window.location.href = '@Url.Action("Index", "RateFeedback")';
+                }
+
+            }
+        });
+    }
+</script>
+
+
+
+

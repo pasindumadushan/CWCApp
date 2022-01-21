@@ -1,0 +1,263 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="CWCAppDBModelStoreContainer" CdmEntityContainer="CWCAppDBEntities">
+    <EntitySetMapping Name="ServiceProviderMstrs">
+      <EntityTypeMapping TypeName="CWCAppDBModel.ServiceProviderMstr">
+        <MappingFragment StoreEntitySet="ServiceProviderMstr">
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="ServiceProviderTypeId" ColumnName="ServiceProviderTypeId" />
+          <ScalarProperty Name="ServiceType" ColumnName="ServiceType" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ServiceProviderProfiles">
+      <EntityTypeMapping TypeName="CWCAppDBModel.ServiceProviderProfile">
+        <MappingFragment StoreEntitySet="ServiceProviderProfile">
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="ServiceId" ColumnName="ServiceId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="ServiceProviderTypeId" ColumnName="ServiceProviderTypeId" />
+          <ScalarProperty Name="ExperienceYear" ColumnName="ExperienceYear" />
+          <ScalarProperty Name="Qualification" ColumnName="Qualification" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserProfiles">
+      <EntityTypeMapping TypeName="CWCAppDBModel.UserProfile">
+        <MappingFragment StoreEntitySet="UserProfile">
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="UserTypeId" ColumnName="UserTypeId" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="ContactNumber" ColumnName="ContactNumber" />
+          <ScalarProperty Name="DOB" ColumnName="DOB" />
+          <ScalarProperty Name="Sex" ColumnName="Sex" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="ProfilePicture" ColumnName="ProfilePicture" />
+          <ScalarProperty Name="NIC" ColumnName="NIC" />
+          <ScalarProperty Name="UserPassword" ColumnName="UserPassword" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserTypeMstrs">
+      <EntityTypeMapping TypeName="CWCAppDBModel.UserTypeMstr">
+        <MappingFragment StoreEntitySet="UserTypeMstr">
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="UserTypeId" ColumnName="UserTypeId" />
+          <ScalarProperty Name="UserType" ColumnName="UserType" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ShoppingMethodMstrs">
+      <EntityTypeMapping TypeName="CWCAppDBModel.ShoppingMethodMstr">
+        <MappingFragment StoreEntitySet="ShoppingMethodMstr">
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="ShoppingMethod" ColumnName="ShoppingMethod" />
+          <ScalarProperty Name="ShoppingMethodId" ColumnName="ShoppingMethodId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="VehiclePartsStores">
+      <EntityTypeMapping TypeName="CWCAppDBModel.VehiclePartsStore">
+        <MappingFragment StoreEntitySet="VehiclePartsStore">
+          <ScalarProperty Name="ContactNumber" ColumnName="ContactNumber" />
+          <ScalarProperty Name="StoreName" ColumnName="StoreName" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="ShoppingMethod" ColumnName="ShoppingMethod" />
+          <ScalarProperty Name="AddressOfStore" ColumnName="AddressOfStore" />
+          <ScalarProperty Name="ServiceId" ColumnName="ServiceId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="StoreId" ColumnName="StoreId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="VehiclePartsStoreItems">
+      <EntityTypeMapping TypeName="CWCAppDBModel.VehiclePartsStoreItem">
+        <MappingFragment StoreEntitySet="VehiclePartsStoreItem">
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="ItemSpecs" ColumnName="ItemSpecs" />
+          <ScalarProperty Name="WholeSalePrice" ColumnName="WholeSalePrice" />
+          <ScalarProperty Name="RetailPrice" ColumnName="RetailPrice" />
+          <ScalarProperty Name="ItemDiscription" ColumnName="ItemDiscription" />
+          <ScalarProperty Name="ItemImage" ColumnName="ItemImage" />
+          <ScalarProperty Name="ItemBrand" ColumnName="ItemBrand" />
+          <ScalarProperty Name="ItemBalance" ColumnName="ItemBalance" />
+          <ScalarProperty Name="ItemBoughtAmount" ColumnName="ItemBoughtAmount" />
+          <ScalarProperty Name="ItemTotalAmount" ColumnName="ItemTotalAmount" />
+          <ScalarProperty Name="ItemType" ColumnName="ItemType" />
+          <ScalarProperty Name="ItemName" ColumnName="ItemName" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="StoreId" ColumnName="StoreId" />
+          <ScalarProperty Name="ItemId" ColumnName="ItemId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BoughtItemDetails">
+      <EntityTypeMapping TypeName="CWCAppDBModel.BoughtItemDetail">
+        <MappingFragment StoreEntitySet="BoughtItemDetails">
+          <ScalarProperty Name="DeliveryAddress" ColumnName="DeliveryAddress" />
+          <ScalarProperty Name="TotalPrice" ColumnName="TotalPrice" />
+          <ScalarProperty Name="WholeSalePrice" ColumnName="WholeSalePrice" />
+          <ScalarProperty Name="RetailPrice" ColumnName="RetailPrice" />
+          <ScalarProperty Name="ContactNo" ColumnName="ContactNo" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="BuyerId" ColumnName="BuyerId" />
+          <ScalarProperty Name="ShopOwnerId" ColumnName="ShopOwnerId" />
+          <ScalarProperty Name="ItemId" ColumnName="ItemId" />
+          <ScalarProperty Name="DetailsId" ColumnName="DetailsId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Garages">
+      <EntityTypeMapping TypeName="CWCAppDBModel.Garage">
+        <MappingFragment StoreEntitySet="Garage">
+          <ScalarProperty Name="State" ColumnName="State" />
+          <ScalarProperty Name="City" ColumnName="City" />
+          <ScalarProperty Name="GarageName" ColumnName="GarageName" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="Rates" ColumnName="Rates" />
+          <ScalarProperty Name="PictureOfGarage" ColumnName="PictureOfGarage" />
+          <ScalarProperty Name="ExtraFeatures" ColumnName="ExtraFeatures" />
+          <ScalarProperty Name="RangeOfService" ColumnName="RangeOfService" />
+          <ScalarProperty Name="NumberOfMechanics" ColumnName="NumberOfMechanics" />
+          <ScalarProperty Name="TOWPayload" ColumnName="TOWPayload" />
+          <ScalarProperty Name="TOWCapability" ColumnName="TOWCapability" />
+          <ScalarProperty Name="VehicleCapacity" ColumnName="VehicleCapacity" />
+          <ScalarProperty Name="AddressOfGarage" ColumnName="AddressOfGarage" />
+          <ScalarProperty Name="ServiceId" ColumnName="ServiceId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="GarageId" ColumnName="GarageId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TOWServices">
+      <EntityTypeMapping TypeName="CWCAppDBModel.TOWService">
+        <MappingFragment StoreEntitySet="TOWService">
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="VehicleImage" ColumnName="VehicleImage" />
+          <ScalarProperty Name="ExtraFeatures" ColumnName="ExtraFeatures" />
+          <ScalarProperty Name="RangeOfService" ColumnName="RangeOfService" />
+          <ScalarProperty Name="RatePerKm" ColumnName="RatePerKm" />
+          <ScalarProperty Name="NoOfVehicleOwn" ColumnName="NoOfVehicleOwn" />
+          <ScalarProperty Name="MaxPayLoad" ColumnName="MaxPayLoad" />
+          <ScalarProperty Name="TypeOfVehicleOwn" ColumnName="TypeOfVehicleOwn" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="GarageId" ColumnName="GarageId" />
+          <ScalarProperty Name="TOWServiceID" ColumnName="TOWServiceID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RequestedTOWDetails">
+      <EntityTypeMapping TypeName="CWCAppDBModel.RequestedTOWDetail">
+        <MappingFragment StoreEntitySet="RequestedTOWDetails">
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="TotalCost" ColumnName="TotalCost" />
+          <ScalarProperty Name="ApproximateKMs" ColumnName="ApproximateKMs" />
+          <ScalarProperty Name="ContactNo" ColumnName="ContactNo" />
+          <ScalarProperty Name="ReqestedCity" ColumnName="ReqestedCity" />
+          <ScalarProperty Name="RequesterId" ColumnName="RequesterId" />
+          <ScalarProperty Name="ShopOwnerId" ColumnName="ShopOwnerId" />
+          <ScalarProperty Name="TOWServiceID" ColumnName="TOWServiceID" />
+          <ScalarProperty Name="DetailId" ColumnName="DetailId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RepairServices">
+      <EntityTypeMapping TypeName="CWCAppDBModel.RepairService">
+        <MappingFragment StoreEntitySet="RepairService">
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="ExtraFeatures" ColumnName="ExtraFeatures" />
+          <ScalarProperty Name="RatePerJob" ColumnName="RatePerJob" />
+          <ScalarProperty Name="RatePerHour" ColumnName="RatePerHour" />
+          <ScalarProperty Name="VehicleExpertise" ColumnName="VehicleExpertise" />
+          <ScalarProperty Name="TravelRange" ColumnName="TravelRange" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="GarageId" ColumnName="GarageId" />
+          <ScalarProperty Name="RepairServiceID" ColumnName="RepairServiceID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RequestedRepairDetails">
+      <EntityTypeMapping TypeName="CWCAppDBModel.RequestedRepairDetail">
+        <MappingFragment StoreEntitySet="RequestedRepairDetails">
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="RatePerJob" ColumnName="RatePerJob" />
+          <ScalarProperty Name="RatePerHour" ColumnName="RatePerHour" />
+          <ScalarProperty Name="ContactNo" ColumnName="ContactNo" />
+          <ScalarProperty Name="ReqestedCity" ColumnName="ReqestedCity" />
+          <ScalarProperty Name="RequesterId" ColumnName="RequesterId" />
+          <ScalarProperty Name="ShopOwnerId" ColumnName="ShopOwnerId" />
+          <ScalarProperty Name="RepairServiceID" ColumnName="RepairServiceID" />
+          <ScalarProperty Name="DetailId" ColumnName="DetailId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="VehicleRentalServices">
+      <EntityTypeMapping TypeName="CWCAppDBModel.VehicleRentalService">
+        <MappingFragment StoreEntitySet="VehicleRentalService">
+          <ScalarProperty Name="ServiceId" ColumnName="ServiceId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="VehicleImage" ColumnName="VehicleImage" />
+          <ScalarProperty Name="ExtraFeatures" ColumnName="ExtraFeatures" />
+          <ScalarProperty Name="RangeOfService" ColumnName="RangeOfService" />
+          <ScalarProperty Name="RatePreKM" ColumnName="RatePreKM" />
+          <ScalarProperty Name="NoOfVehicleOwn" ColumnName="NoOfVehicleOwn" />
+          <ScalarProperty Name="TypeOfVehicleOwn" ColumnName="TypeOfVehicleOwn" />
+          <ScalarProperty Name="RantalServiceName" ColumnName="RantalServiceName" />
+          <ScalarProperty Name="RentalServiceID" ColumnName="RentalServiceID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="FeedBacks">
+      <EntityTypeMapping TypeName="CWCAppDBModel.FeedBack">
+        <MappingFragment StoreEntitySet="FeedBack">
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="FeedBack1" ColumnName="FeedBack" />
+          <ScalarProperty Name="RateId" ColumnName="RateId" />
+          <ScalarProperty Name="FeedBackId" ColumnName="FeedBackId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Rates">
+      <EntityTypeMapping TypeName="CWCAppDBModel.Rate">
+        <MappingFragment StoreEntitySet="Rate">
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="ServiceProviderId" ColumnName="ServiceProviderId" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="RatedValue" ColumnName="RatedValue" />
+          <ScalarProperty Name="ProductOrServiceId" ColumnName="ProductOrServiceId" />
+          <ScalarProperty Name="ServiceProviderType" ColumnName="ServiceProviderType" />
+          <ScalarProperty Name="RatedUserId" ColumnName="RatedUserId" />
+          <ScalarProperty Name="RateId" ColumnName="RateId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ServiceFeedBacks">
+      <EntityTypeMapping TypeName="CWCAppDBModel.ServiceFeedBack">
+        <MappingFragment StoreEntitySet="ServiceFeedBack">
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="ServiceFeedBack1" ColumnName="ServiceFeedBack" />
+          <ScalarProperty Name="FeedBackId" ColumnName="FeedBackId" />
+          <ScalarProperty Name="ServiceFeedBackId" ColumnName="ServiceFeedBackId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RequestedRentalDetails">
+      <EntityTypeMapping TypeName="CWCAppDBModel.RequestedRentalDetail">
+        <MappingFragment StoreEntitySet="RequestedRentalDetails">
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="RatePerKM" ColumnName="RatePerKM" />
+          <ScalarProperty Name="ContactNo" ColumnName="ContactNo" />
+          <ScalarProperty Name="RequestedCity" ColumnName="RequestedCity" />
+          <ScalarProperty Name="RequesterId" ColumnName="RequesterId" />
+          <ScalarProperty Name="ShopOwnerId" ColumnName="ShopOwnerId" />
+          <ScalarProperty Name="RentalServiceID" ColumnName="RentalServiceID" />
+          <ScalarProperty Name="DetailId" ColumnName="DetailId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

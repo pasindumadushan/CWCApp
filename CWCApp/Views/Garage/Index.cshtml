@@ -1,0 +1,616 @@
+﻿<body id="page-top">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        @{
+            @Html.Partial("~/Views/PartialView/_Sidebar.cshtml");
+        }
+        <!-- End of Sidebar -->
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+                    <!-- Sidebar Toggle (Topbar) -->
+                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                        <i class="fa fa-bars"></i>
+                    </button>
+
+                    <!-- Topbar Search -->
+                    <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                        <div class="input-group">
+                            <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
+                                   aria-label="Search" aria-describedby="basic-addon2">
+                            <div class="input-group-append">
+                                <button class="btn btn-primary" type="button" disabled>
+                                    <i class="fas fa-search fa-sm"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+
+                    <!-- Topbar Navbar -->
+                    @{
+                        @Html.Partial("~/Views/PartialView/_Topbar.cshtml");
+                    }
+                </nav>
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <!-- Page Heading -->
+                    <h1 class="h3 mb-2 text-gray-800">Welcome to Garage</h1>
+                    <p class="mb-4">
+                        List of Garage related to several TOW Services and On spot mechanic Services alone with details.
+                    </p>
+
+                    <!-- DataTales Example -->
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <h6 class="m-0 font-weight-bold text-primary">Garages</h6>
+                                </div>
+                                <div class="col-sm-6 text-right">
+                                    <a class='btn btn-primary' id="Add" href="@Url.Action("AddView","Garage")">Add Garage</a>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="DT_load" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th>Garage Image</th>
+                                            <th>Name</th>
+                                            <th>Address Lane</th>
+                                            <th>City</th>
+                                            <th>State</th>
+                                            <th>Vehicle Capacity</th>
+                                            <th>TOW Capability</th>
+                                            <th>TOW Payload</th>
+                                            <th>Mechanics</th>
+                                            <th>Range Of Service</th>
+                                            <th>Extra Features</th>
+                                            <th>Rates</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Edit modal -->
+                    <div class='modal fade' id='EditModal' tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true'>
+                        <div class='modal-dialog' role='document'>
+                            <div class='modal-content'>
+                                <div class='modal-header'>
+                                    <h5 class='modal-title' id='exampleModalLabel'>Edit</h5>
+                                    <button type='button' class='close' data-dismiss='modal' aria-label='Close'>
+                                        <span aria-hidden='true'>&times;</span>
+                                    </button>
+                                </div>
+                                <div class='modal-body'>
+                                    <form Id="GarageForm" novalidate>
+                                        <input type="hidden" class="form-control form-control-user" id="GarageId" name="GarageId">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control form-control-user" id="GarageName" name="GarageName"
+                                                   placeholder="Garage Name..." disabled>
+                                        </div>
+                                        <div class="form-group">
+                                            <textarea class="form-control form-control-user" id="AddressOfGarage" name="AddressOfGarage"
+                                                      placeholder="Address..."></textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control form-control-user" id="City" name="City"
+                                                   placeholder="City...">
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control form-control-user" id="State" name="State"
+                                                   placeholder="State...">
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control form-control-user" id="VehicleCapacity" name="VehicleCapacity"
+                                                   placeholder="Vehicle Capacity...">
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control form-control-user" id="TOWCapability" name="TOWCapability"
+                                                   placeholder="TOW Capability...">
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control form-control-user" id="TOWPayload" name="TOWPayload"
+                                                   placeholder="TOW Payload...">
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="number" class="form-control form-control-user" id="NumberOfMechanics" name="NumberOfMechanics" min=2
+                                                   placeholder="Number of mechanics...">
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control form-control-user" id="RangeOfService" name="RangeOfService"
+                                                   placeholder="Range of service...">
+                                        </div>
+                                        <div class="form-group">
+                                            <textarea class="form-control form-control-user" id="ExtraFeatures" name="ExtraFeatures"
+                                                      placeholder="Extra Features..."></textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control form-control-user" id="Rates" name="Rates"
+                                                   placeholder="Rates...">
+                                        </div>
+                                        <div class="form-group">
+                                            <Table>
+                                                <tr>
+                                                    <td><label>Image</label></td>
+                                                    <td>
+                                                        <div class="col-md-offset-2 col-md-10">
+                                                            <input type="file" id="file" name="file" accept="image/*">
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </Table>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <tr>
+                                                <td>
+                                                    <div style="height:200px; width:200px; overflow:auto;">
+                                                        <img id="imgPhoto" alt="Image">
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <canvas id="canvas" height="5" width="5" style="vertical-align:top;"></canvas>
+                                                </td>
+                                            </tr>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-lg-6">
+                                                <div class="form-group">
+                                                    <input type="submit" value="Update" class="btn btn-primary btn-user btn-block" />
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div class="form-group">
+                                                    <a class='btn btn-primary btn-user btn-block' id="Add" href="@Url.Action("Index","Garage")">Go Back</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Edit modal -->
+
+                </div>
+
+            </div>
+            <!-- End of Main Content -->
+            <!-- Footer -->
+            @{
+                @Html.Partial("~/Views/PartialView/_Footer.cshtml");
+            }
+            <!-- End of Footer -->
+
+        </div>
+        <!-- End of Content Wrapper -->
+    </div>
+    <!-- End of Page Wrapper -->
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+    <!-- Logout Modal-->
+    @{
+        @Html.Partial("~/Views/PartialView/_LogoutModal.cshtml");
+    }
+
+</body>
+
+<script src="~/wwwroot/Bootstrap Design/vendor/jquery/jquery.min.js"></script>
+<script src="~/wwwroot/Bootstrap Design/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="~/wwwroot/Bootstrap Design/vendor/jquery-easing/jquery.easing.min.js"></script>
+<script src="~/wwwroot/Bootstrap Design/js/sb-admin-2.min.js"></script>
+<script src="~/wwwroot/lib/jquery-validation/dist/jquery.validate.js"></script>
+<script src="~/wwwroot/Bootstrap Design/vendor/datatables/jquery.dataTables.min.js"></script>
+<script src="~/wwwroot/Bootstrap Design/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+<script>
+
+    var imageCropWidth = 0;
+    var imageCropHeight = 0;
+    var cropPointX = 0;
+    var cropPointY = 0;
+    var jcropApi;
+
+    $(document).ready(function () {
+        LoadTable();
+        ValidateGarage()
+
+        $('#file').change(function () {
+            readFile(this);
+        })
+
+        $('#DT_load').on('click', '#DeleteYes', function () {
+            DeleteRecord($(this).attr("data-id"));
+            //delete($(this).attr("data-id"));
+        });
+
+        $('#DT_load').on('click', '#Edit', function () {
+            LoadFieldsEdit($(this).attr("data-id"));
+        });
+
+    });
+
+    function LoadTable() {
+
+                dataTable = $('#DT_load').DataTable({
+                    "bDestroy": true,
+                    "ajax": {
+                        "url": '@Url.Action("LoadTableData", "Garage")',
+                        "type": "GET",
+                        "datatype": "json"
+                    },
+                    "columns": [
+                        {
+                            "data": "PictureOfGarage", "render": function (data) {
+                                return `<img src='${data}' width='150px' heigth='150px'>`;
+                            }, "width": "10%"
+                        },
+                        { "data": "GarageName", "width": "20%" },
+                        { "data": "AddressOfGarage", "width": "20%" },
+                        { "data": "City", "width": "20%" },
+                        { "data": "State", "width": "20%" },
+                        { "data": "VehicleCapacity", "width": "20%" },
+                        { "data": "TOWCapability", "width": "10%" },
+                        { "data": "TOWPayload", "width": "10%" },
+                        { "data": "NumberOfMechanics", "width": "10%" },
+                        { "data": "RangeOfService", "width": "10%" },
+                        { "data": "ExtraFeatures", "width": "10%" },
+                        { "data": "Rates", "width": "10%" },
+                        {
+                            "data": "GarageId",
+                            "render": function (data) {
+                                return `<table class='table' width='100%' cellspacing='0' cellpadding='0'><tbody>
+
+                                        <tr><td style='border: none;'>
+                                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#EditModal" id="Edit" data-id='${data}'>
+                                            Edit
+                                        </button>
+                                        </td>
+
+                                        <td style='border: none;'>
+                                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#DeleteModal${data}" id="Delete" data-id='${data}'>
+                                            Delete
+                                        </button>
+                                        </td></tr>
+
+                                        <div class='modal fade' id='DeleteModal${data}' tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true'>
+                                        <div class='modal-dialog' role='document'>
+                                        <div class='modal-content'>
+                                        <div class='modal-header'>
+                                        <h5 class='modal-title' id='exampleModalLabel'>Warning!</h5>
+                                        <button type='button' class='close' data-dismiss='modal' aria-label='Close'>
+                                        <span aria-hidden='true'>&times;</span>
+                                        </button>
+                                        </div>
+                                        <div class='modal-body'>
+                                        Are you sure, do you want to delete this record?
+                                        </div>
+                                        <div class='modal-footer'>
+                                        <button type='button' class='btn btn-primary' id='DeleteYes' data-id='${data}'>Yes</button>
+                                        <button type='button' class='btn btn-secondary' data-dismiss='modal'>No</button>
+                                        </div>
+                                        </div>
+                                        </div>
+                                        </div>
+                                        `;
+                            }, "width": "10%"
+                        }
+                    ],
+                    "language": {
+                        "emptyTable": "no data found"
+                    },
+                    "width": "100%"
+                });
+
+    }
+
+    function LoadFieldsEdit(garageId) {
+
+        var garageId = {
+            garageId: garageId
+        }
+
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("LoadFieldsEdit", "Garage")',
+            dataType: 'json',
+            data: garageId,
+            ContentType: 'application/json; charset=utf-8',
+            success: function (data) {
+
+                var AllFields = data.data;
+                if (data.data != null) {
+                    $("#GarageId").val(AllFields.GarageId);
+                    $("#GarageName").val(AllFields.GarageName);
+                    $("#AddressOfGarage").val(AllFields.AddressOfGarage);
+                    $("#City").val(AllFields.City);
+                    $("#State").val(AllFields.State);
+                    $("#VehicleCapacity").val(AllFields.VehicleCapacity);
+                    $("#TOWCapability").val(AllFields.TOWCapability);
+                    $("#TOWPayload").val(AllFields.TOWPayload);
+                    $("#NumberOfMechanics").val(AllFields.NumberOfMechanics);
+                    $("#RangeOfService").val(AllFields.RangeOfService);
+                    $("#ExtraFeatures").val(AllFields.ExtraFeatures);
+                    $("#Rates").val(AllFields.Rates);
+                }
+                else {
+                    alert("Server Error!");
+                    $("#GarageId").val(0);
+                }
+
+
+            }
+        });
+    }
+
+    function ValidateGarage() {
+        $(function () {
+            jQuery.validator.addMethod("noSpace", function (value, element) {
+                return value.indexOf(" ") < 0 && value != "";
+            }, "No space please and don't leave it empty");
+
+            jQuery.validator.addMethod("exactlength", function (value, element, param) {
+                return this.optional(element) || value.length == param;
+            }, $.validator.format("Please enter exactly {0} characters."));
+
+            jQuery.validator.addMethod("filesize_max", function (value, element, param) {
+                var isOptional = this.optional(element),
+                    file;
+
+                if (isOptional) {
+                    return isOptional;
+                }
+
+                if ($(element).attr("type") === "file") {
+                    if (element.files && element.files.length) {
+                        file = element.files[0];
+                        return (file.size && file.size <= param);
+                    }
+                }
+                return false;
+            }, "File size is too large.");
+
+            $("#GarageForm").validate({
+
+                errorPlacement: function (error, element) {
+                    var placement = $(element).data('error');
+                    if (placement) {
+                        $(placement).append(error)
+                    } else {
+                        error.insertAfter(element);
+                    }
+                },
+                rules: {
+                    GarageName: {
+                        required: true
+                        //umailExist: true,
+                    },
+                    AddressOfGarage: {
+                        required: true
+                        //umailExist: true,
+                    },
+                    City: {
+                        required: true
+                        //umailExist: true,
+                    },
+                    State: {
+                        required: true
+                        //umailExist: true,
+                    },
+                    VehicleCapacity: {
+                        required: true
+                    },
+                    TOWCapability: {
+                        required: true,
+                        number: true
+                    },
+                    TOWPayload: {
+                        required: true,
+                        number: true
+                    },
+                    NumberOfMechanics: {
+                        required: true
+                    },
+                    RangeOfService: {
+                        required: true
+                    },
+                    ExtraFeatures: {
+                        required: true
+                    },
+                    file: {
+                        filesize_max: 800000
+                    },
+                    Rates: {
+                        required: true
+                    }
+                },
+                messages: {
+                    GarageName: {
+                        required: "Please fill this field!"
+                        //umailExist: true,
+                    },
+                    AddressOfGarage: {
+                        required: "Please fill this field!"
+                    },
+                    City: {
+                        required: "Please fill this field!"
+                    },
+                    State: {
+                        required: "Please fill this field!"
+                    },
+                    VehicleCapacity: {
+                        required: "Please fill this field!"
+                    },
+                    TOWCapability: {
+                        required: "Please fill this field!",
+                        number: "Invalid number!"
+                    },
+                    TOWPayload: {
+                        required: "Please fill this field!",
+                        number: "Invalid number!"
+                    },
+                    NumberOfMechanics: {
+                        required: "Please fill this field!"
+                    },
+                    RangeOfService: {
+                        required: "Please fill this field!"
+                    },
+                    ExtraFeatures: {
+                        required: "Please fill this field!"
+                    },
+                    PictureOfGarage: {
+                        filesize_max: "File too large please input less than 800KB"
+                    },
+                    Rates: {
+                        required: "Please fill this field!"
+                    }
+                },
+                submitHandler: function (form) {
+                    SaveGarage();
+                }
+
+            });
+        });
+    }
+
+    function SaveGarage() {
+
+        var GarageId = $("#GarageId").val();
+        var GarageName = $("#GarageName").val();
+        var AddressOfGarage = $("#AddressOfGarage").val();
+        var City = $("#City").val();
+        var State = $("#State").val();
+        var VehicleCapacity = $("#VehicleCapacity").val();
+        var TOWCapability = $("#TOWCapability").val();
+        var TOWPayload = $("#TOWPayload").val();
+        var NumberOfMechanics = $("#NumberOfMechanics").val();
+        var RangeOfService = $("#RangeOfService").val();
+        var ExtraFeatures = $("#ExtraFeatures").val();
+        var Rates = $("#Rates").val();
+
+        var garage = {
+            GarageId: GarageId,
+            GarageName: GarageName,
+            AddressOfGarage: AddressOfGarage,
+            City: City,
+            State: State,
+            VehicleCapacity: VehicleCapacity,
+            TOWCapability: TOWCapability,
+            TOWPayload: TOWPayload,
+            NumberOfMechanics: NumberOfMechanics,
+            RangeOfService: RangeOfService,
+            ExtraFeatures: ExtraFeatures,
+            Rates: Rates
+        }
+
+        var formData = new FormData();
+        var PictureOfGarage = $('#file').get(0).files;
+        formData.append("imageFile", PictureOfGarage[0]);
+        formData.append("data", JSON.stringify(garage));
+
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("SaveGarage", "Garage")',
+            contentType: false, //must for formdata
+            processData: false, //must for formdata
+            dataType: 'json',
+            ContentType: 'application/json; charset=utf-8',
+            data: formData,
+            success: function (data) {
+
+                var AllFields = data.data;
+
+                if (AllFields.GarageId <= 0) {
+                    alert("Server error!");
+                }
+                else {
+                    alert("Successfully saved!");
+                    window.location.href = '@Url.Action("Index","Garage")';
+                }
+
+            }
+        });
+    }
+
+    function DeleteRecord(garageId) {
+
+        var garageId = garageId;
+
+        var garageId = {
+            garageId: garageId
+        }
+
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("DeleteGarage", "Garage")',
+            dataType: 'json',
+            ContentType: 'application/json; charset=utf-8',
+            data: garageId,
+            success: function (data) {
+
+                var AllFields = data.data;
+
+                if (AllFields.StoreId <= 0) {
+                    alert("Server error!");
+                }
+                else {
+                    alert("Successfully deleted!");
+                    $('#DeleteModal' + AllFields.GarageId).modal('toggle');
+                    window.location.href = '@Url.Action("Index","Garage")';
+                }
+
+            }
+        });
+    }
+
+    function readFile(input) {
+
+        console.log("asda" + input);
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            /*Destroy jcrop initialization other wise it will hold it previous image in img tag*/
+            if (jcropApi != null) {
+                jcropApi.destroy();
+            }
+            reader.onload = function (e) {
+                $('#imgPhoto').attr('src', "");
+                var img = $('#imgPhoto').attr('src', e.target.result);
+
+                /*Current uploaded image size*/
+                var width = img[0].height;
+                var height = img[0].width;
+                $("#lblWidth").text(width + "px");
+                $("#lblHeight").text(height + "px");
+
+            }
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+</script>

@@ -1,0 +1,466 @@
+﻿<body id="page-top">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        @{
+            @Html.Partial("~/Views/PartialView/_Sidebar.cshtml");
+        }
+        <!-- End of Sidebar -->
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+                    <!-- Sidebar Toggle (Topbar) -->
+                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                        <i class="fa fa-bars"></i>
+                    </button>
+
+                    <!-- Topbar Search -->
+                    <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                        <div class="input-group">
+                            <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
+                                   aria-label="Search" aria-describedby="basic-addon2">
+                            <div class="input-group-append">
+                                <button class="btn btn-primary" type="button" disabled>
+                                    <i class="fas fa-search fa-sm"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+
+                    <!-- Topbar Navbar -->
+                    @{
+                        @Html.Partial("~/Views/PartialView/_Topbar.cshtml");
+                    }
+                </nav>
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <!-- Page Heading -->
+                    <h1 class="h3 mb-2 text-gray-800">Welcome to Repair Services Of Garage</h1>
+                    <p class="mb-4">
+                        List of Repair serivces related to several Garages alone with details.
+                    </p>
+
+                    <!-- DataTales Example -->
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <h6 class="m-0 font-weight-bold text-primary">Repair serices</h6>
+                                </div>
+                                <div class="col-sm-6 text-right">
+                                    <a class='btn btn-primary' id="Add" href="@Url.Action("AddView","VehicleRepairService")">Add Item</a>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="DT_load" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th>GarageName</th>
+                                            <th>Travel Range</th>
+                                            <th>Vehicle Expertise</th>
+                                            <th>Rate Per Hour</th>
+                                            <th>Rate Per Job</th>
+                                            <th>Extra Features</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Edit modal -->
+                    <div class='modal fade' id='EditModal' tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true'>
+                        <div class='modal-dialog' role='document'>
+                            <div class='modal-content'>
+                                <div class='modal-header'>
+                                    <h5 class='modal-title' id='exampleModalLabel'>Edit</h5>
+                                    <button type='button' class='close' data-dismiss='modal' aria-label='Close'>
+                                        <span aria-hidden='true'>&times;</span>
+                                    </button>
+                                </div>
+                                <div class='modal-body'>
+                                    <form Id="RepairServiceForm" novalidate>
+                                        <input type="hidden" class="form-control form-control-user" id="RepairServiceID" name="RepairServiceID"
+                                               placeholder="">
+                                        <div class="form-group">
+                                            <select class="form-control" id="GarageName" name="GarageName" disabled>
+                                                <option value="" selected disabled>Select Garage...</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control form-control-user" id="TravelRange" name="TravelRange"
+                                                   placeholder="Vehicle Type...">
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control form-control-user" id="VehicleExpertise" name="VehicleExpertise"
+                                                   placeholder="Max Payload">
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control form-control-user" id="RatePerHour" name="RatePerHour"
+                                                   placeholder="Rate Per hour...">
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control form-control-user" id="RatePerJob" name="RatePerJob"
+                                                   placeholder="Rate Per Job...">
+                                        </div>
+                                        <div class="form-group">
+                                            <textarea class="form-control form-control-user" id="ExtraFeatures" name="ExtraFeatures"
+                                                      placeholder="Extra Features..."></textarea>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-lg-6">
+                                                <div class="form-group">
+                                                    <input type="submit" value="Update" class="btn btn-primary btn-user btn-block" />
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div class="form-group">
+                                                    <a class='btn btn-primary btn-user btn-block' id="Add" href="@Url.Action("Index","VehicleRepairService")">Go Back</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Edit modal -->
+
+                </div>
+
+            </div>
+            <!-- End of Main Content -->
+            <!-- Footer -->
+            @{
+                @Html.Partial("~/Views/PartialView/_Footer.cshtml");
+            }
+            <!-- End of Footer -->
+
+        </div>
+        <!-- End of Content Wrapper -->
+    </div>
+    <!-- End of Page Wrapper -->
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+    <!-- Logout Modal-->
+    @{
+        @Html.Partial("~/Views/PartialView/_LogoutModal.cshtml");
+    }
+
+</body>
+
+<script src="~/wwwroot/Bootstrap Design/vendor/jquery/jquery.min.js"></script>
+<script src="~/wwwroot/Bootstrap Design/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="~/wwwroot/Bootstrap Design/vendor/jquery-easing/jquery.easing.min.js"></script>
+<script src="~/wwwroot/Bootstrap Design/js/sb-admin-2.min.js"></script>
+<script src="~/wwwroot/lib/jquery-validation/dist/jquery.validate.js"></script>
+<script src="~/wwwroot/Bootstrap Design/vendor/datatables/jquery.dataTables.min.js"></script>
+<script src="~/wwwroot/Bootstrap Design/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+<script>
+
+    $(document).ready(function () {
+        LoadTable();
+        LoadGarage();
+        ValidateRepairService();
+
+        $('#DT_load').on('click', '#DeleteYes', function () {
+            DeleteRecord($(this).attr("data-id"));
+        });
+
+        $('#DT_load').on('click', '#Edit', function () {
+            LoadFieldsEdit($(this).attr("data-id"));
+        });
+
+    });
+
+    function LoadTable() {
+
+                dataTable = $('#DT_load').DataTable({
+                    "bDestroy": true,
+                    "ajax": {
+                        "url": '@Url.Action("LoadTableData", "VehicleRepairService")',
+                        "type": "GET",
+                        "datatype": "json"
+                    },
+                    "columns": [
+                        { "data": "GarageName", "width": "10%" },
+                        { "data": "TravelRange", "width": "10%" },
+                        { "data": "VehicleExpertise", "width": "10%" },
+                        { "data": "RatePerHour", "width": "10%" },
+                        { "data": "RatePerJob", "width": "10%" },
+                        { "data": "ExtraFeatures", "width": "10%" },
+                        {
+                            "data": "RepairServiceID",
+                            "render": function (data) {
+                                return `<table class='table' width='100%' cellspacing='0' cellpadding='0'><tbody>
+
+                                        <tr><td style='border: none;'>
+                                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#EditModal" id="Edit" data-id='${data}'>
+                                            Edit
+                                        </button>
+                                        </td>
+
+                                        <td style='border: none;'>
+                                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#DeleteModal${data}" id="Delete" data-id='${data}'>
+                                            Delete
+                                        </button>
+                                        </td></tr>
+
+                                        <div class='modal fade' id='DeleteModal${data}' tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true'>
+                                        <div class='modal-dialog' role='document'>
+                                        <div class='modal-content'>
+                                        <div class='modal-header'>
+                                        <h5 class='modal-title' id='exampleModalLabel'>Warning!</h5>
+                                        <button type='button' class='close' data-dismiss='modal' aria-label='Close'>
+                                        <span aria-hidden='true'>&times;</span>
+                                        </button>
+                                        </div>
+                                        <div class='modal-body'>
+                                        Are you sure, do you want to delete this record?
+                                        </div>
+                                        <div class='modal-footer'>
+                                        <button type='button' class='btn btn-primary' id='DeleteYes' data-id='${data}'>Yes</button>
+                                        <button type='button' class='btn btn-secondary' data-dismiss='modal'>No</button>
+                                        </div>
+                                        </div>
+                                        </div>
+                                        </div>
+                                        `;
+                            }, "width": "10%"
+                        }
+                    ],
+                    "language": {
+                        "emptyTable": "no data found"
+                    },
+                    "width": "100%"
+                });
+
+    }
+
+    function LoadGarage() {
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("LoadGarages", "TOWService")',
+            dataType: 'json',
+            ContentType: 'application/json; charset=utf-8',
+            success: function (data) {
+
+                var Stores = data.data;
+                for (var i = 0; i < Stores.length; i++) {
+
+                    var newOption = new Option(Stores[i].GarageName, Stores[i].GarageId, false, false);
+                    $('#GarageName').append(newOption).trigger('change');
+                }
+
+            }
+        });
+    }
+
+    function LoadFieldsEdit(RepairServiceID) {
+        var RepairServiceID = {
+            RepairServiceID: RepairServiceID
+        }
+
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("LoadFieldsEdit", "VehicleRepairService")',
+            dataType: 'json',
+            data: RepairServiceID,
+            ContentType: 'application/json; charset=utf-8',
+            success: function (data) {
+
+                var AllFields = data.data;
+                if (data.data != null) {
+                    console.log(AllFields);
+                    $("#RepairServiceID").val(AllFields.RepairServiceID);
+                    $("#GarageName").val(AllFields.GarageId);
+                    $("#TravelRange").val(AllFields.TravelRange);
+                    $("#VehicleExpertise").val(AllFields.VehicleExpertise);
+                    $("#RatePerHour").val(AllFields.RatePerHour);
+                    $("#RatePerJob").val(AllFields.RatePerJob);
+                    $("#ExtraFeatures").val(AllFields.ExtraFeatures);
+                }
+                else {
+                    alert("Server Error!");
+                    $("#RepairServiceID").val(0);
+                }
+
+
+            }
+        });
+    }
+
+    function DeleteRecord(RepairServiceID) {
+
+        var RepairServiceID = {
+            RepairServiceID: RepairServiceID
+        }
+
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("DeleteRepairService", "VehicleRepairService")',
+            dataType: 'json',
+            ContentType: 'application/json; charset=utf-8',
+            data: RepairServiceID,
+            success: function (data) {
+
+                var AllFields = data.data;
+
+                if (AllFields.RepairServiceID <= 0) {
+                    alert("Server error!");
+                }
+                else {
+                    alert("Successfully deleted!");
+                    $('#DeleteModal' + AllFields.TOWService).modal('toggle');
+                    window.location.href = '@Url.Action("Index", "VehicleRepairService")';
+                }
+
+            }
+        });
+    }
+
+    function ValidateRepairService() {
+        $(function () {
+            jQuery.validator.addMethod("noSpace", function (value, element) {
+                return value.indexOf(" ") < 0 && value != "";
+            }, "No space please and don't leave it empty");
+
+            jQuery.validator.addMethod("exactlength", function (value, element, param) {
+                return this.optional(element) || value.length == param;
+            }, $.validator.format("Please enter exactly {0} characters."));
+
+            $("#RepairServiceForm").validate({
+
+                errorPlacement: function (error, element) {
+                    var placement = $(element).data('error');
+                    if (placement) {
+                        $(placement).append(error)
+                    } else {
+                        error.insertAfter(element);
+                    }
+                },
+                rules: {
+                    GarageName: {
+                        required: true
+                        //umailExist: true,
+                    },
+                    TravelRange: {
+                        required: true,
+                        number: true
+                    },
+                    VehicleExpertise: {
+                        required: true
+                    },
+                    RatePerHour: {
+                        required: true,
+                        number: true
+                    },
+                    RatePerJob: {
+                        required: true,
+                        number: true
+                    },
+                    ExtraFeatures: {
+                        required: true
+                    }
+                },
+                messages: {
+                    GarageName: {
+                        required: "Please fill this field!"
+                        //umailExist: true,
+                    },
+                    TravelRange: {
+                        required: "Please fill this field!",
+                        number:"Invalid number!"
+                    },
+                    VehicleExpertise: {
+                        required: "Please fill this field!"
+                    },
+                    RatePerHour: {
+                        required: "Please fill this field!",
+                        number: "Invalid number!"
+                    },
+                    RatePerJob: {
+                        required: "Please fill this field!"
+                    },
+                    ExtraFeatures: {
+                        required: "Please fill this field!"
+                    }
+                },
+                submitHandler: function (form) {
+                    SaveRepairService();
+                }
+
+            });
+        });
+    }
+
+    function SaveRepairService() {
+
+        var RepairServiceID = $("#RepairServiceID").val();
+        var GarageName = $("#GarageName").val();
+        var TravelRange = $("#TravelRange").val();
+        var VehicleExpertise = $("#VehicleExpertise").val();
+        var RatePerHour = $("#RatePerHour").val();
+        var RatePerJob = $("#RatePerJob").val();
+        var ExtraFeatures = $("#ExtraFeatures").val();
+
+        var RepairService = {
+            RepairServiceID: RepairServiceID,
+            GarageId: GarageName,
+            TravelRange: TravelRange,
+            VehicleExpertise: VehicleExpertise,
+            RatePerHour: RatePerHour,
+            RatePerJob: RatePerJob,
+            ExtraFeatures: ExtraFeatures
+        }
+
+        var formData = new FormData();
+        formData.append("data", JSON.stringify(RepairService));
+
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("SaveRepairService", "VehicleRepairService")',
+            dataType: 'json',
+            contentType: false, //must for formdata
+            processData: false, //must for formdata
+            ContentType: 'application/json; charset=utf-8',
+            data: formData,
+            success: function (data) {
+
+                var AllFields = data.data;
+
+                if (AllFields.StoreId <= 0) {
+                    alert("Server error!");
+                }
+                else {
+                    alert("Successfully saved!");
+                    window.location.href = '@Url.Action("Index", "VehicleRepairService")';
+                }
+
+            }
+        });
+    }
+</script>
+

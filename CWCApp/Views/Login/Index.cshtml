@@ -1,0 +1,155 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<body class="bg-gradient-primary">
+    <div class="container">
+
+        <div class="card o-hidden border-0 shadow-lg my-5">
+            <div class="card-body p-0">
+                <!-- Nested Row within Card Body -->
+                <div class="row">
+                    <div class="col-lg-5 d-none d-lg-block bg-register-image"></div>
+                    <div class="col-lg-7">
+                        <div class="p-5">
+                            <div class="text-center">
+                                <h1 class="h4 text-gray-900 mb-4">Welcome Back, Sign In to Account!</h1>
+                            </div>
+                            <form Id="UserForm" novalidate>
+                                <div class="form-group">
+                                    <input type="email" class="form-control form-control-user" id="Email" name="Email"
+                                           placeholder="Email Address">
+                                </div>
+                                <div class="form-group">
+                                    <input type="password" class="form-control form-control-user"
+                                           id="UserPassword" name="UserPassword" placeholder="Password">
+                                </div>
+
+                                <div class="form-group">
+                                    <input type="submit" value="Login" class="btn btn-primary btn-user btn-block" />
+                                </div>
+
+                                
+                            </form>
+                            <hr>
+                            <div class="text-center">
+                                <a class="small" href="@Url.Action("ConfirmEmail","Login")">Forgot password?</a>
+                            </div>
+                            <div class="text-center">
+                                <a class="small" href="@Url.Action("Index","Register")">Not have an account? SignUp!</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="card shadow mb-4">
+                        <div class="card-body p-0">
+                            <div class="w3-content w3-display-container">
+                                <div class="row">
+                                    <img class="mySlides" src="/Images/SystemPhotos/cover 1.jpg" style="width:100%">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</body>
+
+<script src="~/wwwroot/Bootstrap Design/vendor/jquery/jquery.min.js"></script>
+<script src="~/wwwroot/Bootstrap Design/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="~/wwwroot/Bootstrap Design/vendor/jquery-easing/jquery.easing.min.js"></script>
+<script src="~/wwwroot/Bootstrap Design/js/sb-admin-2.min.js"></script>
+<script src="~/wwwroot/lib/jquery-validation/dist/jquery.validate.js"></script>
+
+<script>
+    $(document).ready(function () {
+        validateLogin();
+    });
+
+    function validateLogin() {
+        $(function () {
+            jQuery.validator.addMethod("noSpace", function (value, element) {
+                return value.indexOf(" ") < 0 && value != "";
+            }, "No space please and don't leave it empty");
+
+            jQuery.validator.addMethod("exactlength", function (value, element, param) {
+                return this.optional(element) || value.length == param;
+            }, $.validator.format("Please enter exactly {0} characters."));
+
+            $("#UserForm").validate({
+
+                errorPlacement: function (error, element) {
+                    var placement = $(element).data('error');
+                    if (placement) {
+                        $(placement).append(error)
+                    } else {
+                        error.insertAfter(element);
+                    }
+                },
+                rules: {
+                    Email: {
+                        required: true,
+                        noSpace: true
+                        //umailExist: true,
+                    },
+                    UserPassword: {
+                        required: true,
+                        noSpace: true
+                    }
+                },
+                messages: {
+                    Email: {
+                        required: "Please fill this field!",
+                        noSpace: "Space not allowed"
+                    },
+                    UserPassword: {
+                        required: "Please fill this field!",
+                        noSpace: "Space not allowed"
+                    }
+                },
+                submitHandler: function (form) {
+                    Login();
+                }
+
+            });
+        });
+    }
+
+    function Login() {
+
+        var Email = $("#Email").val();
+        var UserPassword = $("#UserPassword").val();
+
+        var userProfile = {
+            Email: Email,
+            UserPassword: UserPassword
+        };
+
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("Login", "Login")',
+            dataType: 'json',
+            ContentType: 'application/json; charset=utf-8',
+            data: userProfile,
+            success: function (data) {
+
+                console.log(data.data);
+                if (data.data == 1) {
+                    alert("Login fail, wrong user mail or password!");
+                }
+                else if (data.data == 2){
+                    alert("Login fail, wrong password!");
+                }
+                else if (data.data == 3) {
+                   var url = '@Url.Action("Home","Home")';
+                   window.location.href = url;
+                }
+
+            }
+        });
+    }
+</script>

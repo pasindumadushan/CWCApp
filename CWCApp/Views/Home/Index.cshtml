@@ -1,0 +1,301 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<body id="page-top">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        @{
+            @Html.Partial("~/Views/PartialView/_Sidebar.cshtml");
+        }
+        <!-- End of Sidebar -->
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+                    <!-- Sidebar Toggle (Topbar) -->
+                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                        <i class="fa fa-bars"></i>
+                    </button>
+
+                    <!-- Topbar Search -->
+                    <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                        <div class="input-group">
+                            <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
+                                   aria-label="Search" aria-describedby="basic-addon2">
+                            <div class="input-group-append">
+                                <button class="btn btn-primary" type="button" disabled>
+                                    <i class="fas fa-search fa-sm"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+
+                    <!-- Topbar Navbar -->
+                    @{
+                        @Html.Partial("~/Views/PartialView/_Topbar.cshtml");
+                    }
+                </nav>
+                <!-- End of Topbar -->
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <!-- Page Heading -->
+                    @*<div class="d-sm-flex align-items-center justify-content-between mb-4">
+                        <h1 class="h3 mb-0 text-gray-800">Cards</h1>
+                    </div>*@
+
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <!-- Dropdown Card Example -->
+                            <div class="card shadow mb-4">
+                                <!-- Card Header - Dropdown -->
+                                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                    <h6 class="m-0 font-weight-bold text-primary">Service Provider Profile</h6>
+                                    <div class="dropdown no-arrow">
+                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                                             aria-labelledby="dropdownMenuLink">
+                                            <div class="dropdown-header">More</div>
+                                            <button class="dropdown-item" id="Edit" name="Edit">Edit</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Card Body -->
+                                <div class="card-body">
+                                    <form Id="ServiceProviderForm" novalidate>
+                                        <div class="form-group">
+                                            <input type="hidden" class="form-control form-control-user" id="ServiceId" name="ServiceId">
+                                            <div class="form-group">
+                                                <select class="form-control" id="ServiceProviderType" name="ServiceProviderType">
+                                                    <option value="" selected disabled>Select service provider type...</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="number" class="form-control form-control-user" id="ExperienceYear" name="ExperienceYear"
+                                                       placeholder="Years experience" min="0">
+                                            </div>
+                                            <textarea class="form-control" id="Qualification" name="Qualification" rows="10" placeholder="Qalification"></textarea>
+
+                                        </div>
+
+                                        <div class="form-group">
+                                            <input type="submit" value="Save" class="btn btn-primary btn-user btn-block" />
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- /.container-fluid -->
+
+            </div>
+            <!-- End of Main Content -->
+
+            <!-- Footer -->
+            @{
+                @Html.Partial("~/Views/PartialView/_Footer.cshtml");
+            }
+            <!-- End of Footer -->
+
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+    <!-- Logout Modal-->
+    @{
+        @Html.Partial("~/Views/PartialView/_LogoutModal.cshtml");
+    }
+
+</body>
+
+<script src="~/wwwroot/Bootstrap Design/vendor/jquery/jquery.min.js"></script>
+<script src="~/wwwroot/Bootstrap Design/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="~/wwwroot/Bootstrap Design/vendor/jquery-easing/jquery.easing.min.js"></script>
+<script src="~/wwwroot/Bootstrap Design/js/sb-admin-2.min.js"></script>
+<script src="~/wwwroot/lib/jquery-validation/dist/jquery.validate.js"></script>
+<script>
+    $(document).ready(function () {
+        LoadServiceTypes();
+        LoadAllFields();
+        ValidateServiceProviderProfile();
+        EditServiceProviderProfile();
+    });
+
+    function LoadServiceTypes() {
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("LoadServiceTypes", "ServiceProviderProfile")',
+            dataType: 'json',
+            ContentType: 'application/json; charset=utf-8',
+            success: function (data) {
+
+                var ServiceTypes = data.data;
+                for (var i = 0; i < ServiceTypes.length; i++) {
+
+                    var newOption = new Option(ServiceTypes[i].ServiceType, ServiceTypes[i].ServiceProviderTypeId, false, false);
+                    $('#ServiceProviderType').append(newOption).trigger('change');
+                }
+
+            }
+        });
+    }
+
+    function ValidateServiceProviderProfile() {
+        $(function () {
+            jQuery.validator.addMethod("noSpace", function (value, element) {
+                return value.indexOf(" ") < 0 && value != "";
+            }, "No space please and don't leave it empty");
+
+            jQuery.validator.addMethod("exactlength", function (value, element, param) {
+                return this.optional(element) || value.length == param;
+            }, $.validator.format("Please enter exactly {0} characters."));
+
+            $("#ServiceProviderForm").validate({
+
+                errorPlacement: function (error, element) {
+                    var placement = $(element).data('error');
+                    if (placement) {
+                        $(placement).append(error)
+                    } else {
+                        error.insertAfter(element);
+                    }
+                },
+                rules: {
+                    ServiceProviderType: {
+                        required: true
+                        //umailExist: true,
+                    },
+                    ExperienceYear: {
+                        required: true
+                    },
+                    Qualification: {
+                        required: true
+                    }
+                },
+                messages: {
+                    ServiceProviderType: {
+                        required: "Please fill this field!"
+                        //umailExist: true,
+                    },
+                    ExperienceYear: {
+                        required: "Please fill this field!"
+                    },
+                    Qualification: {
+                        required: "Please fill this field!"
+                    }
+                },
+                submitHandler: function (form) {
+                    SaveServiceProviderProfile();
+                }
+
+            });
+        });
+    }
+
+    function SaveServiceProviderProfile() {
+
+        var serviceId = $("#ServiceId").val();
+        var serviceProviderTypeId = $("#ServiceProviderType").val();
+        var experienceYear = $("#ExperienceYear").val();
+        var qualification = $("#Qualification").val();
+
+        var serviceProviderProfile = {
+            ServiceId: serviceId,
+            ServiceProviderTypeId: serviceProviderTypeId,
+            ExperienceYear:experienceYear,
+            Qualification:qualification
+        }
+
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("SaveServiceProviderProfile", "ServiceProviderProfile")',
+            dataType: 'json',
+            ContentType: 'application/json; charset=utf-8',
+            data: serviceProviderProfile,
+            success: function (data) {
+
+                var AllFields = data.data;
+
+                if (AllFields.ServiceId <= 0) {
+                    alert("Server error!");
+                }
+                else {
+                    alert("Successfully saved!");
+
+                    $("#ServiceId").val(AllFields.ServiceId);
+                    $("#ServiceProviderType").val(AllFields.ServiceProviderTypeId);
+                    $("#ExperienceYear").val(AllFields.ExperienceYear);
+                    $("#Qualification").val(AllFields.Qualification);
+
+                    $("#ServiceProviderType").prop('disabled', true);
+                    $("#ExperienceYear").prop('disabled', true);
+                    $("#Qualification").prop('disabled', true);
+                }
+
+            }
+        });
+
+    }
+
+    function EditServiceProviderProfile() {
+        $("#Edit").click(function () {
+            if ($("#ServiceId").val() != 0) {
+                //you can enable edit ServiceProviderType here
+                $("#ServiceProviderType").prop('disabled', true);
+                $("#ExperienceYear").prop('disabled', false);
+                $("#Qualification").prop('disabled', false);
+            }
+        });
+    }
+
+    function LoadAllFields() {
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("LoadAllFields", "ServiceProviderProfile")',
+            dataType: 'json',
+            ContentType: 'application/json; charset=utf-8',
+            success: function (data) {
+
+                var AllFields = data.data;
+                if (data.data != null) {
+
+                    $("#ServiceProviderType").prop('disabled', true);
+                    $("#ExperienceYear").prop('disabled', true);
+                    $("#Qualification").prop('disabled', true);
+
+                    $("#ServiceId").val(AllFields.ServiceId);
+                    $("#ServiceProviderType").val(AllFields.ServiceProviderTypeId);
+                    $("#ExperienceYear").val(AllFields.ExperienceYear);
+                    $("#Qualification").val(AllFields.Qualification);
+
+                }
+                else {
+                    $("#ServiceId").val(0);
+                }
+                
+
+            }
+        });
+    }
+</script>

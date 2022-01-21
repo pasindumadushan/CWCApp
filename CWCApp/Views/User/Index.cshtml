@@ -1,0 +1,505 @@
+﻿<body id="page-top">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        @{
+            @Html.Partial("~/Views/PartialView/_Sidebar.cshtml");
+        }
+        <!-- End of Sidebar -->
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+                    <!-- Sidebar Toggle (Topbar) -->
+                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                        <i class="fa fa-bars"></i>
+                    </button>
+
+                    <!-- Topbar Search -->
+                    <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                        <div class="input-group">
+                            <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
+                                   aria-label="Search" aria-describedby="basic-addon2">
+                            <div class="input-group-append">
+                                <button class="btn btn-primary" type="button" disabled>
+                                    <i class="fas fa-search fa-sm"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+
+                    <!-- Topbar Navbar -->
+                    @{
+                        @Html.Partial("~/Views/PartialView/_Topbar.cshtml");
+                    }
+                </nav>
+                <!-- End of Topbar -->
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <!-- Page Heading -->
+                    @*<div class="d-sm-flex align-items-center justify-content-between mb-4">
+                            <h1 class="h3 mb-0 text-gray-800">Cards</h1>
+                        </div>*@
+
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <!-- Dropdown Card Example -->
+                            <div class="card shadow mb-4">
+                                <!-- Card Header - Dropdown -->
+                                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                    <h6 class="m-0 font-weight-bold text-primary">User Profile</h6>
+                                    <div class="dropdown no-arrow">
+                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                                             aria-labelledby="dropdownMenuLink">
+                                            <div class="dropdown-header">More</div>
+                                            <button class="dropdown-item" id="Edit" name="Edit">Edit</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Card Body -->
+                                <div class="card-body">
+                                    <form Id="UserForm" novalidate>
+                                        <div class="form-group">
+                                            <input type="hidden" class="form-control form-control-user" id="UserId" name="UserId">
+                                            <div class="form-group">
+                                                <select class="form-control" id="UserType" name="UserType">
+                                                    <option value="" selected disabled>User Type...</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="text" class="form-control form-control-user" id="UserName" name="UserName"
+                                                       placeholder="User Name...">
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="text" class="form-control form-control-user" id="Email" name="Email"
+                                                       placeholder="Email...">
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="text" class="form-control form-control-user" id="ContactNumber" name="ContactNumber"
+                                                       placeholder="ContactNumber...">
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="text" class="form-control form-control-user" id="DOB" name="DOB"
+                                                       placeholder="Birthday...">
+                                            </div>
+                                            <div class="form-group">
+                                                <select class="form-control" id="Sex" name="Sex">
+                                                    <option value="" selected disabled>Gender...</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="text" class="form-control form-control-user" id="NIC" name="NIC"
+                                                       placeholder="Indentity card number...">
+                                            </div>
+                                            <div class="form-group">
+                                                <textarea class="form-control" id="Address" name="Address" rows="10" placeholder="Address"></textarea>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <Table>
+                                                    <tr>
+                                                        <td><label>Image</label></td>
+                                                        <td>
+                                                            <div class="col-md-offset-2 col-md-10">
+                                                                <input type="file" id="file" name="file" accept="image/*">
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </Table>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <tr>
+                                                    <td>
+                                                        <div style="height:200px; width:200px; overflow:auto;">
+                                                            <img id="imgPhoto" alt="Image">
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <canvas id="canvas" height="5" width="5" style="vertical-align:top;"></canvas>
+                                                    </td>
+                                                </tr>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="form-group">
+                                            <input type="submit" value="Save" class="btn btn-primary btn-user btn-block" />
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- /.container-fluid -->
+
+            </div>
+            <!-- End of Main Content -->
+            <!-- Footer -->
+            @{
+                @Html.Partial("~/Views/PartialView/_Footer.cshtml");
+            }
+            <!-- End of Footer -->
+
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+    <!-- Logout Modal-->
+    @{
+        @Html.Partial("~/Views/PartialView/_LogoutModal.cshtml");
+    }
+
+</body>
+
+<script src="~/wwwroot/Bootstrap Design/vendor/jquery/jquery.min.js"></script>
+<script src="~/wwwroot/Bootstrap Design/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="~/wwwroot/Bootstrap Design/vendor/jquery-easing/jquery.easing.min.js"></script>
+<script src="~/wwwroot/Bootstrap Design/js/sb-admin-2.min.js"></script>
+<script src="~/wwwroot/lib/jquery-validation/dist/jquery.validate.js"></script>
+<script src="~/Scripts/jquery.datetimepicker.js"></script>
+<script>
+
+    var imageCropWidth = 0;
+    var imageCropHeight = 0;
+    var cropPointX = 0;
+    var cropPointY = 0;
+    var jcropApi;
+
+    $(document).ready(function () {
+        FieldIntialize();
+        LoadUserTypes();
+        ShowGender();
+        LoadAllFields();
+        EditUserProfile();
+        ValidateUserProfile();
+        $('#file').change(function () {
+            readFile(this);
+        });
+
+    });
+
+    function FieldIntialize()
+    {
+        $("#DOB").datetimepicker({
+            format: 'Y/m/d', timepicker: true, scrollMonth: true, scrollInput: false
+        });
+    }
+
+    function ValidateUserProfile() {
+        $(function () {
+            jQuery.validator.addMethod("noSpace", function (value, element) {
+                return value.indexOf(" ") < 0 && value != "";
+            }, "No space please and don't leave it empty");
+
+            jQuery.validator.addMethod("exactlength", function (value, element, param) {
+                return this.optional(element) || value.length == param;
+            }, $.validator.format("Please enter exactly {0} characters."));
+
+            jQuery.validator.addMethod("filesize_max", function (value, element, param) {
+                var isOptional = this.optional(element),
+                    file;
+
+                if (isOptional) {
+                    return isOptional;
+                }
+
+                if ($(element).attr("type") === "file") {
+                    if (element.files && element.files.length) {
+                        file = element.files[0];
+                        return (file.size && file.size <= param);
+                    }
+                }
+                return false;
+            }, "File size is too large.");
+
+            $("#UserForm").validate({
+
+                errorPlacement: function (error, element) {
+                    var placement = $(element).data('error');
+                    if (placement) {
+                        $(placement).append(error)
+                    } else {
+                        error.insertAfter(element);
+                    }
+                },
+                rules: {
+                    UserType: {
+                        required: true
+                    },
+                    UserName: {
+                        required: true
+                    },
+                    Email: {
+                        required: true
+                    },
+                    ContactNumber: {
+                        required: true
+                    },
+                    Sex: {
+                        required: true
+                    },
+                    NIC: {
+                        required: true
+                    },
+                    DOB: {
+                        required: true
+                    },
+                    Address: {
+                        required: true
+                    },
+                    file: {
+                        filesize_max: 200000
+                    }
+                },
+                messages: {
+                    UserType: {
+                        required: "Please fill this field!"
+                    },
+                    UserName: {
+                        required: "Please fill this field!"
+                    },
+                    Email: {
+                        required: "Please fill this field!"
+                    },
+                    ContactNumber: {
+                        required: "Please fill this field!"
+                    },
+                    Sex: {
+                        required: "Please fill this field!"
+                    },
+                    NIC: {
+                        required: "Please fill this field!"
+                    },
+                    DOB: {
+                        required: "Please fill this field!"
+                    },
+                    Address: {
+                        required: "Please fill this field!"
+                    },
+                    file: {
+                        filesize_max: "File too large please input less than 200KB"
+                    }
+                },
+                submitHandler: function (form) {
+                    SaveUserProfile();
+                }
+
+            });
+        });
+    }
+
+
+    function SaveUserProfile() {
+
+        var userId = $("#UserId").val();
+        var userType = $("#UserType").val();
+        var userName = $("#UserName").val();
+        var email = $("#Email").val();
+        var contactNumber = $("#ContactNumber").val();
+        var sex = $("#Sex").val();
+        var NIC = $("#NIC").val();
+        var DOB = $("#DOB").val();
+        var address = $("#Address").val();
+
+        var userProfile = {
+            UserId: userId,
+            UserTypeId: userType,
+            userName: userName,
+            Email: email,
+            ContactNumber: contactNumber,
+            DOB: DOB,
+            Sex: sex,
+            Address: address,
+            NIC: NIC
+        }
+
+        var formData = new FormData();
+        var file = $('#file').get(0).files;
+        formData.append("imageFile", file[0]);
+        formData.append("data", JSON.stringify(userProfile));
+
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("SaveUserProfile", "User")',
+            dataType: 'json',
+            contentType: false, //must for formdata
+            processData: false, //must for formdata
+            ContentType: 'application/json; charset=utf-8',
+            data: formData,
+            success: function (data) {
+
+                var AllFields = data.data;
+
+                if (AllFields.ServiceId <= 0) {
+                    alert("Server error!");
+                }
+                else {
+                    alert("Successfully saved!");
+
+                    $("#UserId").val(AllFields.UserId);
+                    $("#UserType").val(AllFields.UserTypeId);
+                    $("#UserName").val(AllFields.UserName);
+                    $("#Email").val(AllFields.Email);
+                    $("#ContactNumber").val(AllFields.ContactNumber);
+                    $("#Sex").val(AllFields.Sex);
+
+                    var value = new Date(parseInt(AllFields.DOB.substr(6)));
+                    var ret = value.getFullYear() + "/" + (value.getMonth() + 1) + "/" + value.getDate();
+                    $("#DOB").val(ret);
+
+                    $("#NIC").val(AllFields.NIC);
+                    $("#Address").val(AllFields.Address);
+
+                    $("#UserType").prop('disabled', true);
+                    $("#UserName").prop('disabled', true);
+                    $("#Email").prop('disabled', true);
+                    $("#ContactNumber").prop('disabled', true);
+                    $("#Sex").prop('disabled', true);
+                    $("#NIC").prop('disabled', true);
+                    $("#DOB").prop('disabled', true);
+                    $("#Address").prop('disabled', true);
+                    $("#file").prop('disabled', true);
+                }
+
+            }
+        });
+
+    }
+
+    function LoadAllFields() {
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("LoadAllFields", "User")',
+            dataType: 'json',
+            ContentType: 'application/json; charset=utf-8',
+            success: function (data) {
+
+                var AllFields = data.data;
+                if (data.data != null) {
+
+                    $("#UserType").prop('disabled', true);
+                    $("#UserName").prop('disabled', true);
+                    $("#Email").prop('disabled', true);
+                    $("#ContactNumber").prop('disabled', true);
+                    $("#Sex").prop('disabled', true);
+                    $("#NIC").prop('disabled', true);
+                    $("#DOB").prop('disabled', true);
+                    $("#Address").prop('disabled', true);
+                    $("#file").prop('disabled', true);
+
+
+                    $("#UserId").val(AllFields.UserId);
+                    $("#UserType").val(AllFields.UserTypeId);
+                    $("#UserName").val(AllFields.UserName);
+                    $("#Email").val(AllFields.Email);
+                    $("#ContactNumber").val(AllFields.ContactNumber);
+                    $("#Sex").val(AllFields.Sex);
+
+                    var value = new Date(parseInt(AllFields.DOB.substr(6)));
+                    var ret = value.getFullYear() + "/" + (value.getMonth() + 1) + "/" + value.getDate();
+
+                    $("#DOB").val(ret);
+
+                    $("#NIC").val(AllFields.NIC);
+                    $("#Address").val(AllFields.Address);
+
+                }
+                else {
+                    $("#UserId").val(0);
+                }
+
+
+            }
+        });
+    }
+
+    function LoadUserTypes() {
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("LoadAllUserTypes", "UserType")',
+            dataType: 'json',
+            ContentType: 'application/json; charset=utf-8',
+            success: function (data) {
+
+                var UserTypes = data.data;
+                for (var i = 0; i < UserTypes.length; i++) {
+
+                    var newOption = new Option(UserTypes[i].UserType, UserTypes[i].UserTypeId, false, false);
+                    $('#UserType').append(newOption).trigger('change');
+                }
+
+            }
+        });
+    }
+
+    function EditUserProfile() {
+        $("#Edit").click(function () {
+            if ($("#ServiceId").val() != 0) {
+                //you can enable edit ServiceProviderType here
+                $("#UserType").prop('disabled', true);
+                $("#UserName").prop('disabled', true);
+                $("#Email").prop('disabled', true);
+                $("#ContactNumber").prop('disabled', false);
+                $("#Sex").prop('disabled', false);
+                $("#NIC").prop('disabled', false);
+                $("#DOB").prop('disabled', false);
+                $("#Address").prop('disabled', false);
+                $("#file").prop('disabled', false);
+            }
+        });
+    }
+
+    function ShowGender() {
+        var newOption = new Option("Male", "Male", false, false);
+        $('#Sex').append(newOption).trigger('change');
+        newOption = new Option("Female", "Female", false, false);
+        $('#Sex').append(newOption).trigger('change');
+    }
+
+    function readFile(input) {
+
+        console.log("asda"+input);
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            /*Destroy jcrop initialization other wise it will hold it previous image in img tag*/
+            if (jcropApi != null) {
+                jcropApi.destroy();
+            }
+            reader.onload = function (e) {
+                $('#imgPhoto').attr('src', "");
+                var img = $('#imgPhoto').attr('src', e.target.result);
+
+                /*Current uploaded image size*/
+                var width = img[0].height;
+                var height = img[0].width;
+                $("#lblWidth").text(width + "px");
+                $("#lblHeight").text(height + "px");
+
+            }
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+</script>

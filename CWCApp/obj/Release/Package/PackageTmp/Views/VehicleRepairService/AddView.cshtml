@@ -1,0 +1,277 @@
+﻿
+<body id="page-top">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        @{
+            @Html.Partial("~/Views/PartialView/_Sidebar.cshtml");
+        }
+        <!-- End of Sidebar -->
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+                    <!-- Sidebar Toggle (Topbar) -->
+                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                        <i class="fa fa-bars"></i>
+                    </button>
+
+                    <!-- Topbar Search -->
+                    <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                        <div class="input-group">
+                            <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
+                                   aria-label="Search" aria-describedby="basic-addon2">
+                            <div class="input-group-append">
+                                <button class="btn btn-primary" type="button" disabled>
+                                    <i class="fas fa-search fa-sm"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+
+                    <!-- Topbar Navbar -->
+                    @{
+                        @Html.Partial("~/Views/PartialView/_Topbar.cshtml");
+                    }
+                </nav>
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <!-- Page Heading -->
+                    <h1 class="h3 mb-2 text-gray-800">Add your Repair Service Deails</h1>
+                    <form Id="RepairServiceForm" novalidate>
+                        <div class="row">
+                            <div class="col-lg-6">
+
+                                <div class="form-group">
+                                    <select class="form-control" id="GarageName" name="GarageName">
+                                        <option value="" selected disabled>Select Garage...</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control form-control-user" id="TravelRange" name="TravelRange"
+                                           placeholder="Travel Range...">
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control form-control-user" id="VehicleExpertise" name="VehicleExpertise"
+                                           placeholder="Vehicle Expertise">
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control form-control-user" id="RatePerHour" name="RatePerHour"
+                                           placeholder="Rate Per hour...">
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control form-control-user" id="RatePerJob" name="RatePerJob"
+                                           placeholder="Rate Per Job...">
+                                </div>
+                                <div class="form-group">
+                                    <textarea class="form-control form-control-user" id="ExtraFeatures" name="ExtraFeatures"
+                                              placeholder="Extra Features..."></textarea>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <input type="submit" value="Add Item" class="btn btn-primary btn-user btn-block" />
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <a class='btn btn-primary btn-user btn-block' id="Add" href="@Url.Action("Index","VehicleRepairService")">Go Back</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </form>
+
+                </div>
+                <!-- End of Main Content -->
+
+            </div>
+            <!-- End of Main Content -->
+            <!-- Footer -->
+            @{
+                @Html.Partial("~/Views/PartialView/_Footer.cshtml");
+            }
+            <!-- End of Footer -->
+
+        </div>
+        <!-- End of Content Wrapper -->
+    </div>
+    <!-- End of Page Wrapper -->
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+    <!-- Logout Modal-->
+    @{
+        @Html.Partial("~/Views/PartialView/_LogoutModal.cshtml");
+    }
+
+</body>
+
+<script src="~/wwwroot/Bootstrap Design/vendor/jquery/jquery.min.js"></script>
+<script src="~/wwwroot/Bootstrap Design/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="~/wwwroot/Bootstrap Design/vendor/jquery-easing/jquery.easing.min.js"></script>
+<script src="~/wwwroot/Bootstrap Design/js/sb-admin-2.min.js"></script>
+<script src="~/wwwroot/lib/jquery-validation/dist/jquery.validate.js"></script>
+<script>
+
+    $(document).ready(function () {
+        LoadGarage();
+        ValidateRepairService();
+
+    });
+
+    function LoadGarage() {
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("LoadGarages", "TOWService")',
+            dataType: 'json',
+            ContentType: 'application/json; charset=utf-8',
+            success: function (data) {
+
+                var Stores = data.data;
+                for (var i = 0; i < Stores.length; i++) {
+
+                    var newOption = new Option(Stores[i].GarageName, Stores[i].GarageId, false, false);
+                    $('#GarageName').append(newOption).trigger('change');
+                }
+
+            }
+        });
+    }
+
+    function ValidateRepairService() {
+        $(function () {
+            jQuery.validator.addMethod("noSpace", function (value, element) {
+                return value.indexOf(" ") < 0 && value != "";
+            }, "No space please and don't leave it empty");
+
+            jQuery.validator.addMethod("exactlength", function (value, element, param) {
+                return this.optional(element) || value.length == param;
+            }, $.validator.format("Please enter exactly {0} characters."));
+
+            $("#RepairServiceForm").validate({
+
+                errorPlacement: function (error, element) {
+                    var placement = $(element).data('error');
+                    if (placement) {
+                        $(placement).append(error)
+                    } else {
+                        error.insertAfter(element);
+                    }
+                },
+                rules: {
+                    GarageName: {
+                        required: true
+                        //umailExist: true,
+                    },
+                    TravelRange: {
+                        required: true,
+                        number: true
+                    },
+                    VehicleExpertise: {
+                        required: true
+                    },
+                    RatePerHour: {
+                        required: true,
+                        number: true
+                    },
+                    RatePerJob: {
+                        required: true,
+                        number: true
+                    },
+                    ExtraFeatures: {
+                        required: true
+                    }
+                },
+                messages: {
+                    GarageName: {
+                        required: "Please fill this field!"
+                        //umailExist: true,
+                    },
+                    TravelRange: {
+                        required: "Please fill this field!",
+                        number:"Invalid number!"
+                    },
+                    VehicleExpertise: {
+                        required: "Please fill this field!"
+                    },
+                    RatePerHour: {
+                        required: "Please fill this field!",
+                        number: "Invalid number!"
+                    },
+                    RatePerJob: {
+                        required: "Please fill this field!",
+                        number: "Invalid number!"
+                    },
+                    ExtraFeatures: {
+                        required: "Please fill this field!"
+                    }
+                },
+                submitHandler: function (form) {
+                    SaveRepairService();
+                }
+
+            });
+        });
+    }
+
+    function SaveRepairService() {
+
+        var GarageName = $("#GarageName").val();
+        var TravelRange = $("#TravelRange").val();
+        var VehicleExpertise = $("#VehicleExpertise").val();
+        var RatePerHour = $("#RatePerHour").val();
+        var RatePerJob = $("#RatePerJob").val();
+        var ExtraFeatures = $("#ExtraFeatures").val();
+
+        var RepairService = {
+            GarageId: GarageName,
+            TravelRange: TravelRange,
+            VehicleExpertise: VehicleExpertise,
+            RatePerHour: RatePerHour,
+            RatePerJob: RatePerJob,
+            ExtraFeatures: ExtraFeatures
+        }
+
+        var formData = new FormData();
+        formData.append("data", JSON.stringify(RepairService));
+
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("SaveRepairService", "VehicleRepairService")',
+            dataType: 'json',
+            contentType: false, //must for formdata
+            processData: false, //must for formdata
+            ContentType: 'application/json; charset=utf-8',
+            data: formData,
+            success: function (data) {
+
+                var AllFields = data.data;
+
+                if (AllFields.StoreId <= 0) {
+                    alert("Server error!");
+                }
+                else {
+                    alert("Successfully saved!");
+                    window.location.href = '@Url.Action("Index", "VehicleRepairService")';
+                }
+
+            }
+        });
+    }
+
+</script>

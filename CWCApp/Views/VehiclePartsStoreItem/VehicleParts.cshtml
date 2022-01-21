@@ -1,0 +1,704 @@
+﻿<body id="page-top">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        @{
+            @Html.Partial("~/Views/PartialView/_Sidebar.cshtml");
+        }
+        <!-- End of Sidebar -->
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+                    <!-- Sidebar Toggle (Topbar) -->
+                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                        <i class="fa fa-bars"></i>
+                    </button>
+
+                    <!-- Topbar Search -->
+                    <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                        <div class="input-group">
+                            <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
+                                   aria-label="Search" aria-describedby="basic-addon2">
+                            <div class="input-group-append">
+                                <button class="btn btn-primary" type="button" disabled>
+                                    <i class="fas fa-search fa-sm"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+
+                    <!-- Topbar Navbar -->
+                    @{
+                        @Html.Partial("~/Views/PartialView/_Topbar.cshtml");
+                    }
+                </nav>
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <!-- Page Heading -->
+                    <h1 class="h3 mb-2 text-gray-800">Welcome to CWC vehicle parts selling platform</h1>
+                    <p class="mb-4">
+                        List of items related to several spare parts alone with details.
+                    </p>
+
+                    <!-- DataTales Example -->
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <h6 class="m-0 font-weight-bold text-primary">Items</h6>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="DT_load" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th>Image</th>
+                                            <th>Item Name</th>
+                                            <th>Brand</th>
+                                            <th>SOLD Amount</th>
+                                            <th>Left Items</th>
+                                            <th>Discription</th>
+                                            <th>Retail Price(Per 1)</th>
+                                            <th>Rating</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <!-- visit modal -->
+                <div class='modal fade' id='VisitModal' tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true'>
+                    <div class='modal-dialog' role='document'>
+                        <div class='modal-content'>
+                            <div class='modal-header'>
+                                <h5 class='modal-title' id='exampleModalLabel'>Visit Our Store!</h5>
+                                <button type='button' class='close' data-dismiss='modal' aria-label='Close'>
+                                    <span aria-hidden='true'>&times;</span>
+                                </button>
+                            </div>
+                            <div class='modal-body'>
+                                <div class="card mb-4 py-3 border-left-success">
+                                    <div class="card-body">
+                                        <form Id="VisitForm" novalidate>
+                                            <div class="row">
+                                                <div class="col-6">
+                                                    <div class="form-group">
+                                                        <p class="text-secondary">
+                                                            Shop :
+                                                            <span class="label label-default" id="StoreNameV" name="StoreNameV"></span>
+                                                        </p>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <p class="text-secondary">
+                                                            Item :
+                                                            <span class="label label-default" id="ItemNameV" name="ItemNameV"></span>
+                                                        </p>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <p class="text-secondary">
+                                                            Brand :
+                                                            <span class="label label-default" id="ItemBrandV" name="ItemBrandV"></span>
+                                                        </p>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <p class="text-secondary">
+                                                            Discription :
+                                                            <span class="label label-default" id="ItemDiscriptionV" name="ItemDiscriptionV"></span>
+                                                        </p>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <p class="text-secondary">
+                                                            Specs :
+                                                            <span class="label label-default" id="ItemSpecsV" name="ItemSpecsV"></span>
+                                                        </p>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <p class="text-secondary">
+                                                            Address :
+                                                            <span class="label label-default" id="StoreAddressV" name="StoreAddressV"></span>
+                                                        </p>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <p class="text-secondary">
+                                                            Contact :
+                                                            <span class="label label-default" id="StoreContactV" name="StoreContactV"></span>
+                                                        </p>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Buy modal -->
+                <div class='modal fade' id='BuyModal' tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true'>
+                    <div class='modal-dialog' role='document'>
+                        <div class='modal-content'>
+                            <div class='modal-header'>
+                                <h5 class='modal-title' id='exampleModalLabel'>Buy Online</h5>
+                                <button type='button' class='close' data-dismiss='modal' aria-label='Close'>
+                                    <span aria-hidden='true'>&times;</span>
+                                </button>
+                            </div>
+                            <div class='modal-body'>
+                                <form Id="ItemForm" novalidate>
+                                    <input type="hidden" class="form-control form-control-user" id="ItemId" name="ItemId"
+                                           placeholder="Item Id">
+                                    <input type="hidden" class="form-control form-control-user" id="RetailPriceCal" name="RetailPriceCal"
+                                           placeholder="">
+                                    <input type="hidden" class="form-control form-control-user" id="WholeSalePriceCal" name="WholeSalePriceCal"
+                                           placeholder="">
+                                    <input type="hidden" class="form-control form-control-user" id="ShopOwnerId" name="ShopOwnerId"
+                                           placeholder="">
+
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <img src='#' id="ItemImage" width='200px' heigth='200px'>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="form-group">
+                                                <p class="text-secondary">
+                                                    Shop :
+                                                    <span class="label label-default" id="StoreName" name="StoreName"></span>
+                                                </p>
+                                            </div>
+                                            <div class="form-group">
+                                                <p class="text-secondary">
+                                                    Item :
+                                                    <span class="label label-default" id="ItemName" name="ItemName"></span>
+                                                </p>
+                                            </div>
+                                            <div class="form-group">
+                                                <p class="text-secondary">
+                                                    Type :
+                                                    <span class="label label-default" id="ItemType" name="ItemType"></span>
+                                                </p>
+                                            </div>
+                                            <div class="form-group">
+                                                <p class="text-secondary">
+                                                    Brand :
+                                                    <span class="label label-default" id="ItemBrand" name="ItemBrand"></span>
+                                                </p>
+                                            </div>
+                                            <div class="form-group">
+                                                <p class="text-secondary">
+                                                    Discription :
+                                                    <span class="label label-default" id="ItemDiscription" name="ItemDiscription"></span>
+                                                </p>
+                                            </div>
+                                            <div class="form-group">
+                                                <p class="text-secondary">
+                                                    Specs :
+                                                    <span class="label label-default" id="ItemSpecs" name="ItemSpecs"></span>
+                                                </p>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <!-- Tasks Card Example -->
+                                    <div class="form-group">
+                                        <!-- Earnings (Annual) Card Example -->
+                                        <div class="row">
+                                            <div class="col-6">
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="card border-left-info shadow h-100 py-2">
+                                                    <div class="card-body">
+                                                        <div class="row no-gutters align-items-center">
+                                                            <div class="col mr-2">
+                                                                <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                                                                    Sales
+                                                                </div>
+                                                                <div class="row no-gutters align-items-center">
+                                                                    <div class="col-auto">
+                                                                        <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800" id="SoldPrecentage">50%</div>
+                                                                    </div>
+                                                                    <div class="col">
+                                                                        <div class="progress progress-sm mr-2">
+                                                                            <div class="progress-bar bg-info" role="progressbar"
+                                                                                 style="width: 50%" aria-valuenow="50" aria-valuemin="0"
+                                                                                 aria-valuemax="100"></div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-auto">
+                                                                <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <!-- Earnings (Annual) Card Example -->
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <div class="card border-left-success shadow h-100 py-2">
+                                                    <div class="card-body">
+                                                        <div class="row no-gutters align-items-center">
+                                                            <div class="col mr-2">
+                                                                <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                                                    Retail Price
+                                                                </div>
+                                                                <div class="h5 mb-0 font-weight-bold text-gray-800" id="RetailPrice">0</div>
+                                                            </div>
+                                                            <div class="col-auto">
+                                                                <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="card border-left-success shadow h-100 py-2">
+                                                    <div class="card-body">
+                                                        <div class="row no-gutters align-items-center">
+                                                            <div class="col mr-2">
+                                                                <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                                                    Whole Sale Price
+                                                                </div>
+                                                                <div class="h5 mb-0 font-weight-bold text-gray-800" id="WholeSalePrice">0</div>
+                                                            </div>
+                                                            <div class="col-auto">
+                                                                <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <textarea class="form-control form-control-user" id="DeliveryAddress" name="DeliveryAddress"
+                                                          placeholder="Your Address..."></textarea>
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="text" class="form-control form-control-user" id="ContactNumber" name="ContactNumber"
+                                                       placeholder="Contact Number...">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <p class="text-secondary" style="font-size:11px">
+                                                    Buy more than 10 and get whole sale discount!
+                                                </p>
+                                                <input type="number" class="form-control form-control-user" id="Quantity" name="Quantity"
+                                                       placeholder="Quanitity" min=1 max=1>
+                                            </div>
+                                            <p class="text-secondary">
+                                                Total Price :
+                                                <span class="label label-default" id="TotalPrice" name="TotalPrice"></span>
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <input type="submit" value="Buy" class="btn btn-primary btn-user btn-block" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Buy modal -->
+
+                <!-- ReviewModal -->
+                <div class='modal fade' id='ReviewModal' tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true'>
+                    <div class='modal-dialog' role='document'>
+                        <div class='modal-content'>
+                            <div class='modal-header'>
+                                <h5 class='modal-title' id='exampleModalLabel'>Customer Reviews</h5>
+                                <button type='button' class='close' data-dismiss='modal' aria-label='Close'>
+                                    <span aria-hidden='true'>&times;</span>
+                                </button>
+                            </div>
+                            <div class='modal-body'>
+                                <form Id="ReviewForm" novalidate>
+                                    <div id="Reviews">
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <a class='btn btn-primary btn-user btn-block' id="Add" href="@Url.Action("VehicleParts","VehiclePartsStoreItem")">Go Back</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!-- End of Main Content -->
+            <!-- Footer -->
+            @{
+                @Html.Partial("~/Views/PartialView/_Footer.cshtml");
+            }
+            <!-- End of Footer -->
+
+        </div>
+        <!-- End of Content Wrapper -->
+    </div>
+    <!-- End of Page Wrapper -->
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+    <!-- Logout Modal-->
+    @{
+        @Html.Partial("~/Views/PartialView/_LogoutModal.cshtml");
+    }
+
+</body>
+
+<script src="~/wwwroot/Bootstrap Design/vendor/jquery/jquery.min.js"></script>
+<script src="~/wwwroot/Bootstrap Design/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="~/wwwroot/Bootstrap Design/vendor/jquery-easing/jquery.easing.min.js"></script>
+<script src="~/wwwroot/Bootstrap Design/js/sb-admin-2.min.js"></script>
+<script src="~/wwwroot/lib/jquery-validation/dist/jquery.validate.js"></script>
+<script src="~/wwwroot/Bootstrap Design/vendor/datatables/jquery.dataTables.min.js"></script>
+<script src="~/wwwroot/Bootstrap Design/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+<script src="~/wwwroot/js/date.format.js"></script>
+<script>
+
+    $(document).ready(function () {
+        LoadTable();
+        ValidateVehiclePartsStoreItemBuy()
+
+        $('#DT_load').on('click', '#Buy', function () {
+            LoadDetailsModel($(this).attr("data-id"));
+        });
+
+        $('#DT_load').on('click', '#Visit', function () {
+            LoadDetailsModel($(this).attr("data-id"));
+        });
+
+        $('#ItemForm').on('change', '#Quantity', function () {
+            TotalCal($(this).val());
+        });
+
+        $('#DT_load').on('click', '#ReviewStoreItem', function () {
+            LoadRateAndFeedBack($(this).attr("data-id"));
+        });
+
+
+    });
+
+    function LoadTable() {
+
+                dataTable = $('#DT_load').DataTable({
+                    "bDestroy": true,
+                    "ajax": {
+                        "url": '@Url.Action("GetVehicleParts", "VehiclePartsStoreItem")',
+                        "type": "GET",
+                        "datatype": "json"
+                    },
+                    "columns": [
+                        {
+                            "data": "ItemImage", "render": function (data) {
+                                return `<img src='${data}' width='150px' heigth='150px'>`;
+                            }, "width": "10%"
+                        },
+                        { "data": "ItemName", "width": "10%" },
+                        { "data": "ItemBrand", "width": "10%" },
+                        { "data": "ItemBoughtAmount", "caption": "SOLD", "width": "10%", "className": "SOLD" },
+                        { "data": "ItemBalance", "caption": "Left", "width": "10%", "className": "Left"  },
+                        { "data": "ItemDiscription", "width": "10%" },
+                        { "data": "RetailPrice", "width": "10%" },
+                        { "data": "AvgRate", "width": "10%" },
+                        {
+                            "data": "ItemId",
+                            "render": function (data) {
+                                return `<table class='table' width='100%' cellspacing='0' cellpadding='0'><tbody>
+
+                                        <tr><td style='border: none;'>
+                                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#BuyModal" id="Buy" data-id='${data}'>
+                                            Buy Online
+                                        </button>
+                                        </td>
+
+                                        <td style='border: none;'>
+                                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#VisitModal" id="Visit" data-id='${data}'>
+                                            Visit Sore
+                                        </button>
+                                        </td>
+
+                                        <td style='border: none;'>
+                                        <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#ReviewModal" id="ReviewStoreItem" data-id='${data}'>
+                                          Reviews<img src='/Images/SystemPhotos/starrating.png' width='30px' heigth='30px'>
+                                        </button>
+                                        </td>
+                                        </tr>
+                                        `;
+                            }, "width": "10%"
+                        }
+                    ],
+                    "language": {
+                        "emptyTable": "no data found"
+                    },
+                    "width": "100%"
+                });
+
+    }
+
+    function LoadDetailsModel(itemId) {
+        var itemId = {
+            itemId: itemId
+        }
+
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("GetVehiclePartDetails", "VehiclePartsStoreItem")',
+            dataType: 'json',
+            data: itemId,
+            ContentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                console.log(data);
+                $('#ItemImage').attr("src", (data.data.ItemImage));
+                $('#ItemId').val(data.data.ItemId);
+                $('#StoreName').text(data.data.StoreName);
+                $('#ItemName').text(data.data.ItemName);
+                $('#ItemType').text(data.data.ItemType);
+                $('#ItemBrand').text(data.data.ItemBrand);
+                $('#ItemDiscription').text(data.data.ItemDiscription);
+                $('#ItemSpecs').text(data.data.ItemSpecs);
+                $('#RetailPrice').text("Rs." + data.data.RetailPrice);
+                $('#WholeSalePrice').text("Rs." + data.data.WholeSalePrice);
+                $('#RetailPriceCal').val(data.data.RetailPrice);
+                $('#WholeSalePriceCal').val(data.data.WholeSalePrice);
+                $('#Quantity').attr({
+                    "max": data.data.ItemBalance,        // substitute your own
+                    "min": 1          // values (or variables) here
+                });
+
+                $('#SoldPrecentage').text(((data.data.ItemBoughtAmount / data.data.ItemTotalAmount) * 100) + "%");
+                $(".progress-bar").css('width', (data.data.ItemBoughtAmount / data.data.ItemTotalAmount) * 100);
+                $('#ShopOwnerId').val(data.data.UserId);
+
+                $('#StoreNameV').text(data.data.StoreName);
+                $('#ItemNameV').text(data.data.ItemName);
+                $('#ItemBrandV').text(data.data.ItemBrand);
+                $('#ItemDiscriptionV').text(data.data.ItemDiscription);
+                $('#ItemSpecsV').text(data.data.ItemSpecs);
+                $('#StoreAddressV').text(data.data.AddressOfStore);
+                $('#StoreContactV').text("Rs." + data.data.ContactNumber);
+
+            }
+        });
+    }
+
+    function TotalCal(Quantity) {
+        if (Quantity < 10) {
+            $('#TotalPrice').text(Quantity * $('#RetailPriceCal').val());
+        }
+        else {
+            $('#TotalPrice').text(Quantity * $('#WholeSalePriceCal').val());
+        }
+    }
+
+    function ValidateVehiclePartsStoreItemBuy() {
+        $(function () {
+            jQuery.validator.addMethod("noSpace", function (value, element) {
+                return value.indexOf(" ") < 0 && value != "";
+            }, "No space please and don't leave it empty");
+
+            jQuery.validator.addMethod("exactlength", function (value, element, param) {
+                return this.optional(element) || value.length == param;
+            }, $.validator.format("Please enter exactly {0} characters."));
+
+            $("#ItemForm").validate({
+
+                errorPlacement: function (error, element) {
+                    var placement = $(element).data('error');
+                    if (placement) {
+                        $(placement).append(error)
+                    } else {
+                        error.insertAfter(element);
+                    }
+                },
+                rules: {
+                    DeliveryAddress: {
+                        required: true
+                        //umailExist: true,
+                    },
+                    ContactNumber: {
+                        required: true
+                    },
+                    Quantity: {
+                        required: true,
+                        max: function () {
+                            console.log($('#Quantity').attr('max'));
+                            return parseInt($('#Quantity').attr('max'));
+                        }
+                    }
+                },
+                messages: {
+                    DeliveryAddress: {
+                        required: "Please fill this field!"
+                        //umailExist: true,
+                    },
+                    ContactNumber: {
+                        required: "Please fill this field!"
+                    },
+                    Quantity: {
+                        required: "Please fill this field!",
+                        max: "Quantity not avaliable!"
+                    }
+                },
+                submitHandler: function (form) {
+                    BuyVehiclePartsStoreItem();
+                }
+
+            });
+        });
+    }
+
+    function BuyVehiclePartsStoreItem() {
+
+        var ItemId = $('#ItemId').val();
+        var ShopOwnerId = $('#ShopOwnerId').val();
+        var DeliveryAddress = $('#DeliveryAddress').val();
+        var ContactNumber = $('#ContactNumber').val();
+        var Quantity = $('#Quantity').val();
+        var TotalPrice = $('#TotalPrice').text();
+        var RetailPriceCal = $('#RetailPriceCal').val();
+        var WholeSalePriceCal = $('#WholeSalePriceCal').val();
+
+        var boughtItemDetail = {
+            ItemId: ItemId,
+            ShopOwnerId: ShopOwnerId,
+            DeliveryAddress: DeliveryAddress,
+            ContactNo: ContactNumber,
+            Quantity: Quantity,
+            TotalPrice: TotalPrice,
+            RetailPrice: RetailPriceCal,
+            WholeSalePrice: WholeSalePriceCal
+        }
+         $.ajax({
+            type: "POST",
+            url: '@Url.Action("BuyVehiclePartsStoreItem", "VehiclePartsStoreItem")',
+            dataType: 'json',
+             data: boughtItemDetail,
+            ContentType: 'application/json; charset=utf-8',
+             success: function (data) {
+
+                 var AllFields = data.data;
+
+                if (AllFields == null) {
+                    alert("Server error!");
+                }
+                else {
+                    alert("Order has been placed!");
+                    $('#ItemForm' + AllFields.StoreId).modal('toggle');
+                    window.location.href = '@Url.Action("VehicleParts", "VehiclePartsStoreItem")';
+                }
+
+            }
+        });
+
+
+    }
+
+    function LoadRateAndFeedBack(productOrServiceId) {
+        var productOrServiceId = {
+            productOrServiceId: productOrServiceId
+        }
+
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("GetRateFeedbackByStoreItemProductId", "VehiclePartsStoreItem")',
+            dataType: 'json',
+            data: productOrServiceId,
+            ContentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                $("#Reviews").empty();
+                var AllFields = data.data;
+
+                for (let i = 0; i < AllFields.length; i++) {
+                    var date = new Date(parseInt(AllFields[i].CreatedDate.substr(6)));
+                    var formatDate = date.format("ddd mmm dd yyyy HH:MM:ss");
+
+                    if (AllFields[i].RatedValue == 1) {
+                        $("#Reviews").append('<div class="card mb-4 py-2 border-bottom-danger"><div class="card-header">' + AllFields[i].RatedUserName + '&nbsp;&nbsp;&nbsp;&nbsp;<span class="fa fa-star checked"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span>&nbsp;&nbsp;&nbsp;&nbsp;' + formatDate + '</div> <div class="card-body"><div class="card shadow mb-1"><div class="card-body">' + AllFields[i].FeedBack1 + '</div></div><div class="card shadow mb-1" style="margin-left: 20px;"><div class="card-body">Reply : ' + AllFields[i].ServiceFeedBack1 + '</div></div></div></div>');
+                    }
+                    else if (AllFields[i].RatedValue == 2){
+                        $("#Reviews").append('<div class="card mb-4 py-2 border-bottom-danger"><div class="card-header">' + AllFields[i].RatedUserName + '&nbsp;&nbsp;&nbsp;&nbsp;<span class="fa fa-star checked"></span><span class="fa fa-star checked"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span>&nbsp;&nbsp;&nbsp;&nbsp;' + formatDate + '</div> <div class="card-body"><div class="card shadow mb-1"><div class="card-body">' + AllFields[i].FeedBack1 + '</div></div><div class="card shadow mb-1" style="margin-left: 20px;"><div class="card-body">Reply : ' + AllFields[i].ServiceFeedBack1 + '</div></div></div></div>');
+                    }
+                    else if (AllFields[i].RatedValue == 3) {
+                        $("#Reviews").append('<div class="card mb-4 py-2 border-bottom-warning"><div class="card-header">' + AllFields[i].RatedUserName + '&nbsp;&nbsp;&nbsp;&nbsp;<span class="fa fa-star checked"></span><span class="fa fa-star checked"></span><span class="fa fa-star checked"></span><span class="fa fa-star"></span><span class="fa fa-star"></span>&nbsp;&nbsp;&nbsp;&nbsp;' + formatDate + '</div> <div class="card-body"><div class="card shadow mb-1"><div class="card-body">' + AllFields[i].FeedBack1 + '</div></div><div class="card shadow mb-1" style="margin-left: 20px;"><div class="card-body">Reply : ' + AllFields[i].ServiceFeedBack1 + '</div></div></div></div>');
+                    }
+                    else if (AllFields[i].RatedValue == 4) {
+                        $("#Reviews").append('<div class="card mb-4 py-2 border-bottom-success"><div class="card-header">' + AllFields[i].RatedUserName + '&nbsp;&nbsp;&nbsp;&nbsp;<span class="fa fa-star checked"></span><span class="fa fa-star checked"></span><span class="fa fa-star checked"></span><span class="fa fa-star checked"></span><span class="fa fa-star"></span>&nbsp;&nbsp;&nbsp;&nbsp;' + formatDate + '</div> <div class="card-body"><div class="card shadow mb-1"><div class="card-body">' + AllFields[i].FeedBack1 + '</div></div><div class="card shadow mb-1" style="margin-left: 20px;"><div class="card-body">Reply : ' + AllFields[i].ServiceFeedBack1 + '</div></div></div></div>');
+                    }
+                    else if (AllFields[i].RatedValue == 5) {
+                        $("#Reviews").append('<div class="card mb-4 py-2 border-bottom-success"><div class="card-header">' + AllFields[i].RatedUserName + '&nbsp;&nbsp;&nbsp;&nbsp;<span class="fa fa-star checked"></span><span class="fa fa-star checked"></span><span class="fa fa-star checked"></span><span class="fa fa-star checked"></span><span class="fa fa-star checked"></span>&nbsp;&nbsp;&nbsp;&nbsp;' + formatDate + '</div> <div class="card-body"><div class="card shadow mb-1"><div class="card-body">' + AllFields[i].FeedBack1 + '</div></div><div class="card shadow mb-1" style="margin-left: 20px;"><div class="card-body">Reply : ' + AllFields[i].ServiceFeedBack1 + '</div></div></div></div>');
+                    }
+
+
+                }
+
+
+            }
+        });
+
+    }
+
+</script>
+<style>
+    .SOLD {
+        color: orangered;
+    }
+
+    .Left {
+        color: green;
+    }
+
+    .checked {
+        color: orange;
+    }
+</style>

@@ -1,0 +1,827 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="CWCAppDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="BoughtItemDetails">
+          <Key>
+            <PropertyRef Name="DetailsId" />
+          </Key>
+          <Property Name="DetailsId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ItemId" Type="int" />
+          <Property Name="ShopOwnerId" Type="int" />
+          <Property Name="BuyerId" Type="int" />
+          <Property Name="Quantity" Type="int" />
+          <Property Name="DeliveryAddress" Type="nvarchar(max)" />
+          <Property Name="ContactNo" Type="int" />
+          <Property Name="RetailPrice" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="WholeSalePrice" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="TotalPrice" Type="decimal" Precision="15" Scale="2" />
+          <Property Name="IsActive" Type="bit" />
+        </EntityType>
+        <EntityType Name="FeedBack">
+          <Key>
+            <PropertyRef Name="FeedBackId" />
+          </Key>
+          <Property Name="FeedBackId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RateId" Type="int" />
+          <Property Name="FeedBack" Type="nvarchar(max)" />
+          <Property Name="IsActive" Type="bit" />
+        </EntityType>
+        <EntityType Name="Garage">
+          <Key>
+            <PropertyRef Name="GarageId" />
+          </Key>
+          <Property Name="GarageId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="int" />
+          <Property Name="ServiceId" Type="int" />
+          <Property Name="GarageName" Type="nvarchar(max)" />
+          <Property Name="AddressOfGarage" Type="nvarchar(max)" />
+          <Property Name="City" Type="nvarchar" MaxLength="20" />
+          <Property Name="State" Type="nvarchar" MaxLength="20" />
+          <Property Name="VehicleCapacity" Type="nvarchar(max)" />
+          <Property Name="TOWCapability" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="TOWPayload" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="NumberOfMechanics" Type="int" />
+          <Property Name="RangeOfService" Type="nvarchar(max)" />
+          <Property Name="ExtraFeatures" Type="nvarchar(max)" />
+          <Property Name="PictureOfGarage" Type="nvarchar(max)" />
+          <Property Name="Rates" Type="nvarchar(max)" />
+          <Property Name="IsActive" Type="bit" />
+        </EntityType>
+        <EntityType Name="Rate">
+          <Key>
+            <PropertyRef Name="RateId" />
+          </Key>
+          <Property Name="RateId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RatedUserId" Type="int" />
+          <Property Name="ServiceProviderId" Type="int" />
+          <Property Name="ServiceProviderType" Type="int" />
+          <Property Name="ProductOrServiceId" Type="int" />
+          <Property Name="RatedValue" Type="decimal" Precision="5" Scale="2" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="IsActive" Type="bit" />
+        </EntityType>
+        <EntityType Name="RepairService">
+          <Key>
+            <PropertyRef Name="RepairServiceID" />
+          </Key>
+          <Property Name="RepairServiceID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GarageId" Type="int" />
+          <Property Name="UserId" Type="int" />
+          <Property Name="TravelRange" Type="decimal" Precision="10" Scale="5" />
+          <Property Name="VehicleExpertise" Type="varchar(max)" />
+          <Property Name="RatePerHour" Type="decimal" Precision="10" Scale="5" />
+          <Property Name="RatePerJob" Type="decimal" Precision="10" Scale="5" />
+          <Property Name="ExtraFeatures" Type="varchar(max)" />
+          <Property Name="IsActive" Type="bit" />
+        </EntityType>
+        <EntityType Name="RequestedRentalDetails">
+          <Key>
+            <PropertyRef Name="DetailId" />
+          </Key>
+          <Property Name="DetailId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RentalServiceID" Type="int" />
+          <Property Name="ShopOwnerId" Type="int" />
+          <Property Name="RequesterId" Type="int" />
+          <Property Name="RequestedCity" Type="nvarchar(max)" />
+          <Property Name="ContactNo" Type="nvarchar(max)" />
+          <Property Name="RatePerKM" Type="decimal" Precision="10" Scale="5" />
+          <Property Name="IsActive" Type="bit" />
+        </EntityType>
+        <EntityType Name="RequestedRepairDetails">
+          <Key>
+            <PropertyRef Name="DetailId" />
+          </Key>
+          <Property Name="DetailId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RepairServiceID" Type="int" />
+          <Property Name="ShopOwnerId" Type="int" />
+          <Property Name="RequesterId" Type="int" />
+          <Property Name="ReqestedCity" Type="varchar" MaxLength="50" />
+          <Property Name="ContactNo" Type="varchar" MaxLength="12" />
+          <Property Name="RatePerHour" Type="decimal" Precision="10" Scale="5" />
+          <Property Name="RatePerJob" Type="decimal" Precision="10" Scale="5" />
+          <Property Name="IsActive" Type="bit" />
+        </EntityType>
+        <EntityType Name="RequestedTOWDetails">
+          <Key>
+            <PropertyRef Name="DetailId" />
+          </Key>
+          <Property Name="DetailId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TOWServiceID" Type="int" />
+          <Property Name="ShopOwnerId" Type="int" />
+          <Property Name="RequesterId" Type="int" />
+          <Property Name="ReqestedCity" Type="varchar" MaxLength="50" />
+          <Property Name="ContactNo" Type="varchar" MaxLength="12" />
+          <Property Name="ApproximateKMs" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="TotalCost" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="IsActive" Type="bit" />
+        </EntityType>
+        <EntityType Name="ServiceFeedBack">
+          <Key>
+            <PropertyRef Name="ServiceFeedBackId" />
+          </Key>
+          <Property Name="ServiceFeedBackId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FeedBackId" Type="int" />
+          <Property Name="ServiceFeedBack" Type="nvarchar(max)" />
+          <Property Name="IsActive" Type="bit" />
+        </EntityType>
+        <EntityType Name="ServiceProviderMstr">
+          <Key>
+            <PropertyRef Name="ServiceProviderTypeId" />
+          </Key>
+          <Property Name="ServiceProviderTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ServiceType" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsActive" Type="bit" />
+        </EntityType>
+        <EntityType Name="ServiceProviderProfile">
+          <Key>
+            <PropertyRef Name="ServiceId" />
+          </Key>
+          <Property Name="ServiceId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="int" />
+          <Property Name="ServiceProviderTypeId" Type="int" />
+          <Property Name="ExperienceYear" Type="nvarchar" MaxLength="50" />
+          <Property Name="Qualification" Type="nvarchar(max)" />
+          <Property Name="IsActive" Type="bit" />
+        </EntityType>
+        <EntityType Name="ShoppingMethodMstr">
+          <Key>
+            <PropertyRef Name="ShoppingMethodId" />
+          </Key>
+          <Property Name="ShoppingMethodId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ShoppingMethod" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsActive" Type="bit" />
+        </EntityType>
+        <EntityType Name="TOWService">
+          <Key>
+            <PropertyRef Name="TOWServiceID" />
+          </Key>
+          <Property Name="TOWServiceID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GarageId" Type="int" />
+          <Property Name="UserId" Type="int" />
+          <Property Name="TypeOfVehicleOwn" Type="nvarchar" MaxLength="50" />
+          <Property Name="MaxPayLoad" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="NoOfVehicleOwn" Type="int" />
+          <Property Name="RatePerKm" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="RangeOfService" Type="nvarchar" MaxLength="50" />
+          <Property Name="ExtraFeatures" Type="nvarchar(max)" />
+          <Property Name="VehicleImage" Type="nvarchar(max)" />
+          <Property Name="IsActive" Type="bit" />
+        </EntityType>
+        <EntityType Name="UserProfile">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserTypeId" Type="int" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Email" Type="nvarchar" MaxLength="100" />
+          <Property Name="ContactNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="DOB" Type="date" />
+          <Property Name="Sex" Type="nvarchar" MaxLength="10" />
+          <Property Name="Address" Type="nvarchar" MaxLength="100" />
+          <Property Name="ProfilePicture" Type="varchar(max)" />
+          <Property Name="NIC" Type="nvarchar" MaxLength="20" />
+          <Property Name="UserPassword" Type="nvarchar" MaxLength="10" />
+          <Property Name="IsActive" Type="bit" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'CWCAppDB.dbo.UserTypeMstr' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="UserTypeMstr">
+          <Key>
+            <PropertyRef Name="UserTypeId" />
+          </Key>
+          <Property Name="UserTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserType" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsActive" Type="bit" />
+        </EntityType>
+        <EntityType Name="VehiclePartsStore">
+          <Key>
+            <PropertyRef Name="StoreId" />
+          </Key>
+          <Property Name="StoreId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="int" />
+          <Property Name="ServiceId" Type="int" />
+          <Property Name="StoreName" Type="nvarchar" MaxLength="50" />
+          <Property Name="ContactNumber" Type="nvarchar" MaxLength="12" />
+          <Property Name="AddressOfStore" Type="nvarchar" MaxLength="200" />
+          <Property Name="ShoppingMethod" Type="int" />
+          <Property Name="IsActive" Type="bit" />
+        </EntityType>
+        <EntityType Name="VehiclePartsStoreItem">
+          <Key>
+            <PropertyRef Name="ItemId" />
+          </Key>
+          <Property Name="ItemId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StoreId" Type="int" />
+          <Property Name="UserId" Type="int" />
+          <Property Name="ItemName" Type="nvarchar(max)" />
+          <Property Name="ItemType" Type="nvarchar" MaxLength="20" />
+          <Property Name="ItemTotalAmount" Type="int" />
+          <Property Name="ItemBoughtAmount" Type="int" />
+          <Property Name="ItemBalance" Type="int" />
+          <Property Name="ItemBrand" Type="nvarchar" MaxLength="50" />
+          <Property Name="ItemImage" Type="nvarchar(max)" />
+          <Property Name="ItemDiscription" Type="nvarchar(max)" />
+          <Property Name="RetailPrice" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="WholeSalePrice" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="ItemSpecs" Type="nvarchar(max)" />
+          <Property Name="IsActive" Type="bit" />
+        </EntityType>
+        <EntityType Name="VehicleRentalService">
+          <Key>
+            <PropertyRef Name="RentalServiceID" />
+          </Key>
+          <Property Name="RentalServiceID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="int" />
+          <Property Name="ServiceId" Type="int" />
+          <Property Name="RantalServiceName" Type="varchar" MaxLength="20" />
+          <Property Name="TypeOfVehicleOwn" Type="varchar" MaxLength="50" />
+          <Property Name="NoOfVehicleOwn" Type="int" />
+          <Property Name="RatePreKM" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="RangeOfService" Type="varchar(max)" />
+          <Property Name="ExtraFeatures" Type="varchar(max)" />
+          <Property Name="VehicleImage" Type="varchar(max)" />
+          <Property Name="IsActive" Type="bit" />
+        </EntityType>
+        <EntityContainer Name="CWCAppDBModelStoreContainer">
+          <EntitySet Name="BoughtItemDetails" EntityType="Self.BoughtItemDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FeedBack" EntityType="Self.FeedBack" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Garage" EntityType="Self.Garage" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Rate" EntityType="Self.Rate" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RepairService" EntityType="Self.RepairService" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RequestedRentalDetails" EntityType="Self.RequestedRentalDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RequestedRepairDetails" EntityType="Self.RequestedRepairDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RequestedTOWDetails" EntityType="Self.RequestedTOWDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ServiceFeedBack" EntityType="Self.ServiceFeedBack" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ServiceProviderMstr" EntityType="Self.ServiceProviderMstr" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ServiceProviderProfile" EntityType="Self.ServiceProviderProfile" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ShoppingMethodMstr" EntityType="Self.ShoppingMethodMstr" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TOWService" EntityType="Self.TOWService" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserProfile" EntityType="Self.UserProfile" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="VehiclePartsStore" EntityType="Self.VehiclePartsStore" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="VehiclePartsStoreItem" EntityType="Self.VehiclePartsStoreItem" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="VehicleRentalService" EntityType="Self.VehicleRentalService" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserTypeMstr" EntityType="Self.UserTypeMstr" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [UserTypeMstr].[UserTypeId] AS [UserTypeId], 
+    [UserTypeMstr].[UserType] AS [UserType], 
+    [UserTypeMstr].[IsActive] AS [IsActive]
+    FROM [dbo].[UserTypeMstr] AS [UserTypeMstr]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="CWCAppDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="ServiceProviderMstr">
+          <Key>
+            <PropertyRef Name="ServiceProviderTypeId" />
+          </Key>
+          <Property Name="ServiceProviderTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ServiceType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="ServiceProviderProfile">
+          <Key>
+            <PropertyRef Name="ServiceId" />
+          </Key>
+          <Property Name="ServiceId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int32" />
+          <Property Name="ServiceProviderTypeId" Type="Int32" />
+          <Property Name="ExperienceYear" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Qualification" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="UserProfile">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserTypeId" Type="Int32" />
+          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ContactNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DOB" Type="DateTime" Precision="0" />
+          <Property Name="Sex" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ProfilePicture" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="NIC" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="UserPassword" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="UserTypeMstr">
+          <Key>
+            <PropertyRef Name="UserTypeId" />
+          </Key>
+          <Property Name="UserTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" />
+        </EntityType>
+        <EntityContainer Name="CWCAppDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ServiceProviderMstrs" EntityType="Self.ServiceProviderMstr" />
+          <EntitySet Name="ServiceProviderProfiles" EntityType="Self.ServiceProviderProfile" />
+          <EntitySet Name="UserProfiles" EntityType="Self.UserProfile" />
+          <EntitySet Name="UserTypeMstrs" EntityType="Self.UserTypeMstr" />
+          <EntitySet Name="ShoppingMethodMstrs" EntityType="CWCAppDBModel.ShoppingMethodMstr" />
+          <EntitySet Name="VehiclePartsStores" EntityType="CWCAppDBModel.VehiclePartsStore" />
+          <EntitySet Name="VehiclePartsStoreItems" EntityType="CWCAppDBModel.VehiclePartsStoreItem" />
+          <EntitySet Name="BoughtItemDetails" EntityType="CWCAppDBModel.BoughtItemDetail" />
+          <EntitySet Name="Garages" EntityType="CWCAppDBModel.Garage" />
+          <EntitySet Name="TOWServices" EntityType="CWCAppDBModel.TOWService" />
+          <EntitySet Name="RequestedTOWDetails" EntityType="CWCAppDBModel.RequestedTOWDetail" />
+          <EntitySet Name="RepairServices" EntityType="CWCAppDBModel.RepairService" />
+          <EntitySet Name="RequestedRepairDetails" EntityType="CWCAppDBModel.RequestedRepairDetail" />
+          <EntitySet Name="VehicleRentalServices" EntityType="CWCAppDBModel.VehicleRentalService" />
+          <EntitySet Name="FeedBacks" EntityType="CWCAppDBModel.FeedBack" />
+          <EntitySet Name="Rates" EntityType="CWCAppDBModel.Rate" />
+          <EntitySet Name="ServiceFeedBacks" EntityType="CWCAppDBModel.ServiceFeedBack" />
+          <EntitySet Name="RequestedRentalDetails" EntityType="CWCAppDBModel.RequestedRentalDetail" />
+        </EntityContainer>
+        <EntityType Name="ShoppingMethodMstr">
+          <Key>
+            <PropertyRef Name="ShoppingMethodId" />
+          </Key>
+          <Property Name="ShoppingMethodId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ShoppingMethod" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="VehiclePartsStore">
+          <Key>
+            <PropertyRef Name="StoreId" />
+          </Key>
+          <Property Name="StoreId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int32" />
+          <Property Name="ServiceId" Type="Int32" />
+          <Property Name="StoreName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ContactNumber" Type="String" MaxLength="12" FixedLength="false" Unicode="true" />
+          <Property Name="AddressOfStore" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="ShoppingMethod" Type="Int32" />
+          <Property Name="IsActive" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="VehiclePartsStoreItem">
+          <Key>
+            <PropertyRef Name="ItemId" />
+          </Key>
+          <Property Name="ItemId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StoreId" Type="Int32" />
+          <Property Name="UserId" Type="Int32" />
+          <Property Name="ItemName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ItemType" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="ItemTotalAmount" Type="Int32" />
+          <Property Name="ItemBoughtAmount" Type="Int32" />
+          <Property Name="ItemBalance" Type="Int32" />
+          <Property Name="ItemBrand" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ItemImage" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ItemDiscription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="RetailPrice" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="WholeSalePrice" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="ItemSpecs" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="BoughtItemDetail">
+          <Key>
+            <PropertyRef Name="DetailsId" />
+          </Key>
+          <Property Name="DetailsId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ItemId" Type="Int32" />
+          <Property Name="ShopOwnerId" Type="Int32" />
+          <Property Name="BuyerId" Type="Int32" />
+          <Property Name="DeliveryAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Quantity" Type="Int32" />
+          <Property Name="ContactNo" Type="Int32" />
+          <Property Name="RetailPrice" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="WholeSalePrice" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="TotalPrice" Type="Decimal" Precision="15" Scale="2" />
+          <Property Name="IsActive" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="Garage">
+          <Key>
+            <PropertyRef Name="GarageId" />
+          </Key>
+          <Property Name="GarageId" Type="Int32" Nullable="false" />
+          <Property Name="UserId" Type="Int32" />
+          <Property Name="ServiceId" Type="Int32" />
+          <Property Name="GarageName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="AddressOfGarage" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="VehicleCapacity" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="TOWCapability" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="TOWPayload" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="NumberOfMechanics" Type="Int32" />
+          <Property Name="RangeOfService" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ExtraFeatures" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PictureOfGarage" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Rates" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="City" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="State" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="TOWService">
+          <Key>
+            <PropertyRef Name="TOWServiceID" />
+          </Key>
+          <Property Name="TOWServiceID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GarageId" Type="Int32" />
+          <Property Name="UserId" Type="Int32" />
+          <Property Name="TypeOfVehicleOwn" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MaxPayLoad" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="NoOfVehicleOwn" Type="Int32" />
+          <Property Name="RatePerKm" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="RangeOfService" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ExtraFeatures" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="VehicleImage" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="RequestedTOWDetail">
+          <Key>
+            <PropertyRef Name="DetailId" />
+          </Key>
+          <Property Name="DetailId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TOWServiceID" Type="Int32" />
+          <Property Name="ShopOwnerId" Type="Int32" />
+          <Property Name="RequesterId" Type="Int32" />
+          <Property Name="ReqestedCity" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ContactNo" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
+          <Property Name="ApproximateKMs" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="TotalCost" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="IsActive" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="RepairService">
+          <Key>
+            <PropertyRef Name="RepairServiceID" />
+          </Key>
+          <Property Name="RepairServiceID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GarageId" Type="Int32" />
+          <Property Name="UserId" Type="Int32" />
+          <Property Name="TravelRange" Type="Decimal" Precision="10" Scale="5" />
+          <Property Name="VehicleExpertise" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="RatePerHour" Type="Decimal" Precision="10" Scale="5" />
+          <Property Name="RatePerJob" Type="Decimal" Precision="10" Scale="5" />
+          <Property Name="ExtraFeatures" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="IsActive" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="RequestedRepairDetail">
+          <Key>
+            <PropertyRef Name="DetailId" />
+          </Key>
+          <Property Name="DetailId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RepairServiceID" Type="Int32" />
+          <Property Name="ShopOwnerId" Type="Int32" />
+          <Property Name="RequesterId" Type="Int32" />
+          <Property Name="ReqestedCity" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ContactNo" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
+          <Property Name="RatePerHour" Type="Decimal" Precision="10" Scale="5" />
+          <Property Name="RatePerJob" Type="Decimal" Precision="10" Scale="5" />
+          <Property Name="IsActive" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="VehicleRentalService">
+          <Key>
+            <PropertyRef Name="RentalServiceID" />
+          </Key>
+          <Property Name="RentalServiceID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int32" />
+          <Property Name="ServiceId" Type="Int32" />
+          <Property Name="RantalServiceName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="TypeOfVehicleOwn" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="NoOfVehicleOwn" Type="Int32" />
+          <Property Name="RatePreKM" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="RangeOfService" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ExtraFeatures" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="VehicleImage" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="IsActive" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="FeedBack">
+          <Key>
+            <PropertyRef Name="FeedBackId" />
+          </Key>
+          <Property Name="FeedBackId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RateId" Type="Int32" />
+          <Property Name="FeedBack1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="Rate">
+          <Key>
+            <PropertyRef Name="RateId" />
+          </Key>
+          <Property Name="RateId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RatedUserId" Type="Int32" />
+          <Property Name="ServiceProviderId" Type="Int32" />
+          <Property Name="ServiceProviderType" Type="Int32" />
+          <Property Name="ProductOrServiceId" Type="Int32" />
+          <Property Name="RatedValue" Type="Decimal" Precision="5" Scale="2" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="ServiceFeedBack">
+          <Key>
+            <PropertyRef Name="ServiceFeedBackId" />
+          </Key>
+          <Property Name="ServiceFeedBackId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FeedBackId" Type="Int32" />
+          <Property Name="ServiceFeedBack1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="RequestedRentalDetail">
+          <Key>
+            <PropertyRef Name="DetailId" />
+          </Key>
+          <Property Name="DetailId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RentalServiceID" Type="Int32" />
+          <Property Name="ShopOwnerId" Type="Int32" />
+          <Property Name="RequesterId" Type="Int32" />
+          <Property Name="RequestedCity" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ContactNo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="RatePerKM" Type="Decimal" Precision="10" Scale="5" />
+          <Property Name="IsActive" Type="Boolean" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="CWCAppDBModelStoreContainer" CdmEntityContainer="CWCAppDBEntities">
+          <EntitySetMapping Name="ServiceProviderMstrs">
+            <EntityTypeMapping TypeName="CWCAppDBModel.ServiceProviderMstr">
+              <MappingFragment StoreEntitySet="ServiceProviderMstr">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="ServiceProviderTypeId" ColumnName="ServiceProviderTypeId" />
+                <ScalarProperty Name="ServiceType" ColumnName="ServiceType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ServiceProviderProfiles">
+            <EntityTypeMapping TypeName="CWCAppDBModel.ServiceProviderProfile">
+              <MappingFragment StoreEntitySet="ServiceProviderProfile">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="ServiceId" ColumnName="ServiceId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ServiceProviderTypeId" ColumnName="ServiceProviderTypeId" />
+                <ScalarProperty Name="ExperienceYear" ColumnName="ExperienceYear" />
+                <ScalarProperty Name="Qualification" ColumnName="Qualification" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserProfiles">
+            <EntityTypeMapping TypeName="CWCAppDBModel.UserProfile">
+              <MappingFragment StoreEntitySet="UserProfile">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="UserTypeId" ColumnName="UserTypeId" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="ContactNumber" ColumnName="ContactNumber" />
+                <ScalarProperty Name="DOB" ColumnName="DOB" />
+                <ScalarProperty Name="Sex" ColumnName="Sex" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="ProfilePicture" ColumnName="ProfilePicture" />
+                <ScalarProperty Name="NIC" ColumnName="NIC" />
+                <ScalarProperty Name="UserPassword" ColumnName="UserPassword" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserTypeMstrs">
+            <EntityTypeMapping TypeName="CWCAppDBModel.UserTypeMstr">
+              <MappingFragment StoreEntitySet="UserTypeMstr">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="UserTypeId" ColumnName="UserTypeId" />
+                <ScalarProperty Name="UserType" ColumnName="UserType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ShoppingMethodMstrs">
+            <EntityTypeMapping TypeName="CWCAppDBModel.ShoppingMethodMstr">
+              <MappingFragment StoreEntitySet="ShoppingMethodMstr">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="ShoppingMethod" ColumnName="ShoppingMethod" />
+                <ScalarProperty Name="ShoppingMethodId" ColumnName="ShoppingMethodId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VehiclePartsStores">
+            <EntityTypeMapping TypeName="CWCAppDBModel.VehiclePartsStore">
+              <MappingFragment StoreEntitySet="VehiclePartsStore">
+                <ScalarProperty Name="ContactNumber" ColumnName="ContactNumber" />
+                <ScalarProperty Name="StoreName" ColumnName="StoreName" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="ShoppingMethod" ColumnName="ShoppingMethod" />
+                <ScalarProperty Name="AddressOfStore" ColumnName="AddressOfStore" />
+                <ScalarProperty Name="ServiceId" ColumnName="ServiceId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="StoreId" ColumnName="StoreId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VehiclePartsStoreItems">
+            <EntityTypeMapping TypeName="CWCAppDBModel.VehiclePartsStoreItem">
+              <MappingFragment StoreEntitySet="VehiclePartsStoreItem">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="ItemSpecs" ColumnName="ItemSpecs" />
+                <ScalarProperty Name="WholeSalePrice" ColumnName="WholeSalePrice" />
+                <ScalarProperty Name="RetailPrice" ColumnName="RetailPrice" />
+                <ScalarProperty Name="ItemDiscription" ColumnName="ItemDiscription" />
+                <ScalarProperty Name="ItemImage" ColumnName="ItemImage" />
+                <ScalarProperty Name="ItemBrand" ColumnName="ItemBrand" />
+                <ScalarProperty Name="ItemBalance" ColumnName="ItemBalance" />
+                <ScalarProperty Name="ItemBoughtAmount" ColumnName="ItemBoughtAmount" />
+                <ScalarProperty Name="ItemTotalAmount" ColumnName="ItemTotalAmount" />
+                <ScalarProperty Name="ItemType" ColumnName="ItemType" />
+                <ScalarProperty Name="ItemName" ColumnName="ItemName" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="StoreId" ColumnName="StoreId" />
+                <ScalarProperty Name="ItemId" ColumnName="ItemId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BoughtItemDetails">
+            <EntityTypeMapping TypeName="CWCAppDBModel.BoughtItemDetail">
+              <MappingFragment StoreEntitySet="BoughtItemDetails">
+                <ScalarProperty Name="DeliveryAddress" ColumnName="DeliveryAddress" />
+                <ScalarProperty Name="TotalPrice" ColumnName="TotalPrice" />
+                <ScalarProperty Name="WholeSalePrice" ColumnName="WholeSalePrice" />
+                <ScalarProperty Name="RetailPrice" ColumnName="RetailPrice" />
+                <ScalarProperty Name="ContactNo" ColumnName="ContactNo" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="BuyerId" ColumnName="BuyerId" />
+                <ScalarProperty Name="ShopOwnerId" ColumnName="ShopOwnerId" />
+                <ScalarProperty Name="ItemId" ColumnName="ItemId" />
+                <ScalarProperty Name="DetailsId" ColumnName="DetailsId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Garages">
+            <EntityTypeMapping TypeName="CWCAppDBModel.Garage">
+              <MappingFragment StoreEntitySet="Garage">
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="GarageName" ColumnName="GarageName" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Rates" ColumnName="Rates" />
+                <ScalarProperty Name="PictureOfGarage" ColumnName="PictureOfGarage" />
+                <ScalarProperty Name="ExtraFeatures" ColumnName="ExtraFeatures" />
+                <ScalarProperty Name="RangeOfService" ColumnName="RangeOfService" />
+                <ScalarProperty Name="NumberOfMechanics" ColumnName="NumberOfMechanics" />
+                <ScalarProperty Name="TOWPayload" ColumnName="TOWPayload" />
+                <ScalarProperty Name="TOWCapability" ColumnName="TOWCapability" />
+                <ScalarProperty Name="VehicleCapacity" ColumnName="VehicleCapacity" />
+                <ScalarProperty Name="AddressOfGarage" ColumnName="AddressOfGarage" />
+                <ScalarProperty Name="ServiceId" ColumnName="ServiceId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="GarageId" ColumnName="GarageId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TOWServices">
+            <EntityTypeMapping TypeName="CWCAppDBModel.TOWService">
+              <MappingFragment StoreEntitySet="TOWService">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="VehicleImage" ColumnName="VehicleImage" />
+                <ScalarProperty Name="ExtraFeatures" ColumnName="ExtraFeatures" />
+                <ScalarProperty Name="RangeOfService" ColumnName="RangeOfService" />
+                <ScalarProperty Name="RatePerKm" ColumnName="RatePerKm" />
+                <ScalarProperty Name="NoOfVehicleOwn" ColumnName="NoOfVehicleOwn" />
+                <ScalarProperty Name="MaxPayLoad" ColumnName="MaxPayLoad" />
+                <ScalarProperty Name="TypeOfVehicleOwn" ColumnName="TypeOfVehicleOwn" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="GarageId" ColumnName="GarageId" />
+                <ScalarProperty Name="TOWServiceID" ColumnName="TOWServiceID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RequestedTOWDetails">
+            <EntityTypeMapping TypeName="CWCAppDBModel.RequestedTOWDetail">
+              <MappingFragment StoreEntitySet="RequestedTOWDetails">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="TotalCost" ColumnName="TotalCost" />
+                <ScalarProperty Name="ApproximateKMs" ColumnName="ApproximateKMs" />
+                <ScalarProperty Name="ContactNo" ColumnName="ContactNo" />
+                <ScalarProperty Name="ReqestedCity" ColumnName="ReqestedCity" />
+                <ScalarProperty Name="RequesterId" ColumnName="RequesterId" />
+                <ScalarProperty Name="ShopOwnerId" ColumnName="ShopOwnerId" />
+                <ScalarProperty Name="TOWServiceID" ColumnName="TOWServiceID" />
+                <ScalarProperty Name="DetailId" ColumnName="DetailId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RepairServices">
+            <EntityTypeMapping TypeName="CWCAppDBModel.RepairService">
+              <MappingFragment StoreEntitySet="RepairService">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="ExtraFeatures" ColumnName="ExtraFeatures" />
+                <ScalarProperty Name="RatePerJob" ColumnName="RatePerJob" />
+                <ScalarProperty Name="RatePerHour" ColumnName="RatePerHour" />
+                <ScalarProperty Name="VehicleExpertise" ColumnName="VehicleExpertise" />
+                <ScalarProperty Name="TravelRange" ColumnName="TravelRange" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="GarageId" ColumnName="GarageId" />
+                <ScalarProperty Name="RepairServiceID" ColumnName="RepairServiceID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RequestedRepairDetails">
+            <EntityTypeMapping TypeName="CWCAppDBModel.RequestedRepairDetail">
+              <MappingFragment StoreEntitySet="RequestedRepairDetails">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="RatePerJob" ColumnName="RatePerJob" />
+                <ScalarProperty Name="RatePerHour" ColumnName="RatePerHour" />
+                <ScalarProperty Name="ContactNo" ColumnName="ContactNo" />
+                <ScalarProperty Name="ReqestedCity" ColumnName="ReqestedCity" />
+                <ScalarProperty Name="RequesterId" ColumnName="RequesterId" />
+                <ScalarProperty Name="ShopOwnerId" ColumnName="ShopOwnerId" />
+                <ScalarProperty Name="RepairServiceID" ColumnName="RepairServiceID" />
+                <ScalarProperty Name="DetailId" ColumnName="DetailId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VehicleRentalServices">
+            <EntityTypeMapping TypeName="CWCAppDBModel.VehicleRentalService">
+              <MappingFragment StoreEntitySet="VehicleRentalService">
+                <ScalarProperty Name="ServiceId" ColumnName="ServiceId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="VehicleImage" ColumnName="VehicleImage" />
+                <ScalarProperty Name="ExtraFeatures" ColumnName="ExtraFeatures" />
+                <ScalarProperty Name="RangeOfService" ColumnName="RangeOfService" />
+                <ScalarProperty Name="RatePreKM" ColumnName="RatePreKM" />
+                <ScalarProperty Name="NoOfVehicleOwn" ColumnName="NoOfVehicleOwn" />
+                <ScalarProperty Name="TypeOfVehicleOwn" ColumnName="TypeOfVehicleOwn" />
+                <ScalarProperty Name="RantalServiceName" ColumnName="RantalServiceName" />
+                <ScalarProperty Name="RentalServiceID" ColumnName="RentalServiceID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FeedBacks">
+            <EntityTypeMapping TypeName="CWCAppDBModel.FeedBack">
+              <MappingFragment StoreEntitySet="FeedBack">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="FeedBack1" ColumnName="FeedBack" />
+                <ScalarProperty Name="RateId" ColumnName="RateId" />
+                <ScalarProperty Name="FeedBackId" ColumnName="FeedBackId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Rates">
+            <EntityTypeMapping TypeName="CWCAppDBModel.Rate">
+              <MappingFragment StoreEntitySet="Rate">
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="ServiceProviderId" ColumnName="ServiceProviderId" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="RatedValue" ColumnName="RatedValue" />
+                <ScalarProperty Name="ProductOrServiceId" ColumnName="ProductOrServiceId" />
+                <ScalarProperty Name="ServiceProviderType" ColumnName="ServiceProviderType" />
+                <ScalarProperty Name="RatedUserId" ColumnName="RatedUserId" />
+                <ScalarProperty Name="RateId" ColumnName="RateId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ServiceFeedBacks">
+            <EntityTypeMapping TypeName="CWCAppDBModel.ServiceFeedBack">
+              <MappingFragment StoreEntitySet="ServiceFeedBack">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="ServiceFeedBack1" ColumnName="ServiceFeedBack" />
+                <ScalarProperty Name="FeedBackId" ColumnName="FeedBackId" />
+                <ScalarProperty Name="ServiceFeedBackId" ColumnName="ServiceFeedBackId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RequestedRentalDetails">
+            <EntityTypeMapping TypeName="CWCAppDBModel.RequestedRentalDetail">
+              <MappingFragment StoreEntitySet="RequestedRentalDetails">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="RatePerKM" ColumnName="RatePerKM" />
+                <ScalarProperty Name="ContactNo" ColumnName="ContactNo" />
+                <ScalarProperty Name="RequestedCity" ColumnName="RequestedCity" />
+                <ScalarProperty Name="RequesterId" ColumnName="RequesterId" />
+                <ScalarProperty Name="ShopOwnerId" ColumnName="ShopOwnerId" />
+                <ScalarProperty Name="RentalServiceID" ColumnName="RentalServiceID" />
+                <ScalarProperty Name="DetailId" ColumnName="DetailId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

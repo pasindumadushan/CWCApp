@@ -1,0 +1,151 @@
+﻿
+@{
+    ViewBag.Title = "ConfirmEmail";
+}
+
+<body class="bg-gradient-primary">
+    <div class="container">
+
+        <div class="card o-hidden border-0 shadow-lg my-5">
+            <div class="card-body p-0">
+                <!-- Nested Row within Card Body -->
+                <div class="row">
+                    <div class="col-lg-5 d-none d-lg-block bg-register-image"></div>
+                    <div class="col-lg-7">
+                        <div class="p-5">
+                            <div class="text-center">
+                                <h1 class="h4 text-gray-900 mb-4">Forgot Password!</h1>
+                            </div>
+                            <form Id="ChangePWForm" novalidate>
+                                <div class="form-group">
+                                    <input type="email" class="form-control form-control-user" id="Email" name="Email"
+                                           placeholder="Email Address">
+                                </div>
+
+                                <div class="form-group">
+                                    <input type="submit" value="Send Verification Code" class="btn btn-primary btn-user btn-block" />
+                                </div>
+                            </form>
+                            <hr>
+                            <div class="text-center">
+                                <a class="small" href="@Url.Action("Index","Login")">Go Back</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</body>
+
+<script src="~/wwwroot/Bootstrap Design/vendor/jquery/jquery.min.js"></script>
+<script src="~/wwwroot/Bootstrap Design/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="~/wwwroot/Bootstrap Design/vendor/jquery-easing/jquery.easing.min.js"></script>
+<script src="~/wwwroot/Bootstrap Design/js/sb-admin-2.min.js"></script>
+<script src="~/wwwroot/lib/jquery-validation/dist/jquery.validate.js"></script>
+<script>
+    $(document).ready(function () {
+        SendVerificationCodeValidation();
+    });
+
+    function SendVerificationCodeValidation() {
+        $(function () {
+
+            jQuery.validator.addMethod("noSpace", function (value, element) {
+                return value.indexOf(" ") < 0 && value != "";
+            }, "No space please and don't leave it empty");
+
+            jQuery.validator.addMethod("exactlength", function (value, element, param) {
+                return this.optional(element) || value.length == param;
+            }, $.validator.format("Please enter exactly {0} characters."));
+
+            jQuery.validator.addMethod("emailExist", function (value, element, param) {
+                var userProfile = {
+                    Email: value
+                };
+                var exist = false;
+                $.ajax({
+                    type: "POST",
+                    async: false, //this is neccessary to get ajax to out side
+                    url: '@Url.Action("EmailExist", "Register")',
+                    dataType: 'json',
+                    ContentType: 'application/json; charset=utf-8',
+                    data: userProfile,
+                    success: function (data) {
+                        if (data.data == null) {
+                            exist = false;
+                        }
+                        else {
+                            exist = true;
+                        }
+                    }
+                });
+                return exist;
+            }, $.validator.format("Please enter exactly {0} characters."));
+
+            
+
+            $("#ChangePWForm").validate({
+
+                errorPlacement: function (error, element) {
+                    var placement = $(element).data('error');
+                    if (placement) {
+                        $(placement).append(error)
+                    } else {
+                        error.insertAfter(element);
+                    }
+                },
+                rules: {
+                    Email: {
+                        required: true,
+                        noSpace: true,
+                        emailExist: true
+                    }
+                },
+                messages: {
+                    Email: {
+                        required: "Please fill this field!",
+                        noSpace: "Space not allowed",
+                        emailExist: "Email not exist"
+                    }
+                },
+                submitHandler: function (form) {
+                    SendVarificationCode();
+                }
+
+            });
+        });
+    }
+
+    function SendVarificationCode() {
+
+        var Email = $("#Email").val();
+
+        var userProfile = {
+            Email: Email
+        };
+
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("SendVerificationCode", "Login")',
+            dataType: 'json',
+            ContentType: 'application/json; charset=utf-8',
+            data: userProfile,
+            success: function (data) {
+
+                console.log(data.data);
+                if (data.data == null) {
+                    alert("Verification code sending fail!");
+                }
+                else {
+                    var email = $('#Email').val();
+                    var url = '@Url.Action("ChangePassword","Login")';
+                    window.location.href = url + '/?email=' +email;
+                }
+
+            }
+        });
+    }
+</script>
+

@@ -1,0 +1,506 @@
+﻿<body id="page-top">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        @{
+            @Html.Partial("~/Views/PartialView/_Sidebar.cshtml");
+        }
+        <!-- End of Sidebar -->
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+                    <!-- Sidebar Toggle (Topbar) -->
+                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                        <i class="fa fa-bars"></i>
+                    </button>
+
+                    <!-- Topbar Search -->
+                    <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                        <div class="input-group">
+                            <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
+                                   aria-label="Search" aria-describedby="basic-addon2">
+                            <div class="input-group-append">
+                                <button class="btn btn-primary" type="button" disabled>
+                                    <i class="fas fa-search fa-sm"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+
+                    <!-- Topbar Navbar -->
+                    @{
+                        @Html.Partial("~/Views/PartialView/_Topbar.cshtml");
+                    }
+                </nav>
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <!-- Page Heading -->
+                    <h1 class="h3 mb-2 text-gray-800">Welcome to Rental Service</h1>
+                    <p class="mb-4">
+                        List of Rental service related to several Rental Services alone with details.
+                    </p>
+
+                    <!-- DataTales Example -->
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <h6 class="m-0 font-weight-bold text-primary">Rental Services</h6>
+                                </div>
+                                <div class="col-sm-6 text-right">
+
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="DT_load" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th>Vehicle Image</th>
+                                            <th>RantalServiceName</th>
+                                            <th>Type Of Vehicles Own</th>
+                                            <th>No. Of Vehicles Own</th>
+                                            <th>Rate Pre KM</th>
+                                            <th>Range Of Service</th>
+                                            <th>Extra Features</th>
+                                            <th>Rating</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Request modal -->
+                    <div class='modal fade' id='RequestModal' tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true'>
+                        <div class='modal-dialog' role='document'>
+                            <div class='modal-content'>
+                                <div class='modal-header'>
+                                    <h5 class='modal-title' id='exampleModalLabel'>Delivery to location</h5>
+                                    <button type='button' class='close' data-dismiss='modal' aria-label='Close'>
+                                        <span aria-hidden='true'>&times;</span>
+                                    </button>
+                                </div>
+                                <div class='modal-body'>
+                                    <form Id="RentalServiceForm" novalidate>
+                                        <input type="hidden" class="form-control form-control-user" id="RentalServiceID" name="RentalServiceID"
+                                               placeholder="">
+                                        <input type="hidden" class="form-control form-control-user" id="ShopOwnerId" name="ShopOwnerId"
+                                               placeholder="">
+
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <img src='#' id="VehicleImage" width='200px' heigth='200px'>
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="form-group">
+                                                    <p class="text-secondary">
+                                                        Rantal Service Name :
+                                                        <span class="label label-default" id="RantalServiceName" name="RantalServiceName"></span>
+                                                    </p>
+                                                </div>
+                                                <div class="form-group">
+                                                    <p class="text-secondary">
+                                                        Type Of VehicleOwn :
+                                                        <span class="label label-default" id="TypeOfVehicleOwn" name="TypeOfVehicleOwn"></span>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <!-- Earnings (Annual) Card Example -->
+                                            <div class="row">
+                                                <div class="col-6">
+
+                                                </div>
+                                                <div class="col-6">
+                                                    <div class="card border-left-success shadow h-100 py-2">
+                                                        <div class="card-body">
+                                                            <div class="row no-gutters align-items-center">
+                                                                <div class="col mr-2">
+                                                                    <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                                                        Rate Per KM
+                                                                    </div>
+                                                                    <div class="h5 mb-0 font-weight-bold text-gray-800" id="RatePreKM">0</div>
+                                                                </div>
+                                                                <div class="col-auto">
+                                                                    <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-lg-6">
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div class="form-group">
+                                                    <textarea class="form-control form-control-user" id="ReqestedCity" name="ReqestedCity"
+                                                              placeholder="Your city or place where you need this service..."></textarea>
+                                                </div>
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control form-control-user" id="ContactNo" name="ContactNo"
+                                                           placeholder="Contact Number...">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-lg-6">
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div class="form-group">
+                                                    <input type="submit" value="Request" class="btn btn-primary btn-user btn-block" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ReviewModal -->
+                    <div class='modal fade' id='ReviewModal' tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true'>
+                        <div class='modal-dialog' role='document'>
+                            <div class='modal-content'>
+                                <div class='modal-header'>
+                                    <h5 class='modal-title' id='exampleModalLabel'>Customer Reviews</h5>
+                                    <button type='button' class='close' data-dismiss='modal' aria-label='Close'>
+                                        <span aria-hidden='true'>&times;</span>
+                                    </button>
+                                </div>
+                                <div class='modal-body'>
+                                    <form Id="ReviewForm" novalidate>
+                                        <div id="Reviews">
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-lg-6">
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div class="form-group">
+                                                    <a class='btn btn-primary btn-user btn-block' id="Add" href="@Url.Action("RentalServices","VehicleRantalService")">Go Back</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+            <!-- End of Main Content -->
+            <!-- Footer -->
+            @{
+                @Html.Partial("~/Views/PartialView/_Footer.cshtml");
+            }
+            <!-- End of Footer -->
+
+        </div>
+        <!-- End of Content Wrapper -->
+    </div>
+    <!-- End of Page Wrapper -->
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+    <!-- Logout Modal-->
+    @{
+        @Html.Partial("~/Views/PartialView/_LogoutModal.cshtml");
+    }
+
+</body>
+
+<script src="~/wwwroot/Bootstrap Design/vendor/jquery/jquery.min.js"></script>
+<script src="~/wwwroot/Bootstrap Design/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="~/wwwroot/Bootstrap Design/vendor/jquery-easing/jquery.easing.min.js"></script>
+<script src="~/wwwroot/Bootstrap Design/js/sb-admin-2.min.js"></script>
+<script src="~/wwwroot/lib/jquery-validation/dist/jquery.validate.js"></script>
+<script src="~/wwwroot/Bootstrap Design/vendor/datatables/jquery.dataTables.min.js"></script>
+<script src="~/wwwroot/Bootstrap Design/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+<script src="~/wwwroot/js/date.format.js"></script>
+<script>
+
+    $(document).ready(function () {
+        LoadTable();
+
+        ValidateRentalService();
+
+        $('#DT_load').on('click', '#RequestRental', function () {
+            LoadRequestField($(this).attr("data-id"));
+        });
+
+        $('#DT_load').on('click', '#ReviewRent', function () {
+            LoadRateAndFeedBack($(this).attr("data-id"));
+        });
+
+    });
+
+    function LoadTable() {
+
+                dataTable = $('#DT_load').DataTable({
+                    "bDestroy": true,
+                    "ajax": {
+                        "url": '@Url.Action("GetRentalSerivces", "VehicleRantalService")',
+                        "type": "GET",
+                        "datatype": "json"
+                    },
+                    "columns": [
+                        {
+                            "data": "VehicleImage", "render": function (data) {
+                                return `<img src='${data}' width='150px' heigth='150px'>`;
+                            }, "width": "10%"
+                        },
+                        { "data": "RantalServiceName", "width": "20%" },
+                        { "data": "TypeOfVehicleOwn", "width": "20%" },
+                        { "data": "NoOfVehicleOwn", "width": "20%" },
+                        { "data": "RatePreKM", "width": "20%" },
+                        { "data": "RangeOfService", "width": "20%" },
+                        { "data": "ExtraFeatures", "width": "10%" },
+                        {
+                            "data": "RentalServiceID",
+                            "render": function (data) {
+                                var avgRate = 0;
+                                var id = { id: data };
+                                $.ajax({
+                                        type: "POST",
+                                        url: '@Url.Action("GetRatings", "VehicleRantalService")',
+                                        dataType: 'json',
+                                        data: id,
+                                        async: false,
+                                        ContentType: 'application/json; charset=utf-8',
+                                        success: function (data) {
+                                            var AllField = data.data;
+                                            avgRate = AllField;
+                                        }
+                                });
+                                return avgRate;
+                            },
+                            "width": "10%"
+                        },
+                        {
+                            "data": "RentalServiceID",
+                            "render": function (data) {
+                                return `<table class='table' width='100%' cellspacing='0' cellpadding='0'><tbody>
+
+                                        <tr><td style='border: none;'>
+                                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#RequestModal" id="RequestRental" data-id='${data}'>
+                                            On Spot
+                                        </button>
+                                        </td>
+                                        <td style='border: none;'>
+                                        <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#ReviewModal" id="ReviewRent" data-id='${data}'>
+                                          Reviews<img src='/Images/SystemPhotos/starrating.png' width='30px' heigth='30px'>
+                                        </button>
+                                        </td>
+                                        </tr>
+                                        `;
+                            }, "width": "10%"
+                        }
+                    ],
+                    "language": {
+                        "emptyTable": "no data found"
+                    },
+                    "width": "100%"
+                });
+
+    }
+
+    function LoadRequestField(RentalServiceID) {
+
+        var RentalServiceID = {
+            RentalServiceID: RentalServiceID
+        }
+
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("LoadFieldsModal", "VehicleRantalService")',
+            dataType: 'json',
+            data: RentalServiceID,
+            ContentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                console.log(data.data);
+                var AllFields = data.data;
+                if (data.data != null) {
+                    $('#VehicleImage').attr("src", AllFields.VehicleImage);
+                    $("#RentalServiceID").val(AllFields.RentalServiceID);
+                    $("#ShopOwnerId").val(AllFields.UserId);
+                    $("#RantalServiceName").text(AllFields.RantalServiceName);
+                    $("#TypeOfVehicleOwn").text(AllFields.TypeOfVehicleOwn);
+                    $("#RatePreKM").text(AllFields.RatePreKM);
+                }
+                else {
+                    alert("Server Error!");
+                    $("#RepairServiceID").val(0);
+                }
+
+
+            }
+        });
+    }
+
+    function ValidateRentalService() {
+        $(function () {
+            jQuery.validator.addMethod("noSpace", function (value, element) {
+                return value.indexOf(" ") < 0 && value != "";
+            }, "No space please and don't leave it empty");
+
+            jQuery.validator.addMethod("exactlength", function (value, element, param) {
+                return this.optional(element) || value.length == param;
+            }, $.validator.format("Please enter exactly {0} characters."));
+
+            $("#RentalServiceForm").validate({
+
+                errorPlacement: function (error, element) {
+                    var placement = $(element).data('error');
+                    if (placement) {
+                        $(placement).append(error)
+                    } else {
+                        error.insertAfter(element);
+                    }
+                },
+                rules: {
+                    ReqestedCity: {
+                        required: true
+                        //umailExist: true,
+                    },
+                    ContactNo: {
+                        required: true
+                    }
+                },
+                messages: {
+                    ReqestedCity: {
+                        required: "Please fill this field!"
+                        //umailExist: true,
+                    },
+                    ContactNo: {
+                        required: "Please fill this field!"
+                    }
+                },
+                submitHandler: function (form) {
+                    SaveRentalRequest();
+                }
+
+            });
+        });
+    }
+
+    function SaveRentalRequest() {
+
+        var RentalServiceID = $("#RentalServiceID").val();
+        var ShopOwnerId = $("#ShopOwnerId").val();
+        var ReqestedCity = $("#ReqestedCity").val();
+        var ContactNo = $("#ContactNo").val();
+        var RatePreKM = $("#RatePreKM").text();
+
+        var requestedRentalDetail = {
+            RentalServiceID: RentalServiceID,
+            ShopOwnerId: ShopOwnerId,
+            RequestedCity: ReqestedCity,
+            ContactNo: ContactNo,
+            RatePerKM: RatePreKM
+        }
+
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("SaveRentalServiceRequest", "VehicleRantalService")',
+            dataType: 'json',
+            //contentType: false, //must for formdata
+            //processData: false, //must for formdata
+            ContentType: 'application/json; charset=utf-8',
+            data: requestedRentalDetail,
+            success: function (data) {
+
+                var AllFields = data.data;
+
+                if (AllFields.StoreId <= 0) {
+                    alert("Server error!");
+                }
+                else {
+                    alert("Successfully saved!");
+                    window.location.href = '@Url.Action("RentalServices","VehicleRantalService")';
+                }
+
+            }
+        });
+    }
+
+    function LoadRateAndFeedBack(productOrServiceId) {
+        var productOrServiceId = {
+            productOrServiceId: productOrServiceId
+        }
+
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("GetRateFeedbackByRentProductId", "VehicleRantalService")',
+            dataType: 'json',
+            data: productOrServiceId,
+            ContentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                $("#Reviews").empty();
+                var AllFields = data.data;
+
+                for (let i = 0; i < AllFields.length; i++) {
+                    var date = new Date(parseInt(AllFields[i].CreatedDate.substr(6)));
+                    var formatDate = date.format("ddd mmm dd yyyy HH:MM:ss");
+
+                    if (AllFields[i].RatedValue == 1) {
+                        $("#Reviews").append('<div class="card mb-4 py-2 border-bottom-danger"><div class="card-header">' + AllFields[i].RatedUserName + '&nbsp;&nbsp;&nbsp;&nbsp;<span class="fa fa-star checked"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span>&nbsp;&nbsp;&nbsp;&nbsp;' + formatDate + '</div> <div class="card-body"><div class="card shadow mb-1"><div class="card-body">' + AllFields[i].FeedBack1 + '</div></div><div class="card shadow mb-1" style="margin-left: 20px;"><div class="card-body">Reply : ' + AllFields[i].ServiceFeedBack1 + '</div></div></div></div>');
+                    }
+                    else if (AllFields[i].RatedValue == 2){
+                        $("#Reviews").append('<div class="card mb-4 py-2 border-bottom-danger"><div class="card-header">' + AllFields[i].RatedUserName + '&nbsp;&nbsp;&nbsp;&nbsp;<span class="fa fa-star checked"></span><span class="fa fa-star checked"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span>&nbsp;&nbsp;&nbsp;&nbsp;' + formatDate + '</div> <div class="card-body"><div class="card shadow mb-1"><div class="card-body">' + AllFields[i].FeedBack1 + '</div></div><div class="card shadow mb-1" style="margin-left: 20px;"><div class="card-body">Reply : ' + AllFields[i].ServiceFeedBack1 + '</div></div></div></div>');
+                    }
+                    else if (AllFields[i].RatedValue == 3) {
+                        $("#Reviews").append('<div class="card mb-4 py-2 border-bottom-warning"><div class="card-header">' + AllFields[i].RatedUserName + '&nbsp;&nbsp;&nbsp;&nbsp;<span class="fa fa-star checked"></span><span class="fa fa-star checked"></span><span class="fa fa-star checked"></span><span class="fa fa-star"></span><span class="fa fa-star"></span>&nbsp;&nbsp;&nbsp;&nbsp;' + formatDate + '</div> <div class="card-body"><div class="card shadow mb-1"><div class="card-body">' + AllFields[i].FeedBack1 + '</div></div><div class="card shadow mb-1" style="margin-left: 20px;"><div class="card-body">Reply : ' + AllFields[i].ServiceFeedBack1 + '</div></div></div></div>');
+                    }
+                    else if (AllFields[i].RatedValue == 4) {
+                        $("#Reviews").append('<div class="card mb-4 py-2 border-bottom-success"><div class="card-header">' + AllFields[i].RatedUserName + '&nbsp;&nbsp;&nbsp;&nbsp;<span class="fa fa-star checked"></span><span class="fa fa-star checked"></span><span class="fa fa-star checked"></span><span class="fa fa-star checked"></span><span class="fa fa-star"></span>&nbsp;&nbsp;&nbsp;&nbsp;' + formatDate + '</div> <div class="card-body"><div class="card shadow mb-1"><div class="card-body">' + AllFields[i].FeedBack1 + '</div></div><div class="card shadow mb-1" style="margin-left: 20px;"><div class="card-body">Reply : ' + AllFields[i].ServiceFeedBack1 + '</div></div></div></div>');
+                    }
+                    else if (AllFields[i].RatedValue == 5) {
+                        $("#Reviews").append('<div class="card mb-4 py-2 border-bottom-success"><div class="card-header">' + AllFields[i].RatedUserName + '&nbsp;&nbsp;&nbsp;&nbsp;<span class="fa fa-star checked"></span><span class="fa fa-star checked"></span><span class="fa fa-star checked"></span><span class="fa fa-star checked"></span><span class="fa fa-star checked"></span>&nbsp;&nbsp;&nbsp;&nbsp;' + formatDate + '</div> <div class="card-body"><div class="card shadow mb-1"><div class="card-body">' + AllFields[i].FeedBack1 + '</div></div><div class="card shadow mb-1" style="margin-left: 20px;"><div class="card-body">Reply : ' + AllFields[i].ServiceFeedBack1 + '</div></div></div></div>');
+                    }
+
+
+                }
+
+
+            }
+        });
+
+    }
+</script>
+
+<style>
+    .checked {
+        color: orange;
+    }
+</style>
+
+
+
