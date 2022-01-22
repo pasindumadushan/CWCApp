@@ -37,4 +37,6 @@
 
 ![](https://github.com/pasindumadushan/CWCApp/blob/main/Read%20me%20imiages/RentServiceJPG.JPG)
 
+Customer is viewed Only Services(Garage, TOW, Rent, Parts)
+
 ![](https://github.com/pasindumadushan/CWCApp/blob/main/Read%20me%20imiages/CustomerPages.JPG)
