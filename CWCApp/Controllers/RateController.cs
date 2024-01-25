@@ -9,10 +9,13 @@ using System.Web.Mvc;
 
 namespace CWCApp.Controllers
 {
+    [Route("api/[controller]")]
     public class RateController : Controller
     {
         RateServices rateServices = new RateServices();
-        // GET: Rate
+
+        [HttpPost]
+        [Route("SetRateTOW")]
         public ActionResult SetRateTOW(string rateData, string feedBackData)
         {
             Rate rate = JsonConvert.DeserializeObject<Rate>(rateData);
@@ -25,6 +28,8 @@ namespace CWCApp.Controllers
             return Json(new { data = objResult }, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpPost]
+        [Route("SetRateRepair")]
         public ActionResult SetRateRepair(string rateData, string feedBackData)
         {
             Rate rate = JsonConvert.DeserializeObject<Rate>(rateData);
@@ -37,6 +42,8 @@ namespace CWCApp.Controllers
             return Json(new { data = objResult }, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpPost]
+        [Route("SetRateRent")]
         public ActionResult SetRateRent(string rateData, string feedBackData)
         {
             Rate rate = JsonConvert.DeserializeObject<Rate>(rateData);
@@ -49,6 +56,8 @@ namespace CWCApp.Controllers
             return Json(new { data = objResult }, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpPost]
+        [Route("SetRateStoreItem")]
         public ActionResult SetRateStoreItem(string rateData, string feedBackData)
         {
             Rate rate = JsonConvert.DeserializeObject<Rate>(rateData);

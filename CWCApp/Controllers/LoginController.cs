@@ -10,17 +10,23 @@ using System.Web.Mvc;
 
 namespace CWCApp.Controllers
 {
+    [Route("api/[controller]")]
     public class LoginController : Controller
     {
         LoginExistService loginExistService = new LoginExistService();
         UpdatePasswordService updatePasswordService = new UpdatePasswordService();
         UserProfileRepository userProfileRepository = new UserProfileRepository();
         ServiceProviderProfileRepository serviceProviderProfileRepository = new ServiceProviderProfileRepository();
+
+        [HttpGet]
+        [Route("Index")]
         public ActionResult Index()
         {
             return View();
         }
 
+        [HttpPost]
+        [Route("Login")]
         public ActionResult Login(UserProfile userProfile)
         {
             var objResult = loginExistService.loginExist(userProfile);
@@ -46,11 +52,15 @@ namespace CWCApp.Controllers
             return Json(new { data = objResult }, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpGet]
+        [Route("ConfirmEmail")]
         public ActionResult ConfirmEmail()
         {
             return View();
         }
 
+        [HttpPost]
+        [Route("SendVerificationCode")]
         public ActionResult SendVerificationCode(UserProfile userProfile)
         {
             var objResult = 0;
@@ -96,6 +106,8 @@ namespace CWCApp.Controllers
             return Json(new { data = objResult }, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpPost]
+        [Route("ChangePassword")]
         public ActionResult ChangePassword(string email)
         {
             ViewBag.ViewBagEmail = email;
@@ -103,6 +115,8 @@ namespace CWCApp.Controllers
             return View();
         }
 
+        [HttpPost]
+        [Route("UpdatePassword")]
         public ActionResult UpdatePassword(UserProfile userProfile)
         {
             var objResult = updatePasswordService.updatePassword(userProfile);
@@ -110,6 +124,8 @@ namespace CWCApp.Controllers
             return Json(new { data = objResult }, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpPost]
+        [Route("Logout")]
         public ActionResult Logout()
         {
             Session["UserName"] = null;

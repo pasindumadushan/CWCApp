@@ -7,15 +7,22 @@ using System.Web.Mvc;
 
 namespace CWCApp.Controllers
 {
+
+    [Route("api/[controller]")]
     public class UserTypeController : Controller
     {
         UserTypeMstrRepository userTypeMstrRepository = new UserTypeMstrRepository();
         // GET: UserType
+
+        [HttpGet]
+        [Route("Index")]
         public ActionResult Index()
         {
             return View();
         }
 
+        [HttpGet]
+        [Route("LoadAllUserTypes")]
         public ActionResult LoadAllUserTypes()
         {
             var objResult = userTypeMstrRepository.GetUserTypeMstrList();

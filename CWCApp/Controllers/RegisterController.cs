@@ -9,21 +9,29 @@ using System.Web.Mvc;
 
 namespace CWCApp.Controllers
 {
+    [Route("api/[controller]")]
     public class RegisterController : Controller
     {
         UserProfileRepository userProfileRepository = new UserProfileRepository();
+
+        [HttpGet]
+        [Route("Index")]
         public ActionResult Index()
         {
             return View();
         }
 
-
+        [HttpPost]
+        [Route("EmailExist")]
         public ActionResult EmailExist(UserProfile userProfile)
         {
             var objResult = userProfileRepository.GetUserProfileByEmail(userProfile);
             return Json(new { data = objResult }, JsonRequestBehavior.AllowGet);
         }
 
+
+        [HttpPost]
+        [Route("Register")]
         public ActionResult Register(string userProfiledata, string customCheck)
         {
 

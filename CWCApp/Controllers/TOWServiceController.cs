@@ -10,6 +10,7 @@ using System.Web.Mvc;
 
 namespace CWCApp.Controllers
 {
+    [Route("api/[conroller]")]
     public class TOWServiceController : Controller
     {
         TOWServiceRepository towServiceRepository = new TOWServiceRepository();
@@ -18,16 +19,23 @@ namespace CWCApp.Controllers
         TOWServices towServices = new TOWServices();
         RateServices rateServices = new RateServices();
         // GET: TOWService
+
+        [HttpGet]
+        [Route("Index")]
         public ActionResult Index()
         {
             return View();
         }
 
+        [HttpGet]
+        [Route("AddView")]
         public ActionResult AddView()
         {
             return View();
         }
 
+        [HttpGet]
+        [Route("LoadGarages")]
         public ActionResult LoadGarages()
         {
             var objResult = garageRepository.GetgaragesByIdList((int)Session["UserId"]);
@@ -35,6 +43,9 @@ namespace CWCApp.Controllers
             return Json(new { data = objResult }, JsonRequestBehavior.AllowGet);
         }
 
+
+        [HttpPost]
+        [Route("SaveTOWService")]
         public ActionResult SaveTOWService(HttpPostedFileBase imageFile, string data)
         {
 
@@ -44,6 +55,8 @@ namespace CWCApp.Controllers
             return Json(new { data = objResult }, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpPost]
+        [Route("SaveTOWServiceRequest")]
         public ActionResult SaveTOWServiceRequest(RequestedTOWDetail requestedTOWDetails)
         {
             requestedTOWDetails.IsActive = true;
@@ -53,26 +66,39 @@ namespace CWCApp.Controllers
             return Json(new { data = objResult }, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpGet]
+        [Route("LoadTableData")]
         public ActionResult LoadTableData()
         {
             var objResult = towServices.GetTOWServicesById((int)Session["UserId"]);
 
             return Json(new { data = objResult }, JsonRequestBehavior.AllowGet);
         }
-        
+
+        [HttpGet]
+        [Route("TOWSerivces")]
         public ActionResult TOWSerivces()
         {
             return View();
         }
+
+        [HttpGet]
+        [Route("RequestedTOWServicesForRequester")]
         public ActionResult RequestedTOWServicesForRequester()
         {
             return View();
         }
+
+        [HttpGet]
+        [Route("RequestedTOWServicesForOwner")]
         public ActionResult RequestedTOWServicesForOwner()
         {
             return View();
         }
 
+
+        [HttpGet]
+        [Route("GetTOWSerivces")]
         public ActionResult GetTOWSerivces()
         {
             var objResult = towServices.GetTOWServices();
@@ -80,13 +106,17 @@ namespace CWCApp.Controllers
             return Json(new { data = objResult }, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpGet]
+        [Route("GetRequestedTOWServicesForRequester")]
         public ActionResult GetRequestedTOWServicesForRequester()
         {
             var objResult = towServices.GetRequestedTOWServicesForRequester((int)Session["UserId"]);
 
             return Json(new { data = objResult }, JsonRequestBehavior.AllowGet);
         }
-        
+
+        [HttpGet]
+        [Route("GetRequestedTOWServicesForOwner")]
         public ActionResult GetRequestedTOWServicesForOwner()
         {
             var objResult = towServices.GetRequestedTOWServicesForOwner((int)Session["UserId"]);
@@ -94,6 +124,8 @@ namespace CWCApp.Controllers
             return Json(new { data = objResult }, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpPost]
+        [Route("LoadFieldsEdit/{TOWServiceID}")]
         public ActionResult LoadFieldsEdit(int TOWServiceID)
         {
 
@@ -101,7 +133,10 @@ namespace CWCApp.Controllers
 
             return Json(new { data = objResult }, JsonRequestBehavior.AllowGet);
         }
-        
+
+
+        [HttpPost]
+        [Route("LoadFieldsModal/{TOWServiceID}")]
         public ActionResult LoadFieldsModal(int TOWServiceID)
         {
 
@@ -110,6 +145,8 @@ namespace CWCApp.Controllers
             return Json(new { data = objResult }, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpPost]
+        [Route("DeleteTOWService/{TOWServiceID}")]
         public ActionResult DeleteTOWService(int TOWServiceID)
         {
             var objResult = towServiceRepository.GetTOWServiceById(TOWServiceID);
@@ -120,6 +157,9 @@ namespace CWCApp.Controllers
             return Json(new { data = objResult2 }, JsonRequestBehavior.AllowGet);
         }
 
+
+        [HttpPost]
+        [Route("GetRateFeedbackByTOWProductId/{productOrServiceId}")]
         public ActionResult GetRateFeedbackByTOWProductId(int productOrServiceId)
         {
             var objResult = rateServices.GetRateFeedbackByTOWProductId(productOrServiceId);

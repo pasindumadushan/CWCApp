@@ -11,22 +11,30 @@ using System.Web.Mvc;
 
 namespace CWCApp.Controllers
 {
+    [Route("api/[controller]")]
     public class UserController : Controller
     {
         UserProfileRepository userProfileRepository = new UserProfileRepository();
         UpdateUserProfileService updateUserProfileService = new UpdateUserProfileService();
         // GET: User 
+
+        [HttpGet]
+        [Route("Index")]
         public ActionResult Index()
         {
             return View();
         }
 
+        [HttpGet]
+        [Route("LoadAllFields")]
         public ActionResult LoadAllFields()
         {
             var objResult = userProfileRepository.GetUserProfileById((int)Session["UserId"]);
             return Json(new { data = objResult }, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpPost]
+        [Route("SaveUserProfile")]
         public ActionResult SaveUserProfile(HttpPostedFileBase imageFile, string data)
         {
             

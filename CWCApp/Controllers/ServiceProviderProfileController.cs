@@ -8,6 +8,7 @@ using System.Web.Mvc;
 
 namespace CWCApp.Controllers
 {
+    [Route("api/[controller]")]
     public class ServiceProviderProfileController : Controller
     {
         ServiceProviderProfileRepository serviceProviderProfileRepository = new ServiceProviderProfileRepository();
@@ -19,18 +20,24 @@ namespace CWCApp.Controllers
         //    return View();
         //}
 
+        [HttpGet]
+        [Route("LoadServiceTypes")]
         public ActionResult LoadServiceTypes()
         {
             var objResult = serviceProviderMstrRepository.GetServiceProviderMstrList();
             return Json(new { data = objResult }, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpGet]
+        [Route("LoadAllFields")]
         public ActionResult LoadAllFields()
         {
             var objResult = serviceProviderProfileRepository.GetServiceProviderProfileByUserId((int)Session["UserId"]);
             return Json(new { data = objResult }, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpPost]
+        [Route("SaveServiceProviderProfile")]
         public ActionResult SaveServiceProviderProfile(ServiceProviderProfile serviceProviderProfile)
         {
             ServiceProviderProfile objResult;
